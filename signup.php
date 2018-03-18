@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Phomo Signup</title>
+    <title>Phomo | Signup</title>
 </head>
 <body>
     <img src="images/logo_phomo.png" alt="Phomo logo" class="logo">
