@@ -10,7 +10,7 @@
 <body>
     <img src="images/logo_phomo.png" alt="Phomo logo" class="logo">
     <form action="" method="post">
-				<h1>Sign up for an account!</h1>
+				<h1>Sign up for an account!!</h1>
                 
                 <div class="formfield">
 					<input type="text" id="fullname" name="fullname" placeholder="Fullname">
