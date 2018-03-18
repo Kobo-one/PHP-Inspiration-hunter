@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>Phomo | HOME</title>
 </head>
 <body>
