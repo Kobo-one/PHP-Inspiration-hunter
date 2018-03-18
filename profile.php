@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	 <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="css/reset.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="style/style.css">
+	 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="style/reset.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<title>Phomo | Profile</title>
 </head>
-<body>
-
-
-	   <?php include_once("nav.inc.php"); ?>
+<body>   
+   <?php include_once("nav.inc.php"); ?>
 	   
 	   
 <div id="main_user">
