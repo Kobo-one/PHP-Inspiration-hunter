@@ -111,9 +111,9 @@ input[type=text], input[type=password]{
 }
 .collection .item {
     width:100%;
-    margin-bottom:10px;
+    margin-bottom:20px;
     display:inline-block;
-	border-bottom: #b3f3fe 1px solid;
+	border-bottom: #b3f3fe 3px solid;
 }
 
 .avatar {
@@ -145,7 +145,7 @@ input[type=text], input[type=password]{
     margin-top:5px;
     margin-bottom:10px;
 }
-.date, .likes {
+.date, .likes{
     font-size:12px;
     margin-bottom:10px;
 }
@@ -156,6 +156,14 @@ input[type=text], input[type=password]{
 .likes {
     float:right;
     margin-right:10px;
+}
+
+.comments {
+	margin-left:10px;
+	font-size:15px;
+	padding-top: 30px;
+    margin-right:10px;
+	padding-bottom: 10px;
 }
 
 /*profile */
@@ -174,11 +182,11 @@ input[type=text], input[type=password]{
 	height: 150px;
 	margin-top: 100px;
 	padding-left: 50px;
-	border-bottom: #b3f3fe 1px solid;
+	border-bottom: #b3f3fe 2px solid;
 	float: left;
 }
 
-#main_user a{
+#main_user a {
 	font-size: 25px;
 	letter-spacing: 2px;
 	
@@ -207,7 +215,60 @@ input[type=text], input[type=password]{
 	float: left;
 }
 
+#detail_photo_text{
+	height: 100%;
+	width: 100%;
+	margin-bottom: 20px;
+} 
+
+#posts_profile .item {
+	padding-top: 20px;
+    width:100%;
+    display:inline-block;
+	border-bottom: #b3f3fe 3px solid;
+
+
+}
+
+
 /* ---- */
+
+/*detail pagina */
+
+#detail_photo{
+	padding: 50px;
+	padding: 50px;
+	height: 100px;
+	padding-top: 100px;
+
+}
+
+#detail_photo .user{
+	display: inline-block;
+	text-align: center;
+	
+}
+
+#detail_photo .item {
+    display: block;
+	margin: 0 auto;
+    max-width: 600px;
+	
+    }
+    
+#detail_photo_text{
+	height: 100%;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+strong { 
+    font-weight: bold;
+}
+
+
+/* ---- */
+
 
 @media screen and (min-width: 480px){
     /* Sign up + Login */
@@ -238,7 +299,8 @@ input[type=text], input[type=password]{
 	margin: 0 auto;
     width: 100%;
     }
-    
+	
+	
     /* Index */
     .navbar a {
     font-size: 14px;
@@ -247,6 +309,8 @@ input[type=text], input[type=password]{
     #searchfield {
     width: 180px;
     }
+	
+
 }
 
 @media screen and (min-width: 768px){
@@ -310,6 +374,8 @@ input[type=text], input[type=password]{
     .date, .likes {
     font-size:14px;
     }
+	
+	
     
 }
 
@@ -381,32 +447,6 @@ input[type=text], input[type=password]{
     -webkit-column-count: 3;
     column-count: 3;
     }
+	
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
