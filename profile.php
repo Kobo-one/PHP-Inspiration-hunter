@@ -18,7 +18,9 @@
  
   <div class="user">
               <img src="https://images.unsplash.com/profile-1511531310545-5f75d4e036cd?dpr=2&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff" alt="avatar" class="avatar">
-              <h1>Frank Holleman</h1>
+              
+         </div>
+         <h1>Frank Holleman</h1>
          </div>
          
         <div id="profile_info">
@@ -27,7 +29,7 @@
          <div class="extra">aantal volgend</div>
          
          </div>
-</div>
+
 
 
 <div id="posts_profile" class="collection">
