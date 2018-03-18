@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	 <meta charset="UTF-8">
+      <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
+ 
+ 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<title>Phomo | Profile</title>
 </head>
@@ -14,9 +15,10 @@
 	   
 	   
 <div id="main_user">
+ 
   <div class="user">
               <img src="https://images.unsplash.com/profile-1511531310545-5f75d4e036cd?dpr=2&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff" alt="avatar" class="avatar">
-              <a href="#">Frank Holleman</a>
+              <h1>Frank Holleman</h1>
          </div>
          
         <div id="profile_info">

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -13,6 +14,7 @@
 <body>
     <img src="images/logo_phomo.png" alt="Phomo logo" class="logo">
     <form action="" method="post">
+    
 				<h1>Already have an account?</h1>
                 
 				<div class="formfield">
