@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php
+    include_once("lib/classes/User.class.php");
+    include_once("lib/helpers/Security.class.php");
+    
+    if( !empty($_POST)){
+        try 
+        {
+        $security = new Security();
+        $security->password = $_POST['password'];
+        $security->passwordConfirmation = $_POST['password_confirmation'];
+        
+        if( $security->passwordsAreSecure() ){
+        $user = new User(); 
+        $user->setFirstName( $_POST['firstname']);
+        $user->setLastName( $_POST['lastname']);
+        $user->setEmail( $_POST['email'] );
+        $user->setPassword( $_POST['password'] );
+        	if($user->register()){
+            		header('Location: index.php');
+        	}  
+        }
+     }
+        catch(Exception $e) {
+            
+        } 
+    }
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
        <meta charset="UTF-8">
