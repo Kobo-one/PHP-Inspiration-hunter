@@ -70,7 +70,7 @@
     {
         $conn = Db::getInstance();
             
-        $statement = $conn->prepare("insert into users (firstname, lastname, email, password) values (:firstName, :lastName, :email, :password)");
+        $statement = $conn->prepare("insert into users (firstname, lastname, email, password, created) values (:firstName, :lastName, :email, :password, now())");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":firstName", $this->firstName);
