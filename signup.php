@@ -17,8 +17,11 @@
     <form action="" method="post">
 				<h1>Sign up for an account!</h1>
                 
-                <div class="formfield">
-					<input type="text" id="fullname" name="fullname" placeholder="Fullname">
+                		<div class="formfield">
+					<input type="text" id="firstname" name="firstname" placeholder="Firstname">
+				</div>
+	    			<div class="formfield">
+					<input type="text" id="lastname" name="lastname" placeholder="Lastname">
 				</div>
 				<div class="formfield">
 					<input type="text" id="email" name="email" placeholder="E-mail">
@@ -27,7 +30,7 @@
 					<input type="password" id="password" name="password" placeholder="Password">
 				</div>
 
-                <div class="formfield">
+                		<div class="formfield">
 					<input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password">
 				</div>
 
