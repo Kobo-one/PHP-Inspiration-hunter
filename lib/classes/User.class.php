@@ -68,9 +68,9 @@
 
     public function register() 
     {
-        $conn = new PDO('mysql:host=192.168.0.237:3306; dbname=phomo', 'phomo', 'ozvms79FYLNibblv');
+        $conn = Db::getInstance();
             
-        $statement = $conn->prepare("insert into user (firstname, lastname, email, password) values (:firstName, :lastName, :email, :password)");
+        $statement = $conn->prepare("insert into users (firstname, lastname, email, password) values (:firstName, :lastName, :email, :password)");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":firstName", $this->firstName);
