@@ -21,7 +21,7 @@
         }
      }
         catch(Exception $e) {
-            
+            $error= $e->getMessage();
         } 
     }
 
@@ -43,7 +43,13 @@
     <img src="images/logo_phomo.png" alt="Phomo logo" class="logo">
     <form action="" method="post">
 				<h1>Sign up for an account!</h1>
-                
+                		
+	    			<?php if(isset($error)): ?>
+                		<div class="error">
+                    		<?php echo $error; ?>
+                		</div>
+                		<?php endif; ?>
+	    
                 		<div class="formfield">
 					<input type="text" id="firstname" name="firstname" placeholder="Firstname">
 				</div>
