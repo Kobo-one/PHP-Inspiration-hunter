@@ -2,9 +2,9 @@
     include_once("lib/classes/User.class.php");
     include_once("lib/helpers/Security.class.php");
     
+    try{
     if( !empty($_POST)){
-        try 
-        {
+        
         $security = new Security();
         $security->password = $_POST['password'];
         $security->passwordConfirmation = $_POST['password_confirmation'];
@@ -20,10 +20,10 @@
         	}  
         }
      }
-        catch(Exception $e) {
-            $error= $e->getMessage();
+    }catch(Exception $e) {
+            $error= "Error: signup incomplete";
         } 
-    }
+    
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -47,7 +47,7 @@
                         		
 	    			<?php if(isset($error)): ?>
                 		<div class="error">
-                    		<?php echo $error; ?>
+                    		<p><?php echo $error; ?></p>
                 		</div>
                 		<?php endif; ?>
 	    
