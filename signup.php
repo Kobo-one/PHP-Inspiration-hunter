@@ -44,10 +44,10 @@
     <form action="" method="post">
 				<h1>Sign up for an account!</h1>
                 
-                		<div class="formfield">
+                <div class="formfield">
 					<input type="text" id="firstname" name="firstname" placeholder="Firstname">
 				</div>
-	    			<div class="formfield">
+	            <div class="formfield">
 					<input type="text" id="lastname" name="lastname" placeholder="Lastname">
 				</div>
 				<div class="formfield">
