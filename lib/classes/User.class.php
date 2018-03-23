@@ -5,6 +5,7 @@
     class User {
         private $firstName;
         private $lastName;
+        private $userName;
         private $email;
         private $password;
         
@@ -28,6 +29,16 @@
         return $this;
     }   
         
+    public function setUserName($userName)
+    {
+        if(empty($username)){
+            throw new Exception("Please fill in a username.");
+        }
+        $this->userName = $userName;
+        return $this;
+    }
+
+        
     public function setEmail($email)
     {
       if(empty($email)){
@@ -45,7 +56,7 @@
         $this->password = $password;
         return $this;
     }
-
+        
     /*Getters*/
     
     public function getFirstName()
@@ -58,6 +69,11 @@
         return $this->lastName;
     }
         
+        public function getUserName()
+    {
+        return $this->userName;
+    }
+        
     public function getEmail()
     {
         return $this->email;
@@ -67,16 +83,18 @@
     {
         return $this->password;
     }
+        
 
     public function register() 
     {
         $conn = Db::getInstance();
             
-        $statement = $conn->prepare("insert into users (firstname, lastname, email, password, created) values (:firstName, :lastName, :email, :password, now())");
+        $statement = $conn->prepare("insert into users (firstname, lastname, username, email, password, created) values (:firstName, :lastName, :username, :email, :password, now())");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":firstName", $this->firstName);
         $statement->bindParam(":lastName", $this->lastName);
+        $statement->bindParam(":username", $this->userName);
         $statement->bindParam(":email", $this->email);
         $statement->bindParam(":password", $hash);
                 

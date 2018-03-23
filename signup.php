@@ -12,7 +12,8 @@
         if( $security->passwordsAreSecure() ){
         $user = new User(); 
         $user->setFirstName( $_POST['firstname']);
-        $user->setLastName( $_POST['lastname']);
+        $user->setuLastName( $_POST['lastname']);
+        $user->setserName( $_POST['username']);
         $user->setEmail( $_POST['email'] );
         $user->setPassword( $_POST['password'] );
         	if($user->register()){
@@ -57,6 +58,9 @@
 				</div>
 	            <div class="formfield">
 					<input type="text" id="lastname" name="lastname" placeholder="Lastname">
+				</div>
+				<div class="formfield">
+					<input type="text" id="Username" name="username" placeholder="Username">
 				</div>
 				<div class="formfield">
 					<input type="text" id="email" name="email" placeholder="E-mail">
