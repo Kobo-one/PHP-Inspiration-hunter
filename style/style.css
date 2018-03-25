@@ -74,7 +74,7 @@ input[type=text], input[type=password]{
 .error {
     background-color:#b3f3fe;
     color:#333333;
-    font-size:10px;
+    font-size:12px;
     padding:5px;
     margin-bottom:10px;
 }
@@ -116,7 +116,7 @@ input[type=text], input[type=password]{
 .collection {
     width:100%;
     margin-top:58px;
-	padding: 50px;
+	padding: 20px;
 }
 .collection .item {
     width:100%;
@@ -128,7 +128,6 @@ input[type=text], input[type=password]{
 .avatar {
     border-radius:50px;
     width:50px;
-    margin-left:0px;
     margin-right:10px;
     float:left;
 }
@@ -171,8 +170,8 @@ input[type=text], input[type=password]{
 	margin-left:10px;
 	font-size:15px;
 	padding-top: 30px;
+    padding-bottom: 10px;
     margin-right:10px;
-	padding-bottom: 10px;
 }
 
 /*profile */
@@ -251,7 +250,6 @@ input[type=text], input[type=password]{
 
 #detail_photo{
 	padding: 50px;
-	padding: 50px;
 	height: 100px;
 	padding-top: 100px;
 
@@ -322,6 +320,9 @@ strong {
     }
     #searchfield {
     width: 180px;
+    }
+    .collection {
+        padding: 30px;
     }
 	
 
@@ -421,6 +422,7 @@ strong {
     -moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
+    padding: 40px;
     }
 	
 	
