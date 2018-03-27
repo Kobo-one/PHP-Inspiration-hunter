@@ -18,15 +18,15 @@ $collection= Post::getAll();
    
              
    <div class="collection">
-<!--BEGIN TEST-->  
+<!--BEGIN FOTO'S UIT DATABASE-->  
 <?php foreach($collection as $key =>$c): ?>    
       <div class="item clearfix">
          <div class="user">
-              <img src="" alt="avatar" class="avatar">
-              <a href="#">Joshua K. Jackson</a>
+              <img src="<?php echo $c['picture']; ?>" alt="avatar" class="avatar">
+              <a href="#"><?php echo $c['firstname']." ". $c['lastname'] ?></a>
          </div>
          <a href="detail.php"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
-         <div class="date">17/03/2018</div>
+         <div class="date"><?php echo $c['created'];?></div>
          <div class="likes">Likes</div>
       </div>
 <?php endforeach; ?>

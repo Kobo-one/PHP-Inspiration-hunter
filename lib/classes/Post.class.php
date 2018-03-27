@@ -113,11 +113,18 @@ class Post{
 
   public static function getAll(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare('SELECT * FROM posts');
+    $statement= $conn->prepare('SELECT posts.*, user.firstname, user.lastname, user.picture FROM posts, user WHERE posts.post_user_id = user.id ');
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
-
   }
+/* 
+  public static function getTag(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare('SELECT * FROM posts WHERE ');
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
+  */
 }
 
 
