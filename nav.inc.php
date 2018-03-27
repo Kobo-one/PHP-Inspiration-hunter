@@ -1,8 +1,7 @@
 <?php 
-include_once("lib/classes/Post.class.php");
 
 /* SEARCH*/
-$collection= Post::getAll();
+
 if (isset($_GET['search'])){
 	$search=$_GET['search'];
 	$newCollection=[];
@@ -11,7 +10,8 @@ if (isset($_GET['search'])){
   $newCollection[$key] = $c;
 	  }
 	}
-	$collection = $newCollection;
+    $collection = $newCollection;
+    
   };
 
 ?><nav class="navbar">

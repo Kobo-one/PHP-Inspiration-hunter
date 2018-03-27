@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+include_once("lib/classes/Post.class.php");
+$collection= Post::getAll();
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +18,19 @@
    
              
    <div class="collection">
+<!--BEGIN TEST-->  
+<?php foreach($collection as $key =>$c): ?>    
+      <div class="item clearfix">
+         <div class="user">
+              <img src="" alt="avatar" class="avatar">
+              <a href="#">Joshua K. Jackson</a>
+         </div>
+         <a href="detail.php"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
+         <div class="date">17/03/2018</div>
+         <div class="likes">Likes</div>
+      </div>
+<?php endforeach; ?>
+<!--EINDE-->
       <div class="item clearfix">
          <div class="user">
               <img src="https://images.unsplash.com/profile-1501760727417-d777ab88d48b?dpr=2&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff" alt="avatar" class="avatar">
