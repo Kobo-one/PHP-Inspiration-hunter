@@ -22,4 +22,16 @@ $query = "select * from users where email = '".$conn->real_escape_string($Userna
 	}
 }
 
+
+/* SEARCH*/
+if (isset($_GET['search'])){
+	$search=$_GET['search'];
+	$newCollection=[];
+	foreach ($collection as $key => $c){
+	  if (strpos(strtolower($c['title']), strtolower ($search)) !== false){
+  $newCollection[$key] = $c;
+	  }
+	}
+	$collection = $newCollection;
+  };
 ?>
