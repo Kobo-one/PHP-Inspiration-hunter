@@ -1,4 +1,20 @@
-<nav class="navbar">
+<?php 
+include_once("lib/classes/Post.class.php");
+
+/* SEARCH*/
+$collection= Post::getAll();
+if (isset($_GET['search'])){
+	$search=$_GET['search'];
+	$newCollection=[];
+	foreach ($collection as $key => $c){
+	  if (strpos(strtolower($c['description']), strtolower ($search)) !== false){
+  $newCollection[$key] = $c;
+	  }
+	}
+	$collection = $newCollection;
+  };
+
+?><nav class="navbar">
     <a href="index.php">
            <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
