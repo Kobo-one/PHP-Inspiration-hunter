@@ -130,7 +130,14 @@ class Post{
     return $this;
   }
 
-
+    public static function createPost(){
+    $conn = Db::getInstance();
+    $statement = $conn->prepare("INSERT INTO posts (image, idescription) VALUES(:image, :description)");
+    $statement->bindParam(":image", $this->image);
+    $statement->bindParam(":description", $this->description);
+    $image_upload = $statement->execute();
+    return $image_upload;
+    }
 
 
   public static function getAll(){
