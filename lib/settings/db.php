@@ -1,9 +1,9 @@
 <?php 
     $db = [
-        "host" => "192.168.0.237:3306",
+        "host" => "localhost",
         "dbname"=> "phomo",
-        "username" => "phomo",
-        "password"=> "ozvms79FYLNibblv",
+        "username" => "root",
+        "password"=> "root",
         "post" => ""
     ];
 
