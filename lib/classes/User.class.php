@@ -103,6 +103,28 @@
         return $result;
             
     }
+
+    
+      public function login() 
+    {
+        $conn = Db::getInstance();
+            
+        $statement = $conn->prepare("select * from users where email = :email");
+            
+        $hash = password_hash($this->password, PASSWORD_BCRYPT);
+        $statement->bindParam(":email", $this->email);
+        $result = $statement->execute();
+
+        if($result->num_rows == 1){
+			$user = $result->fetch_assoc();
+			if(password_verify($this->password, $user['password'])){
+				return true;
+			}
+    }
+    
+    else{
+        return false;
+    }
         
         
         
