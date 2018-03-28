@@ -2,7 +2,7 @@
 include_once("lib/classes/Post.class.php");
 $collection= Post::getAll();
 $user=$_GET['user'];
-echo $user;
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
