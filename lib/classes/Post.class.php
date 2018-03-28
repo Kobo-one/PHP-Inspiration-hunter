@@ -143,7 +143,7 @@ class Post{
 
   public function getTag(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE '%:search%' ");
+    $statement= $conn->prepare("SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE '%:search%' UNION SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE '%:search%'  ");
     $statement->bindValue(':search', $this->getSearch() );
     $statement->execute();
     $statement->rowCount(); 
