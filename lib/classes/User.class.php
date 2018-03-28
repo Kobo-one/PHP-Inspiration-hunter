@@ -31,7 +31,7 @@
         
     public function setUserName($userName)
     {
-        if(empty($username)){
+        if(empty($userName)){
             throw new Exception("Please fill in a username.");
         }
         $this->userName = $userName;
