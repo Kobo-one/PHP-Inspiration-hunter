@@ -123,6 +123,7 @@
     }
     
     else{
+        throw new Exception("Login failed");
         return false;
     }
         
