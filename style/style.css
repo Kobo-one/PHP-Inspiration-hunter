@@ -30,18 +30,11 @@ h1 {
     margin-bottom:16px;
 }
 
-
-#upload_photo{
-	text-align: center;
-	height: 50px;
-	 margin-top: 200px;
-
-}
-input[type=text], input[type=password], input[type=submit]{
+input[type=text], input[type=password], input[type=submit], .formfield textarea{
     font-family: 'Montserrat', sans-serif;
     
 }
-input[type=text], input[type=password]{
+input[type=text], input[type=password], .formfield textarea{
     font-size:12px;
     padding:10px 10px;
     margin-left:10%;
@@ -54,6 +47,7 @@ input[type=text], input[type=password]{
     color: #333333;
     opacity: 1; /* Firefox */
 }
+
 .button{
     padding:10px 10px;
     width:50%;
@@ -239,8 +233,6 @@ input[type=text], input[type=password]{
     display:inline-block;
 	border-bottom: #b3f3fe 2px solid;
 
-
-	
 }
 
 
@@ -281,6 +273,13 @@ strong {
 
 /* ---- */
 
+/*Upload.php*/
+#upload_photo{
+	text-align: center;
+    margin-top: 100px;
+}
+
+
 
 @media screen and (min-width: 480px){
     /* Sign up + Login */
@@ -294,7 +293,7 @@ strong {
     .formfield {
     margin-bottom:20px;
     }
-    input[type=text], input[type=password]{
+    input[type=text], input[type=password], .formfield textarea{
     font-size:14px;
     padding:10px 10px;
     width: 70%;
@@ -340,7 +339,7 @@ strong {
     .formfield {
     margin-bottom:24px;
     }
-    input[type=text], input[type=password]{
+    input[type=text], input[type=password], .formfield textarea{
     padding: 12px 10px;
     width: 50%;
     margin-left:25%;
@@ -403,7 +402,7 @@ strong {
     h1 {
     margin-bottom:40px;
     }
-    input[type=text], input[type=password]{
+    input[type=text], input[type=password], .formfield textarea{
     padding: 12px 10px;
     width: 40%;
     margin-left:30%;
@@ -441,7 +440,7 @@ strong {
     h1 {
     font-size:24px;
     }
-    input[type=text], input[type=password]{
+    input[type=text], input[type=password], .formfield textarea{
     width: 30%;
     margin-left:35%;
     margin-right:35%;
