@@ -12,8 +12,8 @@
         if( $security->passwordsAreSecure() ){
         $user = new User(); 
         $user->setFirstName( $_POST['firstname']);
-        $user->setuLastName( $_POST['lastname']);
-        $user->setserName( $_POST['username']);
+        $user->setLastName( $_POST['lastname']);
+        $user->setUserName( $_POST['username']);
         $user->setEmail( $_POST['email'] );
         $user->setPassword( $_POST['password'] );
         	if($user->register()){

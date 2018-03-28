@@ -31,7 +31,7 @@
         
     public function setUserName($userName)
     {
-        if(empty($username)){
+        if(empty($userName)){
             throw new Exception("Please fill in a username.");
         }
         $this->userName = $userName;
@@ -89,12 +89,12 @@
     {
         $conn = Db::getInstance();
             
-        $statement = $conn->prepare("insert into users (firstname, lastname, username, email, password, created) values (:firstName, :lastName, :username, :email, :password, now())");
+        $statement = $conn->prepare("insert into users (firstname, lastname, username, email, password) values (:firstName, :lastName, :userName, :email, :password");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":firstName", $this->firstName);
         $statement->bindParam(":lastName", $this->lastName);
-        $statement->bindParam(":username", $this->userName);
+        $statement->bindParam(":userName", $this->userName);
         $statement->bindParam(":email", $this->email);
         $statement->bindParam(":password", $hash);
                 
@@ -102,6 +102,29 @@
             
         return $result;
             
+    }
+
+    
+      public function login() 
+    {
+        $conn = Db::getInstance();
+            
+        $statement = $conn->prepare("select * from users where email = :email");
+            
+        $hash = password_hash($this->password, PASSWORD_BCRYPT);
+        $statement->bindParam(":email", $this->email);
+        $result = $statement->execute();
+
+        if($result->num_rows == 1){
+			$user = $result->fetch_assoc();
+			if(password_verify($this->password, $user['password'])){
+				return true;
+			}
+    }
+    
+    else{
+        throw new Exception("Login failed");
+        return false;
     }
         
         

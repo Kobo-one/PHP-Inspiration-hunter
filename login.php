@@ -2,28 +2,31 @@
     // zijn al die includes nodig of enkel function??
     include_once("lib/classes/User.class.php");
     include_once("lib/helpers/Security.class.php");
-    include_once("functions.inc.php");
 
     //user and password from post oproepen
     //eerst kijken of het formulier al is verzonden anders geeft het een foutmelding
-    
-    if(!empty($_POST)){
+    try{
+      if(!empty($_POST)){
 
-    $username = $_POST['email'];
-     $password= $_POST['password'];
+        $username = $_POST['email'];
+        $password= $_POST['password'];
  
   // kan de user inloggen?   
-  if (canILogin($username, $password)){
-    session_start();
-    $_SESSION['username']=$username;
-    
-    //ja, inloggen gelukt, dan terug naar index
-    header('Location: index.php');
+  $user = new User(); 
+        $user->setEmail( $_POST['email'] );
+        $user->setPassword( $_POST['password'] );
+        	if($user->login()){
+                session_start();
+                $_SESSION['username']=$username;
+            		header('Location: index.php');
+          }  
+          
+    }
   }
-  else{
-    // ervoor zorgen dat als username niet gelijk is aan password , de error print
-    $error= "Login failed";
-  }
+    catch(Exception $e) {
+            $error= "Error: signup incomplete";
+        } 
+
 
 }
 
