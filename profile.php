@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<?php
+include_once("lib/classes/Post.class.php");
+$collection= Post::getAll();
+$user=$_GET['user'];
+echo $user;
+?><!DOCTYPE html>
 <html lang="en">
 <head>
       <meta charset="UTF-8">
@@ -17,10 +22,10 @@
 <div id="main_user">
  
   <div class="user">
-              <img src="https://images.unsplash.com/profile-1511531310545-5f75d4e036cd?dpr=2&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff" alt="avatar" class="avatar">
+              <img src="<?php echo $collection[$user]['picture']?>" alt="avatar" class="avatar">
               
          </div>
-         <h1>Frank Holleman</h1>
+         <h1><?php echo $collection[$user]['firstname']." ".$collection[$user]['lastname'] ?></h1>
          </div>
          
         <div id="profile_info">
@@ -33,19 +38,22 @@
 
 
 <div id="posts_profile" class="collection">
-	  <div class="item clearfix">
+	  <!-- BEGIN LOOP FROM DB -->
+<?php foreach($collection as $user =>$c): ?>
+      <div class="item clearfix">
          
-         <a href="#"><img src="https://images.unsplash.com/photo-1519221584559-dea13724c873?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b02ef53080a2d07699d854cf9a528c45&auto=format&fit=crop&w=934&q=80" alt="image" class="picture_index"></a>
+         <a href="#"><img src="<?php echo $c['image']?>" alt="image" class="picture_index"></a>
          
         <div id="detail_photo_text">
          
-         <div class="date">17/03/2018</div>
+         <div class="date"><?php echo $c['created']?></div>
          <div class="likes">Likes</div>
          <div class="comments"><strong>Username:</strong> Oh My God! Cool pic!</div>
          
          </div>
       </div>
-      
+<?php endforeach; ?>
+      <!-- testcontent 
       <div class="item clearfix">
          
           <a href="#"><img src="https://images.unsplash.com/photo-1515342870411-fdedf6a7c373?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3f4e0f48166791d198e5cc2d9a8419b6&auto=format&fit=crop&w=962&q=80" alt="image" class="picture_index"></a>
@@ -131,7 +139,7 @@
          
          </div>
       </div>
-
+    -->
 	
 </div>
 

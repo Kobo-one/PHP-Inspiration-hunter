@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+$post=$_GET['post'];
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
