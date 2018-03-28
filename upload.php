@@ -1,4 +1,41 @@
-<!DOCTYPE html>
+<?php 
+
+    include_once("lib/classes/Post.class.php");
+    
+    if( !empty($_POST)){    
+        if(isset($_FILES['image'])){
+            $post->setImage( $_FILES['image'] );
+            $post->setDescription( $_POST['description'] );
+            $errors = array();
+            $file_name = $_FILES['image']['name'];
+            $file_size = $_FILES['image']['size'];
+            $file_tmp = $_FILES['image']['tmp_name'];
+            $file_type=$_FILES['image']['type'];
+            $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+        
+            $expensions= array("jpeg","jpg","png");
+        
+            if(in_array($file_ext,$expensions)=== false){
+                $errors[]="please choose a JPEG or PNG image.";
+            }
+      
+            if($file_size > 2097152){
+                $errors[]='Image is bigger than 2MB';
+            }
+      
+            if(empty($errors)==true){
+                move_uploaded_file($file_tmp,"images/".$file_name);
+                echo "Success";
+            }
+            else{
+            print_r($errors);
+            }
+        
+        }
+    }
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -20,7 +57,7 @@
 
                 <form action="" method="post" enctype="multipart/form-data">
                 <div class="formfield">  
-                    <input type="file" name="image_upload" id="image_upload">
+                    <input type="file" name="image" id="image_upload">
                 </div> 
                 <div class="formfield">
 					<textarea id="description" rows="4" placeholder="Description"></textarea>
