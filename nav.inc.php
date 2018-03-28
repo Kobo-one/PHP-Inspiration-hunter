@@ -13,17 +13,16 @@ if (isset($_GET['search'])){
       $post = new Post();
       $post->setSearch($_GET['search']);
       
-      $newCollection=[];
+      $newCollection=[];  
       foreach ($collection as $key => $c){
-     if( $newCollection= $post->getTag()){
+      if($post->getTag()!== NULL){
         $newCollection= $post->getTag(); 
         $newCollection[$key] = $c;
-        
-     }
-     else{
-        
-     }
+      }
     }
+
+     
+    
     $collection = $newCollection;
 
     
