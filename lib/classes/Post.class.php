@@ -7,7 +7,7 @@ class Post{
   private $userId;
   private $created;
   private $deleted;
-
+  private $search;
 
   /**
    * Get the value of image
@@ -109,6 +109,28 @@ class Post{
     return $this;
   }
 
+   /**
+   * Get the value of search
+   */ 
+  public function getSearch()
+  {
+     var_dump($this->search);
+    return $this->search;
+  }
+
+  /**
+   * Set the value of search
+   *
+   * @return  self
+   */ 
+  public function setSearch($search)
+  {
+    $this->search = strtolower($search);
+   ;
+    return $this;
+  }
+
+
 
 
   public static function getAll(){
@@ -116,15 +138,25 @@ class Post{
     $statement= $conn->prepare('SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users WHERE posts.post_user_id = users.id ');
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
+   
   }
-/* 
-  public static function getTag(){
+
+  public function getTag(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare('SELECT * FROM posts WHERE ');
+    $statement= $conn->prepare("SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE '%:search%' ");
+    $statement->bindValue(':search', $this->getSearch() );
     $statement->execute();
+    $statement->rowCount(); 
+    var_dump($statement->fetchAll(PDO::FETCH_ASSOC));
+
     return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
   }
-  */
+  
+
+ 
+
+ 
 }
 
 

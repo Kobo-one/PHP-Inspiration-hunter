@@ -3,16 +3,35 @@
 /* SEARCH*/
 
 if (isset($_GET['search'])){
-	$search=$_GET['search'];
+	/*$search=$_GET['search'];
 	$newCollection=[];
 	foreach ($collection as $key => $c){
 	  if (strpos(strtolower($c['description']), strtolower ($search)) !== false){
   $newCollection[$key] = $c;
-	  }
-	}
+      }
+      */
+      $post = new Post();
+      $post->setSearch($_GET['search']);
+      
+      $newCollection=[];
+      foreach ($collection as $key => $c){
+     if( $newCollection= $post->getTag()){
+        $newCollection= $post->getTag(); 
+        $newCollection[$key] = $c;
+        
+     }
+     else{
+        
+     }
+    }
     $collection = $newCollection;
+
     
-  };
+
+    
+
+    
+};
 
 ?><nav class="navbar">
     <a href="index.php">
