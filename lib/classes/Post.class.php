@@ -113,7 +113,7 @@ class Post{
 
   public static function getAll(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare('SELECT posts.*, user.firstname, user.lastname, user.picture FROM posts, user WHERE posts.post_user_id = user.id ');
+    $statement= $conn->prepare('SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users WHERE posts.post_user_id = users.id ');
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
