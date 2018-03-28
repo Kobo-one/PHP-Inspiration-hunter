@@ -4,14 +4,17 @@
     
     if( !empty($_POST)){    
         if(isset($_FILES['image'])){
+            $post = new Post(); 
             $post->setImage( $_FILES['image'] );
-            $post->setDescription( $_POST['description'] );
+            $post->setDescription( $_POST['description']);
             $errors = array();
             $file_name = $_FILES['image']['name'];
             $file_size = $_FILES['image']['size'];
             $file_tmp = $_FILES['image']['tmp_name'];
             $file_type=$_FILES['image']['type'];
             $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+            
+            
         
             $expensions= array("jpeg","jpg","png");
         
@@ -56,11 +59,13 @@
 <h1>Wanna share some inspiration?</h1>
 
                 <form action="" method="post" enctype="multipart/form-data">
-                <div class="formfield">  
+                <div class="formfield">
+                    <label> 
                     <input type="file" name="image" id="image_upload">
+                    </label> 
                 </div> 
                 <div class="formfield">
-					<textarea id="description" rows="4" placeholder="Description"></textarea>
+					<textarea name="description" id="description" rows="4" placeholder="Description"></textarea>
 				</div>  
                 <div class="formfield">  
                     <input type="submit" value="Upload" name="submit" class="button">
