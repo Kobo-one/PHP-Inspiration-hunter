@@ -278,9 +278,11 @@ strong {
 	text-align: center;
     margin-top: 100px;
 }
-
-input[type=file]{
-    opacity: 0;
+input[type=file]{ 
+    opacity:0;
+}
+.preview {
+    margin-bottom:30px;
 }
 
 

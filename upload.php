@@ -60,7 +60,7 @@
 
                 <form action="" method="post" enctype="multipart/form-data">
                 <div class="formfield">
-                    <label for="image_upload" class='button'>Choose image</label> 
+                    <label for="image_upload" class="button">Choose image</label> 
                     <input type="file" name="image" id="image_upload" accept=".jpg, .jpeg, .png">
                 </div>
                 <div class="preview">
@@ -70,7 +70,7 @@
 					<textarea name="description" id="description" rows="4" placeholder="Description"></textarea>
 				</div>  
                 <div class="formfield">  
-                    <input type="submit" value="Upload" name="submit" class="button">
+                    <input type="submit" value="Upload post" name="submit" class="button">
                 </div>    
                     
                 </form>
