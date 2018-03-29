@@ -23,7 +23,7 @@ $collection= Post::getAll();
       <div class="item clearfix">
          <div class="user">
               <img src="<?php echo $c['picture']; ?>" alt="avatar" class="avatar">
-              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><?php echo $c['firstname']." ". $c['lastname'] ?></a>
+              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><?php echo $c['username'] ?></a>
          </div>
          <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
          <div class="date"><?php echo $c['created'];?></div>

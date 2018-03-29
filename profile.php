@@ -24,12 +24,12 @@ $collection= $post->getDetailsProfile();
 	   
 	   
 <div id="main_user">
- 
+
   <div class="user">
-              <img src="<?php echo $collection[$user]['picture']?>" alt="avatar" class="avatar">
+              <img src="<?php echo $collection[0]['picture']?>" alt="avatar" class="avatar">
               
          </div>
-         <h1><?php echo $collection[$user]['firstname']." ".$collection[$user]['lastname'] ?></h1>
+         <h1><?php echo $collection[0]['username'] ?></h1>
          </div>
          
         <div id="profile_info">
@@ -43,7 +43,7 @@ $collection= $post->getDetailsProfile();
 
 <div id="posts_profile" class="collection">
 	  <!-- BEGIN LOOP FROM DB -->
-<?php foreach($collection as $key =>$c): ?>
+      <?php foreach($collection as $key =>$c): ?> 
       <div class="item clearfix">
          
          <a href="#"><img src="<?php echo $c['image']?>" alt="image" class="picture_index"></a>
