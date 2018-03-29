@@ -133,8 +133,8 @@ class Post{
     public static function createPost(){
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, idescription) VALUES(:image, :description)");
-    $statement->bindParam(":image", $this->image);
-    $statement->bindParam(":description", $this->description);
+    $statement->bindParam(":image", self::image);
+    $statement->bindParam(":description", self::description);
     $image_upload = $statement->execute();
     return $image_upload;
     }
@@ -171,6 +171,16 @@ class Post{
     
   }
   
+  public function getDetailsProfile(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
+    $statement->bindValue(':search', $this->getSearch() );
+    $statement->execute();
+    
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
 
  
 

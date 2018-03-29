@@ -1,7 +1,11 @@
 <?php
 include_once("lib/classes/Post.class.php");
-$collection= Post::getAll();
-$user=$_GET['user'];
+
+$post = new Post();
+$id=$_GET['user'];
+$post->setSearch($id);
+
+$collection= $post->getDetailsProfile();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -39,7 +43,7 @@ $user=$_GET['user'];
 
 <div id="posts_profile" class="collection">
 	  <!-- BEGIN LOOP FROM DB -->
-<?php foreach($collection as $user =>$c): ?>
+<?php foreach($collection as $key =>$c): ?>
       <div class="item clearfix">
          
          <a href="#"><img src="<?php echo $c['image']?>" alt="image" class="picture_index"></a>
