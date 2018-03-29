@@ -24,7 +24,7 @@
     }
   }
     catch(Exception $e) {
-            $error= "Error: signup incomplete";
+            $error= "Error: login incomplete";
         } 
 
 

@@ -113,14 +113,17 @@
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":email", $this->email);
-        $result = $statement->execute();
-
-        if($result->num_rows == 1){
-			$user = $result->fetch_assoc();
-			if(password_verify($this->password, $user['password'])){
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        if($result){
+			
+			if(password_verify($this->password, $result->password)){
 				return true;
-			}
-    }
+            }
+            else{
+                return false;
+             }
+        }
     
     else{
         throw new Exception("Login failed");
