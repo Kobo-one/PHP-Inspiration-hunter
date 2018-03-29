@@ -32,7 +32,7 @@ $collection= $post->getDetailsPost();
          <a href="#"><img src="<?php echo $c['image'];?>" alt="image" class="picture_index"></a>
          
          <div id="detail_photo_text">
-         <div class="date"><?php echo $c['created'] ?></div>
+         <div class="date"><?php echo $c['date'] ?></div>
          <div class="likes">Likes</div>
          <div class="comments"><strong>Username:</strong> Oh My God! Cool pic!</div>
          </div>

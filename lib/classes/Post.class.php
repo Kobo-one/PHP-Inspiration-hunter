@@ -142,7 +142,7 @@ class Post{
 
   public static function getAll(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare('SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ');
+    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
    
@@ -162,7 +162,7 @@ class Post{
 
   public function getDetailsPost(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
+    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
     $statement->bindValue(':search', $this->getSearch() );
     $statement->execute();
     

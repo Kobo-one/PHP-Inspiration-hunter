@@ -26,7 +26,7 @@ $collection= Post::getAll();
               <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><?php echo $c['username'] ?></a>
          </div>
          <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
-         <div class="date"><?php echo $c['created'];?></div>
+         <div class="date"><?php echo $c['date'];?></div>
          <div class="likes">Likes</div>
       </div>
 <?php endforeach; ?>
