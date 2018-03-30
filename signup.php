@@ -17,6 +17,8 @@
         $user->setEmail( $_POST['email'] );
         $user->setPassword( $_POST['password'] );
         	if($user->register()){
+                    session_start();
+                    $_SESSION['username']=$username;
             		header('Location: index.php');
         	}  
         }
