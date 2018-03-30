@@ -154,7 +154,7 @@ class Post{
     return $this;
   }
 
-    public static function createPost(){
+    public function createPost(){
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
     $statement->bindValue(":image", $this->getImage());
