@@ -3,7 +3,7 @@ include_once("lib/classes/Post.class.php");
 
 $post = new Post();
 $id=$_GET['post'];
-$post->setSearch($id);
+$post->setIdG($id);
 $post->setComment($id);
 $collection= $post->getDetailsPost();
 
@@ -33,8 +33,9 @@ $comments=$post->getCommentsPost();
          <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
          
          <div id="detail_photo_text">
-         <div class="date"><?php $collection[0]['date'] ?></div>
+         <div class="date"><?php $collection[0]['created'] ?></div>
          <div class="likes">Likes</div>
+
 <?php foreach($comments as $key =>$c): ?>          
          <div class="comments"><strong><?php echo $c['username']?>:</strong> <?php echo $c['comment']?></div>
          </div>

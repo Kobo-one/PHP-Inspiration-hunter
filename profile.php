@@ -3,7 +3,7 @@ include_once("lib/classes/Post.class.php");
 
 $post = new Post();
 $id=$_GET['user'];
-$post->setSearch($id);
+$post->setIdG($id);
 
 $collection= $post->getDetailsProfile();
 
