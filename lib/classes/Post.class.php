@@ -117,7 +117,7 @@ class Post{
    */ 
   public function getSearch()
   {
-    var_dump($this->search);
+    
     return $this->search;
   }
 
@@ -182,6 +182,10 @@ class Post{
     
     $statement->execute();
     
+    //var_dump($statement->rowCount());
+    if($statement->rowCount()<1){
+      throw new Exception("No search results");
+    }
   
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
@@ -189,6 +193,7 @@ class Post{
 
   public function getDetailsPost(){
     $conn = Db::getInstance();
+  /* */  
     $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
     $searchV=$this->getIdG();
     $statement->bindParam(':search', $searchV, PDO::PARAM_INT );

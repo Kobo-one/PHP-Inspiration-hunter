@@ -2,24 +2,18 @@
 
 /* SEARCH*/
 
-if (isset($_GET['search'])){
+if (!empty($_GET['search'])){
     
-      $post = new Post();
-      $post->setSearch($_GET['search']);
+    try{
+    $post = new Post();
+    $post->setSearch($_GET['search']);
+    
+    $collection= $post->getTag() ;
+    }
+    catch(Exception $e){
+        $error= $e->getMessage();
+    }
      
-      //$newCollection=[]; 
-        $collection= $post->getTag() ;
-
-     /* foreach ($collection as $key => $c){
-            
-            $newCollection= $post->getTag() ; 
-            
-            $newCollection[$key] = $c;
-           var_dump($c);
-            }
-            //var_dump($newCollection);
-        $collection = $newCollection;  
-       */
    
 };
 
