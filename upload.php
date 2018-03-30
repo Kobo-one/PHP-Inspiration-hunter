@@ -1,6 +1,7 @@
 <?php 
 
     include_once("lib/classes/Post.class.php");
+    include_once("lib/includes/checklogin.inc.php");
     
     if( !empty($_POST)){    
         if(isset($_FILES['image'])){

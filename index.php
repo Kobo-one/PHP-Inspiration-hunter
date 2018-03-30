@@ -1,5 +1,6 @@
 <?php
 include_once("lib/classes/Post.class.php");
+include_once("lib/includes/checklogin.inc.php");
 $collection= Post::getAll();
 ?><!DOCTYPE html>
 <html lang="en">

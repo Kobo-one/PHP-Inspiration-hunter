@@ -1,6 +1,9 @@
 <?php
     include_once("lib/classes/User.class.php");
-    include_once("lib/helpers/Security.class.php");
+	include_once("lib/helpers/Security.class.php");
+	if(!isset($_SESSION["username"])){
+		header("Location: index.php");
+	}
     
     try{
     if( !empty($_POST)){

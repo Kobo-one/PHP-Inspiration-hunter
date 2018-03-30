@@ -2,6 +2,9 @@
     // zijn al die includes nodig of enkel function??
     include_once("lib/classes/User.class.php");
     include_once("lib/helpers/Security.class.php");
+    if(!isset($_SESSION["username"])){
+      header("Location: index.php");
+    }
 
     //user and password from post oproepen
     //eerst kijken of het formulier al is verzonden anders geeft het een foutmelding

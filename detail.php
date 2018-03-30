@@ -1,6 +1,8 @@
 <?php
 include_once("lib/classes/Post.class.php");
 
+include_once("lib/includes/checklogin.inc.php");
+
 $post = new Post();
 $id=$_GET['post'];
 $post->setSearch($id);
