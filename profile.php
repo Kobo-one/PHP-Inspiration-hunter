@@ -1,9 +1,13 @@
 <?php
 include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
-$collection= Post::getAll();
-$user=$_GET['user'];
 
+
+$post = new Post();
+$id=$_GET['user'];
+$post->setSearch($id);
+
+$collection= $post->getDetailsProfile();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,12 +25,12 @@ $user=$_GET['user'];
 	   
 	   
 <div id="main_user">
- 
+
   <div class="user">
-              <img src="<?php echo $collection[$user]['picture']?>" alt="avatar" class="avatar">
+              <img src="<?php echo $collection[0]['picture']?>" alt="avatar" class="avatar">
               
          </div>
-         <h1><?php echo $collection[$user]['firstname']." ".$collection[$user]['lastname'] ?></h1>
+         <h1><?php echo $collection[0]['username'] ?></h1>
          </div>
          
         <div id="profile_info">
@@ -40,7 +44,7 @@ $user=$_GET['user'];
 
 <div id="posts_profile" class="collection">
 	  <!-- BEGIN LOOP FROM DB -->
-<?php foreach($collection as $user =>$c): ?>
+      <?php foreach($collection as $key =>$c): ?> 
       <div class="item clearfix">
          
          <a href="#"><img src="<?php echo $c['image']?>" alt="image" class="picture_index"></a>

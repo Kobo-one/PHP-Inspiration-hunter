@@ -28,13 +28,13 @@ $collection= $post->getDetailsPost();
       <div class="item clearfix">
          <div class="user">
               <img src="<?php echo $c['picture'];?>" alt="avatar" class="avatar">
-              <a href="profile.php?user=<?php echo $id;?>"><?php echo( $c['firstname']). " ". $c['lastname']?></a>
+              <a href="profile.php?user=<?php echo $c['post_user_id'];?>"><?php echo( $c['username']);?></a>
          </div>
      
          <a href="#"><img src="<?php echo $c['image'];?>" alt="image" class="picture_index"></a>
          
          <div id="detail_photo_text">
-         <div class="date"><?php echo $c['created'] ?></div>
+         <div class="date"><?php echo $c['date'] ?></div>
          <div class="likes">Likes</div>
          <div class="comments"><strong>Username:</strong> Oh My God! Cool pic!</div>
          </div>
