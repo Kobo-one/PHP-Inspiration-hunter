@@ -5,7 +5,7 @@ include_once("lib/includes/checklogin.inc.php");
 
 $post = new Post();
 $id=$_GET['user'];
-$post->setSearch($id);
+$post->setIdG($id);
 
 $collection= $post->getDetailsProfile();
 ?><!DOCTYPE html>

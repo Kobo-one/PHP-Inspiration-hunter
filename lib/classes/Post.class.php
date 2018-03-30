@@ -8,6 +8,9 @@ class Post{
   private $created;
   private $deleted;
   private $search;
+  private $comment;
+  private $idG;
+
 
   /**
    * Get the value of image
@@ -114,7 +117,7 @@ class Post{
    */ 
   public function getSearch()
   {
-     var_dump($this->search);
+    var_dump($this->search);
     return $this->search;
   }
 
@@ -125,8 +128,29 @@ class Post{
    */ 
   public function setSearch($search)
   {
-    $this->search = strtolower($search);
+    $this->search = strtolower("%".$search."%");
    ;
+    return $this;
+  }
+
+   /**
+   * Get the value of comment
+   */ 
+  public function getComment()
+  {
+    
+    return $this->comment;
+  }
+
+  /**
+   * Set the value of comment
+   *
+   * @return  self
+   */ 
+  public function setComment($comment)
+  {
+    $this->comment = $comment;
+
     return $this;
   }
 
@@ -150,12 +174,15 @@ class Post{
 
   public function getTag(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE '%:search%' UNION SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE '%:search%'  ");
-    $statement->bindValue(':search', $this->getSearch() );
-    $statement->execute();
-    //$statement->rowCount(); 
    
-
+/* search on tag or in description; select post:all and username +profilepic*/
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture,DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE :search ");
+   
+    $statement->bindValue(':search', $this->getSearch());
+    
+    $statement->execute();
+    
+  
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }
@@ -163,10 +190,12 @@ class Post{
   public function getDetailsPost(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
-    $statement->bindValue(':search', $this->getSearch() );
+    $searchV=$this->getIdG();
+    $statement->bindParam(':search', $searchV, PDO::PARAM_INT );
+    
     $statement->execute();
     
-
+    
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }
@@ -174,7 +203,18 @@ class Post{
   public function getDetailsProfile(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
-    $statement->bindValue(':search', $this->getSearch() );
+    $statement->bindValue(':search', $this->getIdG(), PDO::PARAM_INT );
+    $statement->execute();
+    
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+
+  public function getCommentsPost(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
+    $statement->bindValue(':comment', $this->getComment() );
     $statement->execute();
     
 
@@ -185,6 +225,26 @@ class Post{
  
 
  
+
+  /**
+   * Get the value of idG
+   */ 
+  public function getIdG()
+  {
+    return $this->idG;
+  }
+
+  /**
+   * Set the value of idG
+   *
+   * @return  self
+   */ 
+  public function setIdG($idG)
+  {
+    $this->idG = $idG;
+
+    return $this;
+  }
 }
 
 

@@ -27,7 +27,7 @@
     }
   }
     catch(Exception $e) {
-            $error= "Error: login incomplete";
+            $error= $e->getMessage();
         } 
 
 
@@ -54,9 +54,9 @@
                 <h1>Already have an account?</h1>
         <!-- zorgen dat de error enkel print als er een is en niet sowieso bij openen pagina -->       
         <?php if (isset($error)):?>
-                <div class="form__error">
+                <div class="error">
 					<p>
-						Woopsie, we couldn't log you in. Maybe you typed something wrong? 
+						<?php echo $error ?>
 					</p>
 		        </div>
         <?php endif; ?>

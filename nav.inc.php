@@ -3,18 +3,24 @@
 /* SEARCH*/
 
 if (isset($_GET['search'])){
+    
       $post = new Post();
       $post->setSearch($_GET['search']);
-      
-      $newCollection=[]; 
-       
-    foreach ($collection as $key => $c){
-        if($post->getTag()!== NULL){
-            $newCollection= $post->getTag(); 
+     
+      //$newCollection=[]; 
+        $collection= $post->getTag() ;
+
+     /* foreach ($collection as $key => $c){
+            
+            $newCollection= $post->getTag() ; 
+            
             $newCollection[$key] = $c;
-        }
-    }
-    $collection = $newCollection;  
+           var_dump($c);
+            }
+            //var_dump($newCollection);
+        $collection = $newCollection;  
+       */
+   
 };
 
 ?><nav class="navbar">

@@ -16,7 +16,13 @@ $collection= Post::getAll();
 </head>
 <body>
    <?php include_once("nav.inc.php"); ?>
-   
+   <?php if (isset($error)):?>
+                <div class="error">
+					<p>
+						<?php echo $error ?>
+					</p>
+		        </div>
+ <?php endif; ?>
              
    <div class="collection">
 <!--BEGIN FOTO'S UIT DATABASE-->  
@@ -32,6 +38,7 @@ $collection= Post::getAll();
       </div>
 <?php endforeach; ?>
 <!--EINDE-->
+<!--
       <div class="item clearfix">
          <div class="user">
               <img src="https://images.unsplash.com/profile-1501760727417-d777ab88d48b?dpr=2&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff" alt="avatar" class="avatar">
@@ -129,7 +136,7 @@ $collection= Post::getAll();
    </div> 
     
     
-    
+   --> 
     
 </body>
 </html>
