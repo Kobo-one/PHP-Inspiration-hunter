@@ -8,6 +8,7 @@ class Post{
   private $created;
   private $deleted;
   private $search;
+  private $comment;
 
   /**
    * Get the value of image
@@ -114,7 +115,7 @@ class Post{
    */ 
   public function getSearch()
   {
-     var_dump($this->search);
+     
     return $this->search;
   }
 
@@ -127,6 +128,27 @@ class Post{
   {
     $this->search = strtolower($search);
    ;
+    return $this;
+  }
+
+   /**
+   * Get the value of comment
+   */ 
+  public function getComment()
+  {
+    
+    return $this->comment;
+  }
+
+  /**
+   * Set the value of comment
+   *
+   * @return  self
+   */ 
+  public function setComment($comment)
+  {
+    $this->comment = $comment;
+
     return $this;
   }
 
@@ -153,9 +175,10 @@ class Post{
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE '%:search%' UNION SELECT posts.*, users.firstname, users.lastname, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE '%:search%'  ");
     $statement->bindValue(':search', $this->getSearch() );
     $statement->execute();
-    //$statement->rowCount(); 
+    if( $statement->rowCount()<1){
+      throw new Exception("No search results");
+    }
    
-
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }
@@ -175,6 +198,17 @@ class Post{
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
     $statement->bindValue(':search', $this->getSearch() );
+    $statement->execute();
+    
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+
+  public function getCommentsPost(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
+    $statement->bindValue(':comment', $this->getComment() );
     $statement->execute();
     
 
