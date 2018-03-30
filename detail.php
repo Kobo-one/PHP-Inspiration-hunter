@@ -37,12 +37,12 @@ $comments=$post->getCommentsPost();
          <div id="detail_photo_text">
          <div class="date"><?php $collection[0]['created'] ?></div>
          <div class="likes">Likes</div>
+         <div class="detail__photo__description"><?php echo $collection[0]['description'];?></div>
 
 <?php foreach($comments as $key =>$c): ?>          
-         <div class="comments"><strong><?php echo $c['username']?>:</strong> <?php echo $c['comment']?></div>
-         </div>
-      </div>
-	</div>
+         <div class="comments"><strong><?php echo $c['username']?>:</strong> <?php echo $c['comment']?></div>         
+	
 <?php endforeach; ?>
+</div>
 </body>
 </html>
