@@ -133,7 +133,6 @@ class Post{
     return $this;
   }
 
-<<<<<<< HEAD
    /**
    * Get the value of comment
    */ 
@@ -156,9 +155,6 @@ class Post{
   }
 
     public static function createPost(){
-=======
-    public function createPost(){
->>>>>>> ilona
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
     $statement->bindValue(":image", $this->getImage());
