@@ -1,6 +1,7 @@
 <?php 
-
+    session_start();
     include_once("lib/classes/Post.class.php");
+<<<<<<< HEAD
     include_once("lib/includes/checklogin.inc.php");
     
     if( !empty($_POST)){    
@@ -33,12 +34,52 @@
             }
             else{
             print_r($errors);
+=======
+
+    if( !empty($_POST) ){
+        //if submit btn is clicked
+        if(isset($_POST['submit'])){
+          
+            if(isset($_FILES['image'])){
+                $errors = array();
+                $file_name = $_FILES['image']['name'];
+                $file_size = $_FILES['image']['size'];
+                $file_tmp = $_FILES['image']['tmp_name'];
+                $file_type=$_FILES['image']['type'];
+                $file_dir="images/".$file_name;
+                $parts = explode('.',$file_name);
+                $file_ext=strtolower($parts[count($parts)-1]);
+
+
+
+                $expensions= array("jpeg","jpg","png");
+
+                if(in_array($file_ext,$expensions)=== false){
+                    $errors[]="please choose a JPEG or PNG image.";
+                }
+
+                if($file_size > 2097152){
+                    $errors[]='Image is bigger than 2MB';
+                }
+
+                if(empty($errors)==true){
+                    if( move_uploaded_file($file_tmp,$file_dir)){
+                        $post = new Post();
+                        $post->setImage( $file_dir );
+                        $post->setDescription( $_POST['description']);
+                        $post->createPost();
+                    }
+                    echo "Success";
+                }
+                else{
+                print_r($errors);
+                }
+
+>>>>>>> ilona
             }
-        
-        }
     }
 
-
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,25 +89,29 @@
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="lib/js/previewUpload.js"></script>
 	<title>Phomo | Upload inspiration</title>
 </head>
 <body>
 
 <?php include_once("nav.inc.php"); ?>
 
-<div id="upload_photo">
+<div class="upload_photo">
 
 
 <h1>Wanna share some inspiration?</h1>
 
-                <form action="" method="post" enctype="multipart/form-data">
-                <div class="formfield">
-                    <label for="image_upload" class="button">Choose image</label> 
-                    <input type="file" name="image" id="image_upload" accept=".jpg, .jpeg, .png">
-                </div>
+                <form action="" method="post" enctype="multipart/form-data" id="uploadForm">
                 <div class="preview">
-                <p>No image selected for upload</p>
-                </div> 
+                <p id="no_image">No image selected for upload</p>
+                </div>  
+                
+                <div class="formfield" id="first_input">
+                    <label for="image_upload" class="button_upload" id="choose_image">Choose image</label>
+                    <input type="file" name="image" id="image_upload" accept=".jpg, .jpeg, .png" onchange="filePreview(this);">
+                </div>
+                
                 <div class="formfield">
 					<textarea name="description" id="description" rows="4" placeholder="Description"></textarea>
 				</div>  

@@ -133,6 +133,7 @@ class Post{
     return $this;
   }
 
+<<<<<<< HEAD
    /**
    * Get the value of comment
    */ 
@@ -155,10 +156,14 @@ class Post{
   }
 
     public static function createPost(){
+=======
+    public function createPost(){
+>>>>>>> ilona
     $conn = Db::getInstance();
-    $statement = $conn->prepare("INSERT INTO posts (image, idescription) VALUES(:image, :description)");
-    $statement->bindParam(":image", self::image);
-    $statement->bindParam(":description", self::description);
+    $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
+    $statement->bindValue(":image", $this->getImage());
+    $statement->bindValue(":description", $this->getDescription());
+    $statement->bindValue(":email", $_SESSION['username']);    
     $image_upload = $statement->execute();
     return $image_upload;
     }
