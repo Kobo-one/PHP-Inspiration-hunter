@@ -22,7 +22,7 @@
         }
      }
     }catch(Exception $e) {
-            $error= "Error: signup incomplete";
+            $error= $e->getMessage();
         } 
     
 
