@@ -25,15 +25,17 @@
    
     $post = new Post();
     $post->setClick($i);
-    //$post->loadMore();
-    //$collection=$post->loadMore();
-        //var_dump($collection);
+    $collection= array();
+    $collection=$post->loadMore();
+    
+    //json_encode($collection);
+    //var_dump($collection);
     $response= [
-        "status" => "succes"
-        //"collection" => collection
+        "status" => "succes",
+        "collection" => $collection
     ];
     header('Content-Type: application/json');
-    echo json_encode($response);
+   echo json_encode($response);
     }
     
 ?>
