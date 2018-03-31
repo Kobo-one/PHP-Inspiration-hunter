@@ -10,6 +10,7 @@ class Post{
   private $search;
   private $comment;
   private $idG;
+  private $click;
 
 
   /**
@@ -175,6 +176,28 @@ class Post{
     return $this;
   }
 
+  /**
+   * Get the value of click
+   */ 
+  public function getClick()
+  {
+    var_dump($this->click);
+    return $this->click;
+  }
+
+  /**
+   * Set the value of click
+   *
+   * @return  self
+   */ 
+  public function setClick($click)
+  {
+    $this->click = $click;
+
+    return $this;
+  }
+
+
     public function createPost(){
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
@@ -249,14 +272,30 @@ class Post{
     
   }
 
- 
+  public function loadMore(){
+    $conn = Db::getInstance();
+    $statement=$conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email='bram@mail.com' LIMIT 1) )LIMIT :nr1, :nr2 ");
+    $number1= $this->getClick();
+    $number2= $this->getClick()*2;
+    var_dump($number2);
+    $statement->bindValue(':nr1', $number1, PDO::PARAM_INT);  
+    $statement->bindValue(':nr2', $number2, PDO::PARAM_INT);  
+    //$statement->bindValue(':email', $_SESSION["username"]);  
+    
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
 
  
 
+ 
 
 
 
 
+
+
+  
 }
 
 
