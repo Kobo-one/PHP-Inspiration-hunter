@@ -38,7 +38,7 @@ $collection= Post::getAll();
       </div>
 <?php endforeach; ?>
 <!--EINDE-->
-
+        </div>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">
