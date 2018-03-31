@@ -28,10 +28,10 @@ include_once("lib/includes/checklogin.inc.php");
               <!-- Ofwel follow-btn wanneer niet op eigen profielpagina -->
               <div class="form">
               <form action="" method="post">
-              <input type="submit" value="Follow" class=" button">
+              <input type="submit" value="Follow" class=" button invisible">
               </form>
               <!-- Ofwel edit-btn wanneer op eigen profielpagina -->
-              <div class="button invisible"><a href="#" class="edit">Edit</a></div>
+              <div class="button "><a href="editProfile.php" class="edit">Edit</a></div>
               </div>
               <div class="blue_container"></div>      
     </div>
