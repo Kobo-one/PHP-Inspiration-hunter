@@ -154,32 +154,7 @@ class Post{
     return $this;
   }
 
-<<<<<<< HEAD
     public function createPost(){
-=======
-  /**
-   * Get the value of idG
-   * idG== postId of UserId wanneer wordt doorgeklikt op een username of post
-   */
-  public function getIdG()
-  {
-    return $this->idG;
-  }
-
-  /**
-   * Set the value of idG
-   *
-   * @return  self
-   */ 
-  public function setIdG($idG)
-  {
-    $this->idG = $idG;
-
-    return $this;
-  }
-
-    public static function createPost(){
->>>>>>> saraSearch
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
     $statement->bindValue(":image", $this->getImage());
