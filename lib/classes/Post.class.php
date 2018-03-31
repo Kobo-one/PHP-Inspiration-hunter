@@ -154,6 +154,27 @@ class Post{
     return $this;
   }
 
+
+  /**
+   * Get the value of idG
+   */ 
+  public function getIdG()
+  {
+    return $this->idG;
+  }
+
+  /**
+   * Set the value of idG
+   *
+   * @return  self
+   */ 
+  public function setIdG($idG)
+  {
+    $this->idG = $idG;
+
+    return $this;
+  }
+
     public function createPost(){
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
@@ -231,6 +252,7 @@ class Post{
  
 
  
+
 
 
 
