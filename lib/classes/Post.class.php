@@ -187,7 +187,9 @@ class Post{
 /* select posts, date without seconds*/  
   public static function getAll(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");
+    /*$statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");*/
+    $statement=$conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1))");
+    $statement->bindValue(':email', $_SESSION["username"]);  
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
    
@@ -252,6 +254,14 @@ class Post{
 
   //select all je vrienden
   /*SELECT followers.follower_id FROM followers, users WHERE followers.status=1 AND users.id= followers.user_id AND users.email= "bram@mail.com" */
+  //SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email="bram@mail.com")
+
+  /*SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture 
+FROM posts, users 
+WHERE posts.post_user_id = users.id 
+AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email="bram@mail.com"))*/
+
+
 }
 
 
