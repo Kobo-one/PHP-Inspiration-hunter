@@ -1,26 +1,17 @@
 <?php 
 
 /* SEARCH*/
+// if input field is empty do nothing
+if (!empty($_GET['search'])){  
+    try{
+    $post = new Post();
+    $post->setSearch($_GET['search']);
 
-if (isset($_GET['search'])){
-    
-      $post = new Post();
-      $post->setSearch($_GET['search']);
-     
-      //$newCollection=[]; 
-        $collection= $post->getTag() ;
-
-     /* foreach ($collection as $key => $c){
-            
-            $newCollection= $post->getTag() ; 
-            
-            $newCollection[$key] = $c;
-           var_dump($c);
-            }
-            //var_dump($newCollection);
-        $collection = $newCollection;  
-       */
-   
+    $collection= $post->getTag() ;
+    }
+    catch(Exception $e){
+        $error= $e->getMessage();
+    }  
 };
 
 ?><nav class="navbar">

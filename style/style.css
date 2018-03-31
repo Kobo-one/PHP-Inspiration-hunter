@@ -73,6 +73,10 @@ input[type=text], input[type=password], .formfield textarea{
     margin-bottom:10px;
 }
 
+.error__index{
+    text-align: center;
+}
+
 /* Index */
 .navbar {
     display: flex;
@@ -270,6 +274,9 @@ strong {
     font-weight: bold;
 }
 
+.detail__photo__description{
+    color:grey;
+}
 
 /* ---- */
 

@@ -117,7 +117,7 @@ class Post{
    */ 
   public function getSearch()
   {
-    var_dump($this->search);
+    
     return $this->search;
   }
 
@@ -154,82 +154,13 @@ class Post{
     return $this;
   }
 
+<<<<<<< HEAD
     public function createPost(){
-    $conn = Db::getInstance();
-    $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
-    $statement->bindValue(":image", $this->getImage());
-    $statement->bindValue(":description", $this->getDescription());
-    $statement->bindValue(":email", $_SESSION['username']);    
-    $image_upload = $statement->execute();
-    return $image_upload;
-    }
-
-
-  public static function getAll(){
-    $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-   
-  }
-
-  public function getTag(){
-    $conn = Db::getInstance();
-   
-/* search on tag or in description; select post:all and username +profilepic*/
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture,DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE :search ");
-   
-    $statement->bindValue(':search', $this->getSearch());
-    
-    $statement->execute();
-    
-  
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-  }
-
-  public function getDetailsPost(){
-    $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
-    $searchV=$this->getIdG();
-    $statement->bindParam(':search', $searchV, PDO::PARAM_INT );
-    
-    $statement->execute();
-    
-    
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-  }
-  
-  public function getDetailsProfile(){
-    $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
-    $statement->bindValue(':search', $this->getIdG(), PDO::PARAM_INT );
-    $statement->execute();
-    
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-  }
-
-  public function getCommentsPost(){
-    $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
-    $statement->bindValue(':comment', $this->getComment() );
-    $statement->execute();
-    
-
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-  }
-
- 
-
- 
-
+=======
   /**
    * Get the value of idG
-   */ 
+   * idG== postId of UserId wanneer wordt doorgeklikt op een username of post
+   */
   public function getIdG()
   {
     return $this->idG;
@@ -246,6 +177,89 @@ class Post{
 
     return $this;
   }
+
+    public static function createPost(){
+>>>>>>> saraSearch
+    $conn = Db::getInstance();
+    $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
+    $statement->bindValue(":image", $this->getImage());
+    $statement->bindValue(":description", $this->getDescription());
+    $statement->bindValue(":email", $_SESSION['username']);    
+    $image_upload = $statement->execute();
+    return $image_upload;
+    }
+
+/* select posts, date without seconds. show only posts from friends*/  
+  public static function getAll(){
+    $conn = Db::getInstance();
+    /*$statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");*/
+    $statement=$conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1))");
+    $statement->bindValue(':email', $_SESSION["username"]);  
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+   
+  }
+
+/* search on tag or in description; select post:all and username +profilepic
+ search convert to  lowercase. Search in entire db*/  
+  public function getTag(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture,DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE :search ");
+   
+    $statement->bindValue(':search', $this->getSearch());  
+    $statement->execute();
+    
+    // if there are no search results-> throw error
+    if($statement->rowCount()<1){
+      throw new Exception("No search results");
+    }
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /* When click on post -> go to details of post with date, description,...*/ 
+  public function getDetailsPost(){
+    $conn = Db::getInstance(); 
+    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
+    $searchV=$this->getIdG();
+    $statement->bindParam(':search', $searchV, PDO::PARAM_INT );
+    
+    $statement->execute();
+    
+    
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+  
+  /* When you click on someone's profile -> go to that profile*/ 
+  public function getDetailsProfile(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
+    $statement->bindValue(':search', $this->getIdG(), PDO::PARAM_INT );
+    $statement->execute();
+    
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+ /* When you go to details of post, show comments (from db) */
+  public function getCommentsPost(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
+    $statement->bindValue(':comment', $this->getComment() );
+    $statement->execute();
+    
+
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+
+ 
+
+ 
+
+
+
+
 }
 
 

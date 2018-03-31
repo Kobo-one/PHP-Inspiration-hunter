@@ -17,7 +17,7 @@ $collection= Post::getAll();
 <body>
    <?php include_once("nav.inc.php"); ?>
    <?php if (isset($error)):?>
-                <div class="error">
+                <div class="error error__index">
 					<p>
 						<?php echo $error ?>
 					</p>
