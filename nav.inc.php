@@ -1,20 +1,17 @@
 <?php 
 
 /* SEARCH*/
-
-if (!empty($_GET['search'])){
-    
+// if input field is empty do nothing
+if (!empty($_GET['search'])){  
     try{
     $post = new Post();
     $post->setSearch($_GET['search']);
-    
+
     $collection= $post->getTag() ;
     }
     catch(Exception $e){
         $error= $e->getMessage();
-    }
-     
-   
+    }  
 };
 
 ?><nav class="navbar">

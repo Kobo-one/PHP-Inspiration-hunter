@@ -184,7 +184,7 @@ class Post{
     return $image_upload;
     }
 
-/* select posts, date without seconds*/  
+/* select posts, date without seconds. show only posts from friends*/  
   public static function getAll(){
     $conn = Db::getInstance();
     /*$statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");*/
@@ -196,7 +196,7 @@ class Post{
   }
 
 /* search on tag or in description; select post:all and username +profilepic
- search convert to  lowercase*/  
+ search convert to  lowercase. Search in entire db*/  
   public function getTag(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture,DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE :search ");
@@ -204,6 +204,7 @@ class Post{
     $statement->bindValue(':search', $this->getSearch());  
     $statement->execute();
     
+    // if there are no search results-> throw error
     if($statement->rowCount()<1){
       throw new Exception("No search results");
     }
@@ -224,6 +225,7 @@ class Post{
     
   }
   
+  /* When you click on someone's profile -> go to that profile*/ 
   public function getDetailsProfile(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
@@ -234,7 +236,7 @@ class Post{
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }
-
+ /* When you go to details of post, show comments (from db) */
   public function getCommentsPost(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
@@ -250,16 +252,7 @@ class Post{
 
  
 
-  //SELECT users.username, posts.*, users.picture, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM users, followers, posts WHERE followers.follower_id=users.id AND posts.post_user_id=users.id AND followers.user_id= 1 AND followers.status=1
 
-  //select all je vrienden
-  /*SELECT followers.follower_id FROM followers, users WHERE followers.status=1 AND users.id= followers.user_id AND users.email= "bram@mail.com" */
-  //SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email="bram@mail.com")
-
-  /*SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture 
-FROM posts, users 
-WHERE posts.post_user_id = users.id 
-AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email="bram@mail.com"))*/
 
 
 }
