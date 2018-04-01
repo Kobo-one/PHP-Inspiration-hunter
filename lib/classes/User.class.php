@@ -84,7 +84,7 @@
         return $this->password;
     }
         
-
+    //register new user
     public function register() 
     {
         $conn = Db::getInstance();

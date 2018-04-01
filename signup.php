@@ -9,10 +9,12 @@
     try{
     if( !empty($_POST)){
         
+        //testing if password is secure
         $security = new Security();
         $security->password = $_POST['password'];
         $security->passwordConfirmation = $_POST['password_confirmation'];
         
+        //register new user
         if( $security->passwordsAreSecure() ){
         $user = new User(); 
         $user->setFirstName( $_POST['firstname']);
@@ -21,13 +23,16 @@
         $user->setEmail( $_POST['email'] );
         $user->setPassword( $_POST['password'] );
         	if($user->register()){
+                    //send to index after register
                     session_start();
                     $_SESSION['username']=$username;
             		header('Location: index.php');
         	}  
         }
      }
-    }catch(Exception $e) {
+    }
+    //if inputfields are empty, send error message
+    catch(Exception $e) {
             $error= $e->getMessage();
         } 
     
