@@ -16,6 +16,9 @@ if(isset($_GET['user'])){
 
 $post->setIdG($id);
 $collection= $post->getDetailsProfile();
+
+$user->setId($id);
+$searchedUser = $user->getDetails();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +36,8 @@ $collection= $post->getDetailsProfile();
 
   <div class="profile_user">
         
-              <img src="<?php echo $collection[0]['picture']?>" alt="avatar" class="avatar">
-              <h2><?php echo $collection[0]['username'] ?></h2>
+              <img src="<?php echo $searchedUser->picture?>" alt="avatar" class="avatar">
+              <h2><?php echo $searchedUser->username ?></h2>
               <div class="flex_container">
               <div class="extra"><?php echo $post->getProfilePostAmount()?> posts</div>
               <div class="extra"> friends</div>
