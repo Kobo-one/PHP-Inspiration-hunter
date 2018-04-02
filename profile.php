@@ -10,7 +10,8 @@ if(isset($_GET['user'])){
     $id=$_GET['user'];
 }else{
     $user->setEmail($_SESSION["username"]);
-    $id = $user->getIdbyEmail();
+    $idArray = $user->getIdbyEmail();
+    $id=$idArray->id;
 }
 
 $post->setIdG($id);
