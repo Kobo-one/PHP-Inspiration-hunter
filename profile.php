@@ -6,12 +6,11 @@ include_once("lib/includes/checklogin.inc.php");
 $post = new Post();
 $user = new User();
 
+
 if(isset($_GET['user'])){
     $id=$_GET['user'];
 }else{
-    $user->setEmail($_SESSION["username"]);
-    $idArray = $user->getIdbyEmail();
-    $id=$idArray->id;
+    $id=$user->loggedinUser();
 }
 
 $post->setIdG($id);
@@ -44,15 +43,18 @@ $searchedUser = $user->getDetails();
               </div>
               <?php
               
-              // Ofwel follow-btn wanneer niet op eigen profielpagina -->
+              //kijken of we op onze eigen pagina zijn of niet
+              if(isset($_GET['user']) && $user->loggedinUser()!==$_GET['user'] ){
+                // follow-btn wanneer niet op eigen profielpagina
               echo '<div class="form">
               <form action="" method="post">
-              <input type="submit" value="Follow" class=" button invisible">
+              <input type="submit" value="Follow" class=" button">
               </form>';
-              // Ofwel edit-btn wanneer op eigen profielpagina -->
+            }else{
+                // edit-btn wanneer op eigen profielpagina
               echo '<div class="button "><a href="editProfile.php" class="edit">Edit</a></div>
               </div>
-              <div class="blue_container"></div>'
+              <div class="blue_container"></div>';}
               ?>    
     </div>
 <div class="collection">

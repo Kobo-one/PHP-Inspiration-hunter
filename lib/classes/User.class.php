@@ -190,6 +190,13 @@
         return $amount;
         
     }
+
+    public function loggedInUser(){
+        $this->setEmail($_SESSION["username"]);
+        $idArray = $this->getIdbyEmail();
+        $id=$idArray->id;
+        return $id;
+    }
 }
 
 ?>
