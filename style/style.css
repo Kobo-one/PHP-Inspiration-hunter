@@ -152,13 +152,17 @@ input[type=text], input[type=password], .formfield textarea{
     font-size:12px;
     margin-bottom:10px;
 }
-.date {
-    float:left;
+.feed_flex {
+    display:flex;
+    flex-direction: row;
     margin-left:10px;
-}
-.likes {
-    float:right;
     margin-right:10px;
+    justify-content: space-between;
+}
+.like_btn {
+    width:20px;
+    height:20px;
+    margin-top:-3px; 
 }
 
 /*-----------------------------------------*/
@@ -447,6 +451,11 @@ input[type=file]{
     }
     .date, .likes {
     font-size:14px;
+    }
+    .like_btn {
+    width:25px;
+    height:25px;
+    margin-top:-6px; 
     }
     
     /*-----------------------------------------*/

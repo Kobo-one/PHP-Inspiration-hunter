@@ -34,10 +34,11 @@ $comments=$post->getCommentsPost();
      
             <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
          
-            <div class="item_text">
+            <div class="item_text feed_flex">
                 <div class="date"><?php $collection[0]['created'] ?></div>
-                <div class="likes">Likes</div>
                 <div class="item_description"><?php echo $collection[0]['description'];?></div>
+                <div class="likes"># likes</div>
+                    <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
             </div>
         </div>
          <div class="comments">

@@ -33,8 +33,11 @@ $collection= Post::getAll();
               <a href="profile.php?user=<?php echo $c['post_user_id'] ?>" class="username"><?php echo $c['username'] ?></a>
          </div>
          <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
+         <div class="feed_flex">
          <div class="date"><?php echo $c['date'];?></div>
-         <div class="likes">Likes</div>
+         <div class="likes"># likes</div>
+         <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
+         </div>
       </div>
 <?php endforeach; ?>
 <!--EINDE-->
