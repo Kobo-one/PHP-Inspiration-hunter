@@ -25,24 +25,30 @@ $comments=$post->getCommentsPost();
 <body>
   <?php include_once("nav.inc.php"); ?>
   
-  <div id="detail_photo">
-      <div class="item clearfix">
-         <div class="user">
-              <img src="<?php echo $collection[0]['picture'];?>" alt="avatar" class="avatar">
-              <a href="profile.php?user=<?php echo $collection[0]['post_user_id'];?>"><?php echo( $collection[0]['username']);?></a>
-         </div>
+<div class="detail_photo">
+        <div class="item">
+            <div class="user">
+                <img src="<?php echo $collection[0]['picture'];?>" alt="avatar" class="avatar">
+                <a href="profile.php?user=<?php echo $collection[0]['post_user_id'];?>" class="username"><?php echo( $collection[0]['username']);?></a>
+            </div>
      
-         <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
+            <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
          
-         <div id="detail_photo_text">
-         <div class="date"><?php $collection[0]['created'] ?></div>
-         <div class="likes">Likes</div>
-         <div class="detail__photo__description"><?php echo $collection[0]['description'];?></div>
-
+            <div class="item_text">
+                <div class="date"><?php $collection[0]['created'] ?></div>
+                <div class="likes">Likes</div>
+                <div class="item_description"><?php echo $collection[0]['description'];?></div>
+            </div>
+        </div>
+         <div class="comments">
 <?php foreach($comments as $key =>$c): ?>          
-         <div class="comments"><strong><?php echo $c['username']?>:</strong> <?php echo $c['comment']?></div>         
+        <div class="comment">
+            <div class="comment_username"><?php echo $c['username']?></div>
+            <p><?php echo $c['comment']?></p>
+        </div>         
 	
 <?php endforeach; ?>
+    </div>
 </div>
 </body>
 </html>
