@@ -147,6 +147,16 @@
         
     }
 
+    public function getIdbyEmail(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT id FROM `users` WHERE email = :email");
+        $statement->bindValue(":email", $this->getEmail());
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        
+        return $result;
+    }
+
 
     public function getDetails(){
         $conn = Db::getInstance();
@@ -159,16 +169,27 @@
 
     }
 
-    public function getIdbyEmail(){
+    public function Followers(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT id FROM `users` WHERE email = :email");
-        $statement->bindValue(":email", $this->getEmail());
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id");
+        $statement->bindValue(":id", $this->getId());
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_OBJ);
         
+        return $statement;
+    }
+
+    public function GetFollowers(){
+        $statement = $this->Followers();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result;
     }
 
+    public function getFollowersAmount(){
+        $statement = $this->Followers();
+        $amount=$statement->rowCount();
+        return $amount;
+        
+    }
 }
 
 ?>
