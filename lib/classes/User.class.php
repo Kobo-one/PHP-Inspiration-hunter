@@ -106,10 +106,10 @@
         $statement = $conn->prepare("insert into users (firstname, lastname, username, email, password) values (:firstName, :lastName, :userName, :email, :password)");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-        $statement->bindParam(":firstName", $this->firstName);
-        $statement->bindParam(":lastName", $this->lastName);
-        $statement->bindParam(":userName", $this->userName);
-        $statement->bindParam(":email", $this->email);
+        $statement->bindValue(":firstName", $this->getFirstName());
+        $statement->bindValue(":lastName", $this->getLastName());
+        $statement->bindValue(":userName", $this->getUserName());
+        $statement->bindValue(":email", $this->getEmail());
         $statement->bindParam(":password", $hash);
                 
         $result = $statement->execute();
