@@ -8,6 +8,7 @@
         private $userName;
         private $email;
         private $password;
+        private $id;
         
     /*Setters*/
         
@@ -56,7 +57,15 @@
         $this->password = $password;
         return $this;
     }
+    
+    public function setId($id)
+    {
+            $this->id = $id;
+
+            return $this;
+    }
         
+
     /*Getters*/
     
     public function getFirstName()
@@ -82,6 +91,11 @@
     public function getPassword()
     {
         return $this->password;
+    }
+    
+    public function getId()
+    {
+            return $this->id;
     }
         
     //register new user
@@ -112,7 +126,7 @@
         $statement = $conn->prepare("select * from users where email = :email");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-        $statement->bindParam(":email", $this->email);
+        $statement->bindParam(":email", $this->getEmail());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
         if($result){
@@ -134,6 +148,20 @@
         
         
     }
+
+
+    public function getDetails(){
+        $conn = Db::getInstance();
+            
+        $statement = $conn->prepare("SELECT * FROM `users` WHERE id = :id");
+            
+        $hash = password_hash($this->password, PASSWORD_BCRYPT);
+        $statement->bindParam(":id", $this->getId());
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+
+    }
+
 }
 
 ?>
