@@ -251,7 +251,7 @@ h2 {
     text-transform: uppercase;
     border-radius:25px;
 }
-.profile_settings input[type=text], input[type=password]{
+.profile_settings input[type=text], .profile_settings input[type=password]{
     margin-top:8px;
     text-align: center;
 }
