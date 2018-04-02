@@ -72,6 +72,8 @@
 				<div class="formfield">
 					<input type="submit" value="Login" class="button">	
 		        </div>
+            
+    <a href="signup.php">Or signup now</a>
     </form>
     
     

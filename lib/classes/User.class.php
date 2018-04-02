@@ -8,6 +8,7 @@
         private $userName;
         private $email;
         private $password;
+        private $id;
         
     /*Setters*/
         
@@ -56,7 +57,15 @@
         $this->password = $password;
         return $this;
     }
+    
+    public function setId($id)
+    {
+            $this->id = $id;
+
+            return $this;
+    }
         
+
     /*Getters*/
     
     public function getFirstName()
@@ -83,6 +92,11 @@
     {
         return $this->password;
     }
+    
+    public function getId()
+    {
+            return $this->id;
+    }
         
     //register new user
     public function register() 
@@ -92,10 +106,10 @@
         $statement = $conn->prepare("insert into users (firstname, lastname, username, email, password) values (:firstName, :lastName, :userName, :email, :password)");
             
         $hash = password_hash($this->password, PASSWORD_BCRYPT);
-        $statement->bindParam(":firstName", $this->firstName);
-        $statement->bindParam(":lastName", $this->lastName);
-        $statement->bindParam(":userName", $this->userName);
-        $statement->bindParam(":email", $this->email);
+        $statement->bindValue(":firstName", $this->getFirstName());
+        $statement->bindValue(":lastName", $this->getLastName());
+        $statement->bindValue(":userName", $this->getUserName());
+        $statement->bindValue(":email", $this->getEmail());
         $statement->bindParam(":password", $hash);
                 
         $result = $statement->execute();
@@ -110,9 +124,7 @@
         $conn = Db::getInstance();
             
         $statement = $conn->prepare("select * from users where email = :email");
-            
-        $hash = password_hash($this->password, PASSWORD_BCRYPT);
-        $statement->bindParam(":email", $this->email);
+        $statement->bindValue(":email", $this->getEmail());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
         if($result){
@@ -133,6 +145,57 @@
         
         
         
+    }
+
+    public function getIdbyEmail(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT id FROM `users` WHERE email = :email");
+        $statement->bindValue(":email", $this->getEmail());
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        
+        return $result;
+    }
+
+
+    public function getDetails(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM `users` WHERE id = :id");
+        $statement->bindValue(":id", $this->getId());
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        
+        return $result;
+
+    }
+
+    public function Followers(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id");
+        $statement->bindValue(":id", $this->getId());
+        $statement->execute();
+        
+        return $statement;
+    }
+
+    public function GetFollowers(){
+        $statement = $this->Followers();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result;
+    }
+
+    public function getFollowersAmount(){
+        $statement = $this->Followers();
+        $amount=$statement->rowCount();
+        return $amount;
+        
+    }
+
+    public function loggedInUser(){
+        $this->setEmail($_SESSION["username"]);
+        $idArray = $this->getIdbyEmail();
+        $id=$idArray->id;
+        return $id;
     }
 }
 

@@ -249,26 +249,36 @@ class Post{
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }
-  
-  /* When you click on someone's profile -> go to that profile*/ 
-  public function getDetailsProfile(){
+
+  /* Laad profiel details*/ 
+  public function DetailsProfile(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search  ");
     $statement->bindValue(':search', $this->getIdG(), PDO::PARAM_INT );
     $statement->execute();
-    
+    return $statement;
 
+  }
+  /* When you click on someone's profile -> go to that profile*/ 
+  public function getDetailsProfile(){
+    $statement= $this->DetailsProfile();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }
+
+  /* Telt hoeveel posts de user heeft. */
+  public function getProfilePostAmount(){
+    $statement = $this->DetailsProfile();
+    $amount=$statement->rowCount();
+    return $amount;
+  }
+
  /* When you go to details of post, show comments (from db) */
   public function getCommentsPost(){
     $conn = Db::getInstance();
     $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
     $statement->bindValue(':comment', $this->getComment() );
     $statement->execute();
-    
-
     return $statement->fetchAll(PDO::FETCH_ASSOC);
     
   }

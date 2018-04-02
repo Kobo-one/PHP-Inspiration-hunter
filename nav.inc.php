@@ -30,7 +30,7 @@ if (!empty($_GET['search'])){
 
     <a href="upload.php">Upload</a>
     <a href="profile.php">Profile</a>
-    <a href="">Logout</a>
+    <a href="logout.php">Logout</a>
     <form action="" method="get">
         <input type="text" name="search" id="searchfield" placeholder="Search">
     </form>
