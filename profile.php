@@ -40,7 +40,7 @@ $searchedUser = $user->getDetails();
               <h2><?php echo $searchedUser->username ?></h2>
               <div class="flex_container">
               <div class="extra"><?php echo $post->getProfilePostAmount()?> posts</div>
-              <div class="extra"><?php echo $post->getFollowersAmount()?> followers</div>
+              <div class="extra"><?php echo $user->getFollowersAmount()?> followers</div>
               </div>
               <?php
               
