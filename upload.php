@@ -1,36 +1,37 @@
 <?php 
     include_once("lib/classes/Post.class.php");
     include_once("lib/includes/checklogin.inc.php");
+    include_once("lib/classes/Image.class.php");
     
     if( !empty($_POST) ){
-        //if submit btn is clicked
-        if(isset($_POST['submit'])){
-          
-            if(isset($_FILES['image'])){
+        if(isset($_FILES['image'])){
                 $errors = array();
-                $file_name = $_FILES['image']['name'];
-                $file_size = $_FILES['image']['size'];
-                $file_tmp = $_FILES['image']['tmp_name'];
-                $file_type=$_FILES['image']['type'];
-                $file_dir="images/".$file_name;
-                $parts = explode('.',$file_name);
-                $file_ext=strtolower($parts[count($parts)-1]);
-
-                
+                $image = new Image();
+                $image->setFileName($_FILES['image']['name']);
+                $image->setFileSize($_FILES['image']['size']);
+                $image->setFileTmp($_FILES['image']['tmp_name']);
+                $image->setFileType($_FILES['image']['type']);
+                $image->setFileDir("images/".$_FILES['image']['name']);
+                $parts = explode('.',$_FILES['image']['name']);
+                $fileExt = strtolower($parts[count($parts)-1]);
                 $expensions= array("jpeg","jpg","png");
 
-                if(in_array($file_ext,$expensions)=== false){
+                if(in_array($fileExt,$expensions)=== false){
                     $errors[]="please choose a JPEG or PNG image.";
                 }
 
-                if($file_size > 2097152){
+                if($fileSize > 2097152){
+                    //$image->compress_image($fileTmp, $fileDir, 80);
                     $errors[]='Image is bigger than 2MB';
-                }
 
-                if(empty($errors)==true){
-                    if( move_uploaded_file($file_tmp,$file_dir)){
+                }
+        }
+        //if submit btn is clicked
+        if(isset($_POST['submit'])){
+                 if(empty($errors)==true){
+                    if( move_uploaded_file($fileTmp,$fileDir)){
                         $post = new Post();
-                        $post->setImage( $file_dir );
+                        $post->setImage( $fileDir );
                         $post->setDescription( $_POST['description']);
                         $post->createPost();
                     }
@@ -42,7 +43,7 @@
                 }
             }
         }
-    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
