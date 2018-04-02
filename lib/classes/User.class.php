@@ -124,8 +124,6 @@
         $conn = Db::getInstance();
             
         $statement = $conn->prepare("select * from users where email = :email");
-            
-        $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":email", $this->getEmail());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
@@ -152,14 +150,19 @@
 
     public function getDetails(){
         $conn = Db::getInstance();
-            
         $statement = $conn->prepare("SELECT * FROM `users` WHERE id = :id");
-            
-        $hash = password_hash($this->password, PASSWORD_BCRYPT);
         $statement->bindParam(":id", $this->getId());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
 
+    }
+
+    public function getIdbyEmail(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT id FROM `users` WHERE email = :email");
+        $statement->bindParam(":email", $this->getEmail());
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
     }
 
 }

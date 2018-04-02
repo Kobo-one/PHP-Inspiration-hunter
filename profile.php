@@ -9,16 +9,12 @@ $user = new User();
 if(isset($_GET['user'])){
     $id=$_GET['user'];
 }else{
-    $id = $_SESSION["username"];
+    $user->setEmail($_SESSION["username"]);
+    $id = $user->getIdbyEmail();;
 }
 
-var_dump($id);
-//$post->setIdG($id);
-
-
-
-
-//$collection= $post->getDetailsProfile();
+$post->setIdG($id);
+$collection= $post->getDetailsProfile();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
