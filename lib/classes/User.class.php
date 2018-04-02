@@ -124,7 +124,7 @@
         $conn = Db::getInstance();
             
         $statement = $conn->prepare("select * from users where email = :email");
-        $statement->bindParam(":email", $this->getEmail());
+        $statement->bindValue(":email", $this->getEmail());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
         if($result){
@@ -151,18 +151,22 @@
     public function getDetails(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT * FROM `users` WHERE id = :id");
-        $statement->bindParam(":id", $this->getId());
+        $statement->bindValue(":id", $this->getId());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
+        
+        return $result;
 
     }
 
     public function getIdbyEmail(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT id FROM `users` WHERE email = :email");
-        $statement->bindParam(":email", $this->getEmail());
+        $statement->bindValue(":email", $this->getEmail());
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
+        
+        return $result;
     }
 
 }
