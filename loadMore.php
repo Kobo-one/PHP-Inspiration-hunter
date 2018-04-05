@@ -3,6 +3,7 @@
   include_once("lib/classes/Post.class.php");
    
     if(!empty($_POST)){
+        session_start();
     $i=$_POST['i'];
    
     $post = new Post();

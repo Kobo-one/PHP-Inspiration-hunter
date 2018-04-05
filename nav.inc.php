@@ -10,6 +10,7 @@ if (!empty($_GET['search'])){
     $post = new Post();
     $searchId=$post->setSearch($_GET['search']);
     $collection= $post->getTag() ;
+    
     }
     catch(Exception $e){
         $error= $e->getMessage();

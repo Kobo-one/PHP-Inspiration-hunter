@@ -50,7 +50,7 @@ $followed= $user->checkFollower();
                 // follow-btn wanneer niet op eigen profielpagina en je nog niet bevriend bent
               echo '<div class="form">
               <form action="" method="post">
-              <input type="submit" value="Follow" class=" button">
+              <input type="submit" value="Follow" class="button button--follow">
               </form>';
             }
             //kijken of ze al bevriend zijn
@@ -58,7 +58,7 @@ $followed= $user->checkFollower();
                 //unfollow-btn als ze al bevriend zijn
               echo '<div class="form">
               <form action="" method="post">
-              <input type="submit" value="Unfollow" class=" button">
+              <input type="submit" value="Unfollow" class="button">
               </form>';
             }
             else{
@@ -106,6 +106,31 @@ $followed= $user->checkFollower();
     </div>
     -->
 </div> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+ $(".button--follow").on("click", function(e){
+
+        var followerId= <?php echo $_GET['user'];?>;
+          
+        //TO DATABASE
+        $.ajax({
+            method: "POST",
+            url: "follow.php",
+            data: { followerId: followerId}
+            })
+            .done(function( res ) {
+            if (res.status == "succes"){
+               /* var newComment= `<div><strong class="post__commentUser">Some Wan</strong><p class="post__commentText"> ${res.comment}</p></div>`;
+    */
+            $(".button--follow").val("unfollow");
+            $(".button--follow").removeClass("button--follow").addClass("button--unfollow");
+            console.log("succesvol verstuurd");
+            }  
+         });           
+           
+            e.preventDefault();
+    });
+</script>
 
 </body>
 </html>

@@ -198,14 +198,16 @@
         return $id;
     }
 
-    /*public function newFollower(){
+    public function newFollow(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id");
-        $statement->bindValue(":id", $this->getId());
+        $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id) VALUES (:userId, :followerId)");
+        $statement->bindValue(":userId", $this->loggedInUser());
+        $statement->bindValue(":followerId", $this->getId());
         $statement->execute();
         
+        
         return $statement;
-    }*/
+    }
 
     public function checkFollower(){
         $conn = Db::getInstance();
