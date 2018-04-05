@@ -139,7 +139,7 @@
         }
     
     else{
-        throw new Exception("Login failed");
+        throw new Exception("This username does not exist");
         return false;
     }
         
@@ -196,6 +196,25 @@
         $idArray = $this->getIdbyEmail();
         $id=$idArray->id;
         return $id;
+    }
+
+    /*public function newFollower(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id");
+        $statement->bindValue(":id", $this->getId());
+        $statement->execute();
+        
+        return $statement;
+    }*/
+
+    public function checkFollower(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2");
+        $statement->bindValue(":id", $this->loggedInUser());
+        $statement->bindValue(":id2", $this->getId());
+        $statement->execute();
+        $amount=$statement->rowCount();
+        return $amount;
     }
 }
 
