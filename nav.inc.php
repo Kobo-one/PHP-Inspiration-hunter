@@ -3,10 +3,12 @@
 /* SEARCH*/
 // if input field is empty do nothing
 if (!empty($_GET['search'])){  
-    try{
+    
+   
+    
+    try{   
     $post = new Post();
-    $post->setSearch($_GET['search']);
-
+    $searchId=$post->setSearch($_GET['search']);
     $collection= $post->getTag() ;
     }
     catch(Exception $e){

@@ -16,15 +16,16 @@ $collection= Post::getAll();
 </head>
 <body>
    <?php include_once("nav.inc.php"); ?>
-   <?php if (isset($error)):?>
-                <div class="error error__index">
+  
+    <?php if (isset($error)):?>
+                <div class="error error--index">
 					<p>
 						<?php echo $error ?>
 					</p>
 		        </div>
- <?php endif; ?>
-             
+    <?php endif; ?>       
    <div class="collection">
+   
 <!--BEGIN FOTO'S UIT DATABASE-->  
 <?php foreach($collection as $key =>$c): ?>    
       <div class="item clearfix">
@@ -47,7 +48,7 @@ $collection= Post::getAll();
                 <input type="submit" value="Load More" class=" button formLoad__button">
             </form>
         </div>  
-    
+   
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
