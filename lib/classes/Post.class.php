@@ -224,7 +224,7 @@ class Post{
  search convert to  lowercase. Search in entire db*/  
   public function getTag(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture,DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date FROM posts, users WHERE posts.post_user_id = users.id AND lower(posts.description) LIKE :search ");
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(users.username) LIKE :search ");
    
     $statement->bindValue(':search', $this->getSearch());  
     $statement->execute();
