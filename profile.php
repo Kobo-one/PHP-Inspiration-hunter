@@ -83,36 +83,14 @@ $followed= $user->checkFollower();
             </div>
         </div>
     <?php endforeach; ?>
-    <!--
-    <div class="item">
-    <a><img src="https://images.unsplash.com/photo-1515342870411-fdedf6a7c373?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3f4e0f48166791d198e5cc2d9a8419b6&auto=format&fit=crop&w=962&q=80" alt="image" class="picture_index"></a>
-    <div class="date">17/03/2018</div>
-    <div class="likes"># likes</div>
-    </div>
-    <div class="item">
-    <a><img src="https://images.unsplash.com/photo-1494797262163-102fae527c62?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0f06672063bb4021d19469dd62e5a1d9&auto=format&fit=crop&w=1000&q=80" alt="image" class="picture_index"></a>
-    <div class="date">17/03/2018</div>
-    <div class="likes"># likes</div>
-    </div>
-    <div class="item">
-    <a><img src="https://images.unsplash.com/photo-1514908162061-89747fab8b1e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fb9e2cc4a906ae0c1685939dcb4c82a3&auto=format&fit=crop&w=2100&q=80" alt="image" class="picture_index"></a>
-    <div class="date">17/03/2018</div>
-    <div class="likes"># likes</div>
-    </div>
-    <div class="item">
-    <a><img src="https://images.unsplash.com/photo-1512794751227-fefb9f898224?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ed90dfd9d5890d4edd8a9288d940572e&auto=format&fit=crop&w=2100&q=80" alt="image" class="picture_index"></a>
-    <div class="date">17/03/2018</div>
-    <div class="likes"># likes</div>
-    </div>
-    -->
+   
 </div> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
  $(".button--follow").on("click", function(e){
-
+        //id van de user die je wilt volgen meegeven
         var followerId= <?php echo $_GET['user'];?>;
-          
-        //TO DATABASE
+    
         $.ajax({
             method: "POST",
             url: "follow.php",
@@ -120,8 +98,7 @@ $followed= $user->checkFollower();
             })
             .done(function( res ) {
             if (res.status == "succes"){
-               /* var newComment= `<div><strong class="post__commentUser">Some Wan</strong><p class="post__commentText"> ${res.comment}</p></div>`;
-    */
+            //Insert statement OK ->button 'refreshen': nieuwe class en value
             $(".button--follow").val("unfollow");
             $(".button--follow").removeClass("button--follow").addClass("button--unfollow");
             console.log("succesvol verstuurd");

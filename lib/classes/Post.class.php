@@ -220,7 +220,7 @@ class Post{
    
   }
 
-/* search on tag or in description; select post:all and username +profilepic
+/* search on tag or on username; select post:all and username +profilepic
  search convert to  lowercase. Search in entire db*/  
   public function getTag(){
     $conn = Db::getInstance();

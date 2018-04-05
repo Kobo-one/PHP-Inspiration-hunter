@@ -3,11 +3,14 @@
   include_once("lib/classes/User.class.php");
    
     if(!empty($_POST)){
-        session_start();
+    //sessie starten zodat je email kan gebruiken in query   
+    session_start();
+    
     $followerId=$_POST['followerId'];
    
     $user = new User();
     $user->setId($followerId);
+    //insert nieuwe rij in 'followers'
     $user->newFollow();
     
  
@@ -16,7 +19,7 @@
         
     ];
     header('Content-Type: application/json');
-   echo json_encode($response);
+    echo json_encode($response);
     }
     
 ?>

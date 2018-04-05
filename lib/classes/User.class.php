@@ -198,6 +198,7 @@
         return $id;
     }
 
+    //wanneer op follow-btn wordt geklikt-> nieuwe rij in tabel followers
     public function newFollow(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id) VALUES (:userId, :followerId)");
@@ -208,7 +209,8 @@
         
         return $statement;
     }
-
+    
+    //kijken of je de user al volgt, geeft aantal rijen terug. Als het geen rijen terug geeft -> volg je de user nog niet
     public function checkFollower(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2");
