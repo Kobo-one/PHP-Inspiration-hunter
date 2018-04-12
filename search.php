@@ -19,7 +19,7 @@ if (!empty($_GET['search'])){
     
 }
 else {
-    
+    //als de search input leeg is -> blijf op dezelfde pagina
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 
 

@@ -2,6 +2,7 @@
 include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
 $collection= Post::getAll();
+$counter=0;
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,15 +41,18 @@ $collection= Post::getAll();
          <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
          </div>
       </div>
+      <?php $counter++; ?>
 <?php endforeach; ?>
 <!--EINDE-->
         </div>
+        <?php if($counter >= 20 ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">
             </form>
         </div>  
-   
+
+   <?php endif;?>
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
