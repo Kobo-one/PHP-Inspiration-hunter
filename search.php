@@ -4,19 +4,16 @@ include_once("lib/includes/checklogin.inc.php");
 
 if (!empty($_GET['search'])){  
     $input= $_GET['search'];
-   
     
     try{   
     $post = new Post();
     $searchId=$post->setSearch($input);
-    
-    $collection= $post->getTag() ;
-    
+    $collection= $post->getTag() ; 
     }
+
     catch(Exception $e){
         $error= $e->getMessage();
-    }  
-    
+    }   
 }
 else {
     //als de search input leeg is -> blijf op dezelfde pagina
@@ -38,7 +35,7 @@ else {
 </head>
 <body>
    <?php include_once("nav.inc.php"); ?>
-  
+<!-- als er geen zoekresultaten zijn -> error -->
     <?php if (isset($error)):?>
                 <div class="error error--index">
 					<p>
@@ -48,7 +45,7 @@ else {
     <?php endif; ?>       
    <div class="collection">
    
-<!--BEGIN FOTO'S UIT DATABASE-->  
+<!-- kijken of er zoekresultaten zijn (anders komt er een foutmelding onder de error)--> 
 <?php if(isset($collection)):?>
 <?php foreach($collection as $key =>$c): ?>    
       <div class="item clearfix">
@@ -64,18 +61,8 @@ else {
          </div>
       </div>
 <?php endforeach; ?>
-<!--EINDE-->
-        </div>
-      <div class="form">
-            <form action="" method="post" class="formLoad">
-                <input type="submit" value="Load More" class=" button formLoad__button">
-            </form>
-        </div>  
 <?php endif; ?>   
- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="lib/js/loadMore.js"></script>
 
 </body>
 </html>

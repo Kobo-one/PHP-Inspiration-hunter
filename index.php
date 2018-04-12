@@ -45,6 +45,7 @@ $counter=0;
 <?php endforeach; ?>
 <!--EINDE-->
         </div>
+        <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
         <?php if($counter >= 20 ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
