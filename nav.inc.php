@@ -2,20 +2,22 @@
 
 /* SEARCH*/
 // if input field is empty do nothing
-if (!empty($_GET['search'])){  
-    
+/*if (!empty($_GET['search'])){  
+    $input= $_GET['search'];
    
     
     try{   
     $post = new Post();
-    $searchId=$post->setSearch($_GET['search']);
+    $searchId=$post->setSearch($input);
+    
     $collection= $post->getTag() ;
     
     }
     catch(Exception $e){
         $error= $e->getMessage();
     }  
-};
+    
+};*/
 
 ?><nav class="navbar">
     <a href="index.php">
@@ -34,7 +36,7 @@ if (!empty($_GET['search'])){
     <a href="upload.php">Upload</a>
     <a href="profile.php">Profile</a>
     <a href="logout.php">Logout</a>
-    <form action="" method="get">
+    <form action="search.php" method="get">
         <input type="text" name="search" id="searchfield" placeholder="Search">
     </form>
 </nav>
