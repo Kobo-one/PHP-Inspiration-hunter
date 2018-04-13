@@ -1,6 +1,6 @@
 <?php
 include_once("lib/classes/Post.class.php");
-
+include_once("lib/includes/functions.inc.php");
 include_once("lib/includes/checklogin.inc.php");
 
 $post = new Post();
@@ -35,7 +35,7 @@ $comments=$post->getCommentsPost();
             <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
          
             <div class="item_text feed_flex">
-                <div class="date"><?php $collection[0]['created'] ?></div>
+                <div class="date"><?php echo timeAgo($collection[0]['created']) ?></div>
                 <div class="item_description"><?php echo $collection[0]['description'];?></div>
                 <div class="likes"># likes</div>
                     <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>

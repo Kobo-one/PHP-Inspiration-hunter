@@ -2,6 +2,8 @@
 include_once("lib/classes/User.class.php");
 include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
+include_once("lib/includes/functions.inc.php");
+
 
 $post = new Post();
 $user = new User();
@@ -77,7 +79,7 @@ $followed= $user->checkFollower();
             
             <div id="detail_photo_text">
             
-            <div class="date"><?php echo $c['created']?></div>
+            <div class="date"><?php echo timeAgo($c['created'])?></div>
             <div class="likes">Likes</div>
             
             </div>
