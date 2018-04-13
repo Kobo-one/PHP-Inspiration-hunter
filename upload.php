@@ -1,49 +1,45 @@
 <?php 
+    include_once("lib/classes/Image.class.php");
     include_once("lib/classes/Post.class.php");
     include_once("lib/includes/checklogin.inc.php");
-    include_once("lib/classes/Image.class.php");
     
-    if( !empty($_POST) ){
+    
+if( !empty($_POST) ){
+    //if submit btn is clicked
+    if(isset($_POST['submit'])){
+        //if image is chosen
+        try{
         if(isset($_FILES['image'])){
-                $errors = array();
-                $image = new Image();
-                $image->setFileName($_FILES['image']['name']);
-                $image->setFileSize($_FILES['image']['size']);
-                $image->setFileTmp($_FILES['image']['tmp_name']);
-                $image->setFileType($_FILES['image']['type']);
-                $image->setFileDir("images/".$_FILES['image']['name']);
-                $parts = explode('.',$_FILES['image']['name']);
-                $fileExt = strtolower($parts[count($parts)-1]);
-                $expensions= array("jpeg","jpg","png");
+            
+            //make new image & set variables
+            $image = new Image();
+            $image->setFileName($_FILES['image']['name']);
+            $image->setFileSize($_FILES['image']['size']);
+            $image->setFileTmp($_FILES['image']['tmp_name']);
+            $image->setFileType($_FILES['image']['type']);
+            $image->setFileDir("images/".$_FILES['image']['name']);
+            //$image->setExtParts(explode('.',$_FILES['image']['name']));
+            $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
 
-                if(in_array($fileExt,$expensions)=== false){
-                    $errors[]="please choose a JPEG or PNG image.";
+                //upload image & save on database
+                if( move_uploaded_file($fileTmp,$fileDir)){
+                    $post = new Post();
+                    $post->setImage( $fileDir );
+                    $post->setDescription( $_POST['description']);
+                    $post->createPost();
                 }
-
-                if($fileSize > 2097152){
-                    //$image->compress_image($fileTmp, $fileDir, 80);
-                    $errors[]='Image is bigger than 2MB';
-
-                }
+                //after submitted, got to...
+                header("Location: profile.php");
         }
-        //if submit btn is clicked
-        if(isset($_POST['submit'])){
-                 if(empty($errors)==true){
-                    if( move_uploaded_file($fileTmp,$fileDir)){
-                        $post = new Post();
-                        $post->setImage( $fileDir );
-                        $post->setDescription( $_POST['description']);
-                        $post->createPost();
-                    }
-                    //na submit doorverwijzen naar profile.php
-                    header("Location: profile.php");
-                }
-                else{
-                print_r($errors);
-                }
-            }
         }
+        catch(Exception $e){
+            $error= $e->getMessage();
+        }
+    }
+}
 
+
+    
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +65,13 @@
                 <form action="" method="post" enctype="multipart/form-data" id="uploadForm">
                 <div class="preview">
                 <p id="no_image">No image selected for upload</p>
-                </div>  
+                </div>
+                <!-- Errors geven ivm foto-->
+                <?php if(isset($error)): ?>
+                		<div class="error">
+                    		<p><?php echo $error; ?></p>
+                		</div>
+                <?php endif; ?>  
                 
                 <div class="formfield" id="first_input">
                     <label for="image_upload" class="button_upload" id="choose_image">Choose image</label>
