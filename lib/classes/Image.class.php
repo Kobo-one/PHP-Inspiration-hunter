@@ -80,6 +80,23 @@
     {
         return $this->fileExt;
     }
+    
+        //compress uploaded image
+    function compressImage($fileDir, $imageCompress){
+        $info = getimagesize($fileDir);
+            
+        if ($info['mime'] == 'image/jpeg'){
+            $fileDir = imagecreatefromjpeg($fileDir);
+            imagejpeg($fileDir, $imageCompress, 75);
+            }
+
+            elseif ($info['mime'] == 'image/png'){
+            $fileDir = imagecreatefrompng($fileDir);
+            imagepng($fileDir, $imageCompress, 6);
+            }
+
+            return $imageCompress;
+    }
         
     }
 

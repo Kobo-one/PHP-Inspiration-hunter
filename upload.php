@@ -23,16 +23,22 @@ if( !empty($_POST) ){
             //get variables to upload and save image on database
             $fileTmp = $image->getFileTmp();
             $fileDir = $image->getFileDir();
+            $fileName = $image->getFileName();
             
             //upload image & save on database
             if( move_uploaded_file($fileTmp, $fileDir) ){
+                
+                $imageDestination = "images/"."cp-".$fileName;
+                $compImage = $image->compressImage($fileDir, $imageDestination);
+                
                 $post = new Post();
-                $post->setImage( $fileDir );
+                $post->setImage( $compImage );
                 $post->setDescription( $_POST['description']);
                 $post->createPost();
             }
-            //after submitted, got to...
+            //after submitted, go to...
             header("Location: profile.php");
+
         }
         }
         catch(Exception $e){
