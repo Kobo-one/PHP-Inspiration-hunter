@@ -20,18 +20,19 @@ if( !empty($_POST) ){
             $image->setFileDir("images/".$_FILES['image']['name']);
             $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
 
-                //get variables to upload and save image on database
+            //get variables to upload and save image on database
             $fileTmp = $image->getFileTmp();
             $fileDir = $image->getFileDir();
-                //upload image & save on database
-                if( move_uploaded_file($fileTmp, $fileDir) ){
-                    $post = new Post();
-                    $post->setImage( $fileDir );
-                    $post->setDescription( $_POST['description']);
-                    $post->createPost();
-                }
-                //after submitted, got to...
-                header("Location: profile.php");
+            
+            //upload image & save on database
+            if( move_uploaded_file($fileTmp, $fileDir) ){
+                $post = new Post();
+                $post->setImage( $fileDir );
+                $post->setDescription( $_POST['description']);
+                $post->createPost();
+            }
+            //after submitted, got to...
+            header("Location: profile.php");
         }
         }
         catch(Exception $e){
