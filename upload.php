@@ -18,11 +18,13 @@ if( !empty($_POST) ){
             $image->setFileTmp($_FILES['image']['tmp_name']);
             $image->setFileType($_FILES['image']['type']);
             $image->setFileDir("images/".$_FILES['image']['name']);
-            //$image->setExtParts(explode('.',$_FILES['image']['name']));
             $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
 
+                //get variables to upload and save image on database
+            $fileTmp = $image->getFileTmp();
+            $fileDir = $image->getFileDir();
                 //upload image & save on database
-                if( move_uploaded_file($fileTmp,$fileDir)){
+                if( move_uploaded_file($fileTmp, $fileDir) ){
                     $post = new Post();
                     $post->setImage( $fileDir );
                     $post->setDescription( $_POST['description']);

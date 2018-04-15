@@ -10,8 +10,6 @@
         private $extParts;
         private $fileExt;
         
-        
-        
     /*Setters*/
         
     public function setFileName($fileName){
@@ -39,11 +37,6 @@
         
     public function setFileDir($fileDir){
             $this->fileDir = $fileDir;
-            return $this;
-    }
-        
-    public function setExtParts($extParts){
-            $this->extParts = $extParts;
             return $this;
     }
         
@@ -83,29 +76,9 @@
         return $this->fileDir;
     }
         
-    public function getExtParts()
-    {
-        return $this->extParts;
-    }
-        
     public function getFileExt()
     {
         return $this->fileExt;
-    }
-        
-    function compress_image($source_url, $destination_url, $quality){
-        $info = getimagesize($source_url);
-            
-        if ($info['mime'] == 'image/jpeg'){
-            $image = imagecreatefromjpeg($source_url);
-            }
-
-            elseif ($info['mime'] == 'image/png'){
-            $image = imagecreatefrompng($source_url);
-            }
-
-            imagejpeg($image, $destination_url, $quality);
-            return $destination_url;
     }
         
     }
