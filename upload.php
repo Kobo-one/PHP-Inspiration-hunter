@@ -22,11 +22,18 @@
             //get variables to upload and save image on database
             $fileTmp = $image->getFileTmp();
             $fileDir = $image->getFileDir();
+            $fileName = $image->getFileName();    
             
             //upload image & save on database
             if( move_uploaded_file($fileTmp, $fileDir) ){
+                
+                //compress image function
+                $imageDestination = "images/"."cp-".$fileName;
+                $compImage = $image->compressImage($fileDir, $imageDestination);
+                
+                //create new post
                 $post = new Post();
-                $post->setImage( $fileDir );
+                $post->setImage( $compImage );
                 $post->setDescription( $_POST['description']);
                 $post->createPost();
             }
