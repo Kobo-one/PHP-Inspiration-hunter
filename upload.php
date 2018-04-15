@@ -1,46 +1,43 @@
 <?php 
+    include_once("lib/classes/Image.class.php");
     include_once("lib/classes/Post.class.php");
     include_once("lib/includes/checklogin.inc.php");
     
     if( !empty($_POST) ){
         //if submit btn is clicked
         if(isset($_POST['submit'])){
-          
+        //if image is chosen
+            try{
             if(isset($_FILES['image'])){
-                $errors = array();
-                $file_name = $_FILES['image']['name'];
-                $file_size = $_FILES['image']['size'];
-                $file_tmp = $_FILES['image']['tmp_name'];
-                $file_type=$_FILES['image']['type'];
-                $file_dir="images/".$file_name;
-                $parts = explode('.',$file_name);
-                $file_ext=strtolower($parts[count($parts)-1]);
+            
+            //make new image & set variables
+            $image = new Image();
+            $image->setFileName($_FILES['image']['name']);
+            $image->setFileSize($_FILES['image']['size']);
+            $image->setFileTmp($_FILES['image']['tmp_name']);
+            $image->setFileType($_FILES['image']['type']);
+            $image->setFileDir("images/".$_FILES['image']['name']);
+            $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
 
-                
-                $expensions= array("jpeg","jpg","png");
-
-                if(in_array($file_ext,$expensions)=== false){
-                    $errors[]="please choose a JPEG or PNG image.";
-                }
-
-                if($file_size > 2097152){
-                    $errors[]='Image is bigger than 2MB';
-                }
-
-                if(empty($errors)==true){
-                    if( move_uploaded_file($file_tmp,$file_dir)){
-                        $post = new Post();
-                        $post->setImage( $file_dir );
-                        $post->setDescription( $_POST['description']);
-                        $post->createPost();
-                    }
-                    //na submit doorverwijzen naar profile.php
-                    header("Location: profile.php");
-                }
-                else{
-                print_r($errors);
-                }
+            //get variables to upload and save image on database
+            $fileTmp = $image->getFileTmp();
+            $fileDir = $image->getFileDir();
+            
+            //upload image & save on database
+            if( move_uploaded_file($fileTmp, $fileDir) ){
+                $post = new Post();
+                $post->setImage( $fileDir );
+                $post->setDescription( $_POST['description']);
+                $post->createPost();
             }
+            //after submitted, go to...
+            header("Location: profile.php");
+        }
+        }
+        catch(Exception $e){
+            $error= $e->getMessage();
+        }
+            
         }
     }
 ?><!DOCTYPE html>
@@ -69,6 +66,13 @@
                 <div class="preview">
                 <p id="no_image">No image selected for upload</p>
                 </div>  
+                
+                <!-- Errors geven ivm foto-->
+                <?php if(isset($error)): ?>
+                		<div class="error">
+                    		<p><?php echo $error; ?></p>
+                		</div>
+                <?php endif; ?>
                 
                 <div class="formfield" id="first_input">
                     <label for="image_upload" class="button_upload" id="choose_image">Choose image</label>

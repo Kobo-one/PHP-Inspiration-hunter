@@ -1,5 +1,6 @@
 <?php
 include_once("Db.class.php");
+include_once("Image.class.php");
 
 class Post{
   private $image;
