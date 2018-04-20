@@ -19,17 +19,20 @@ if( !empty($_POST) ){
             $image->setFileType($_FILES['image']['type']);
             $image->setFileDir("images/".$_FILES['image']['name']);
             $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
+            $image->setFileTime(date("mdY-H:i:s"));
 
             //get variables to upload and save image on database
             $fileTmp = $image->getFileTmp();
             $fileDir = $image->getFileDir();
             $fileName = $image->getFileName();
+            $fileTime = $image->getFileTime();
+            
             
             //upload image & save on database
             if( move_uploaded_file($fileTmp, $fileDir) ){
-                
-                $imageDestination = "images/"."cp-".$fileName;
-                $compImage = $image->compressImage($fileDir, $imageDestination);
+                //$imageDestination = "images/" . $fileTime . "_" . $fileName;
+                $imageDestination = "images/" . "cp_" . $fileName;
+                $compImage = $image->compressImage($fileDir, $imageDestination);                
                 
                 $post = new Post();
                 $post->setImage( $compImage );

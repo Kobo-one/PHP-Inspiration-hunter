@@ -9,6 +9,7 @@
         private $fileDir;
         private $extParts;
         private $fileExt;
+        private $fileTime;
         
     /*Setters*/
         
@@ -49,6 +50,11 @@
             return $this;
     }
         
+    public function setFileTime($fileTime){
+        $this->fileTime = $fileTime;
+        return $this;
+    }
+        
     /*Getters*/
     
     public function getFileName()
@@ -80,22 +86,40 @@
     {
         return $this->fileExt;
     }
+        
+    public function getFileTime()
+    {
+        return $this->fileTime;
+    }
     
         //compress uploaded image
     function compressImage($fileDir, $imageCompress){
         $info = getimagesize($fileDir);
-            
-        if ($info['mime'] == 'image/jpeg'){
-            $fileDir = imagecreatefromjpeg($fileDir);
-            imagejpeg($fileDir, $imageCompress, 75);
+        if($fileSize > 2097152){
+            if ($info['mime'] == 'image/jpeg'){
+                $fileDir = imagecreatefromjpeg($fileDir);
+                imagejpeg($fileDir, $imageCompress, 75);
             }
 
             elseif ($info['mime'] == 'image/png'){
             $fileDir = imagecreatefrompng($fileDir);
             imagepng($fileDir, $imageCompress, 6);
             }
-
             return $imageCompress;
+        } else {
+            if ($info['mime'] == 'image/jpeg'){
+                $fileDir = imagecreatefromjpeg($fileDir);
+                imagejpeg($fileDir, $imageCompress, 100);
+            }
+
+            elseif ($info['mime'] == 'image/png'){
+            $fileDir = imagecreatefrompng($fileDir);
+            imagepng($fileDir, $imageCompress, 9);
+            }
+            return $imageCompress;
+        }
+
+            
     }
         
     }
