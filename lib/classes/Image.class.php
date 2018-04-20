@@ -19,9 +19,9 @@
     }
         
     public function setFileSize($fileSize){
-        if( $fileSize > 2097152 ){
+        /*if( $fileSize > 2097152 ){
             throw new Exception("Image is bigger than 2MB.");
-        }
+        }*/
             $this->fileSize = $fileSize;
             return $this;
     }
@@ -95,30 +95,17 @@
         //compress uploaded image
     function compressImage($fileDir, $imageCompress){
         $info = getimagesize($fileDir);
-        if($fileSize > 2097152){
+        
             if ($info['mime'] == 'image/jpeg'){
                 $fileDir = imagecreatefromjpeg($fileDir);
-                imagejpeg($fileDir, $imageCompress, 75);
-            }
+                imagejpeg($fileDir, $imageCompress, 50);
+            } 
 
             elseif ($info['mime'] == 'image/png'){
-            $fileDir = imagecreatefrompng($fileDir);
-            imagepng($fileDir, $imageCompress, 6);
+                $fileDir = imagecreatefrompng($fileDir);
+                imagepng($fileDir, $imageCompress, 3);
             }
-            return $imageCompress;
-        } else {
-            if ($info['mime'] == 'image/jpeg'){
-                $fileDir = imagecreatefromjpeg($fileDir);
-                imagejpeg($fileDir, $imageCompress, 100);
-            }
-
-            elseif ($info['mime'] == 'image/png'){
-            $fileDir = imagecreatefrompng($fileDir);
-            imagepng($fileDir, $imageCompress, 9);
-            }
-            return $imageCompress;
-        }
-
+            return $imageCompress; 
             
     }
         
