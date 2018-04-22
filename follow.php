@@ -10,6 +10,7 @@
    
     $user = new User();
     $user->setId($followerId);
+    $user->setFollowStatus(1); //1staat voor normaal volgen, andere waardes zouden kunnen staan voor geblokkeerd of ontvolgt
     //insert nieuwe rij in 'followers'
     $user->newFollow();
     

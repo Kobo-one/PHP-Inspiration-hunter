@@ -9,6 +9,7 @@
         private $email;
         private $password;
         private $id;
+        private $followStatus;
         
     /*Setters*/
         
@@ -65,7 +66,13 @@
             return $this;
     }
         
+    public function setFollowStatus($followStatus)
+    {
+            $this->followStatus = $followStatus;
 
+            return $this;
+    }
+    
     /*Getters*/
     
     public function getFirstName()
@@ -97,6 +104,12 @@
     {
             return $this->id;
     }
+    
+    public function getFollowStatus()
+    {
+            return $this->followStatus;
+    }
+
         
     //register new user
     public function register() 
@@ -201,9 +214,10 @@
     //wanneer op follow-btn wordt geklikt-> nieuwe rij in tabel followers
     public function newFollow(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id) VALUES (:userId, :followerId)");
+        $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id,status) VALUES (:userId, :followerId, :status)");
         $statement->bindValue(":userId", $this->loggedInUser());
         $statement->bindValue(":followerId", $this->getId());
+        $statement->bindValue(":satus",$this->getFollowStatus());
         $statement->execute();
         
         
