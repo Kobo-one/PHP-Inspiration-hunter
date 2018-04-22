@@ -4,8 +4,7 @@ include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
 $collection= Post::getAll();
 $counter=0;
-
-
+$totalpost= count($collection);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +48,7 @@ $counter=0;
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
-        <?php if($counter >= 20 ):?>
+        <?php if($counter >= $totalpost ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">
