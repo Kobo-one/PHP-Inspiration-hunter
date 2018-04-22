@@ -22,14 +22,19 @@
             //get variables to upload and save image on database
             $fileTmp = $image->getFileTmp();
             $fileDir = $image->getFileDir();
-            $fileName = $image->getFileName();    
+            $fileName = $image->getFileName(); 
+            $fileSize = $image->getFileSize();
             
             //upload image & save on database
             if( move_uploaded_file($fileTmp, $fileDir) ){
                 
-                //compress image function
+                //compress image if bigger than 2MB
                 $imageDestination = "images/"."cp-".$fileName;
-                $compImage = $image->compressImage($fileDir, $imageDestination);
+                if($fileSize > 2097152){
+                    $compImage = $image->compressImage($fileDir, $imageDestination);
+                } else {
+                    $compImage = $fileDir;
+                }
                 
                 //create new post
                 $post = new Post();

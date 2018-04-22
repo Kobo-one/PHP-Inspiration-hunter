@@ -17,9 +17,9 @@
     }
         
     public function setFileSize($fileSize){
-        if( $fileSize > 2097152 ){
+        /*if( $fileSize > 2097152 ){
             throw new Exception("Image is bigger than 2MB.");
-        }
+        }*/
             $this->fileSize = $fileSize;
             return $this;
     }
@@ -86,12 +86,12 @@
             
         if ($info['mime'] == 'image/jpeg'){
             $fileDir = imagecreatefromjpeg($fileDir);
-            imagejpeg($fileDir, $imageCompress, 75);
+            imagejpeg($fileDir, $imageCompress, 50);
             }
 
             elseif ($info['mime'] == 'image/png'){
             $fileDir = imagecreatefrompng($fileDir);
-            imagepng($fileDir, $imageCompress, 6);
+            imagepng($fileDir, $imageCompress, 2);
             }
 
             return $imageCompress;
