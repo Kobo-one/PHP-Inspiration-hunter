@@ -3,8 +3,8 @@ include_once("lib/classes/User.class.php");
 include_once("lib/classes/Image.class.php");
 include_once("lib/includes/checklogin.inc.php");
 include_once("lib/helpers/Security.class.php");
-$user = new User();
 
+$user = new User();
 
 if(isset($_GET['user'])){
     $id=$_GET['user'];
@@ -62,21 +62,37 @@ if(!empty($_POST)){
         $user->editUser();
     }
     else if( $_POST['security'] ) {
-        $user->setEmail($_POST['email']);
 
-        if(!empty($_POST["password"])){
+        if(!empty($_POST["current_password"])){
+            $user->setEmail($searchedUser->email);
+            $user->setPassword($_POST["current_password"]);
             
-            $security = new Security();
-            $security->password = $_POST['password'];
-            $security->passwordConfirmation = $_POST['password_confirmation'];
-            
-            //register new user
-            if( $security->passwordsAreSecure() ){
-                echo 'yeet';
-                //$user->setPassword($_POST['email']);
-
+            if($user->login()){
+                    
+                $user->setEmail($_POST['email']);
+                
+                
+                if(!empty($_POST["password"])){
+                    
+                    $security = new Security();
+                    $security->password = $_POST['password'];
+                    $security->passwordConfirmation = $_POST['password_confirmation'];
+                    
+                    
+                    if( $security->passwordsAreSecure() ){
+                        $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                        $user->setPassword($hash);
+                        var_dump($hash);
+                    }
+                
+                }
+                else{
+                    $user->setPassword($searchedUser->password);
+                }
             }
-        
+
+            $user->editSecurity();
+
         }
 
 
@@ -147,7 +163,7 @@ if(!empty($_POST)){
         </div>
         
         <div class="formfield">
-			<label for="password" class="profile_label">Current Password*</label>
+			<label for="current_password" class="profile_label">Current Password*</label>
 			<input type="password" id="current_password" name="current_password" placeholder="Current password to confirm changes" autocomplete="new-password">
         </div>
 

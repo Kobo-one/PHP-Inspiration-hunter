@@ -259,10 +259,11 @@
         return $result;
     }
     
-    public function editEmail(){
+    public function editSecurity(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE users SET email = :email WHERE id = :id");
-        $statement->bindValue(":Email", $this->getEmail());
+        $statement = $conn->prepare("UPDATE users SET email = :email, password = :password WHERE id = :id");
+        $statement->bindValue(":email", $this->getEmail());
+        $statement->bindValue(":password", $this->getPassword());
         $statement->bindValue(":id", $this->loggedInUser());
         $result = $statement->execute();
         return $result;
