@@ -3,8 +3,8 @@ include_once("lib/includes/functions.inc.php");
 include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
 $collection= Post::getAll();
-$counter=0;
-$totalpost= count($collection);
+$postedpost = count($collection);
+$totalpost = Post::allPost()->rowCount();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,12 +43,11 @@ $totalpost= count($collection);
          <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
          </div>
       </div>
-      <?php $counter++; ?>
 <?php endforeach; ?>
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
-        <?php if($totalpost >= $counter  ):?>
+        <?php if($totalpost >= $postedpost  ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">

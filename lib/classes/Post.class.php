@@ -211,15 +211,21 @@ class Post{
     }
 
 /* select posts, date without seconds. show only posts from friends*/  
-  public static function getAll(){
+
+  public static function allPost(){
     $conn = Db::getInstance();
     /*$statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");*/
     $statement=$conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1))LIMIT 20");
     $statement->bindValue(':email', $_SESSION["username"]);  
     $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-   
-  }
+    return $statement;
+  }  
+
+  public static function getAll(){
+      $statement = Post::allPost();
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+    }
 
 /* search on tag or on username; select post:all and username +profilepic
  search convert to  lowercase. Search in entire db*/  
@@ -299,6 +305,8 @@ class Post{
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
+
+
 
  
 
