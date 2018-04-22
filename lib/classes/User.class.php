@@ -3,6 +3,7 @@
     include_once("Db.class.php");
 
     class User {
+        private $picture;
         private $firstName;
         private $lastName;
         private $userName;
@@ -72,6 +73,13 @@
 
             return $this;
     }
+
+    public function setPicture($picture)
+    {
+           $this->picture = $picture;
+
+           return $this;
+    }
     
     /*Getters*/
     
@@ -108,6 +116,11 @@
     public function getFollowStatus()
     {
             return $this->followStatus;
+    }
+
+    public function getPicture()
+    {
+             return $this->picture;
     }
 
         
@@ -234,6 +247,30 @@
         $amount=$statement->rowCount();
         return $amount;
     }
+    public function editUser(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, username = :username, picture = :picture WHERE id = :id");
+        $statement->bindValue(":firstname", $this->getFirstName());
+        $statement->bindValue(":lastname", $this->getLastName());
+        $statement->bindValue(":username", $this->getUserName());
+        $statement->bindValue(":picture", $this->getPicture());
+        $statement->bindValue(":id", $this->loggedInUser());
+        $statement->execute();
+        return ;
+    }
+    
+    public function editEmail(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE users SET email = :email = :username, picture = :picture WHERE id = :id");
+        $statement->bindValue(":firstname", $this->getFirstName());
+        $statement->bindValue(":lastname", $this->getLastName());
+        $statement->bindValue(":username", $this->getUserName());
+        $statement->bindValue(":picture", $this->getPicture());
+        $statement->bindValue(":id", $this->loggedInUser());
+        $statement->execute();
+        return ;
+    }
+
 }
 
 ?>

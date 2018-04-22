@@ -1,7 +1,7 @@
 <?php
 include_once("lib/classes/User.class.php");
+include_once("lib/classes/Image.class.php");
 include_once("lib/includes/checklogin.inc.php");
-
 $user = new User();
 
 
@@ -15,6 +15,65 @@ $user->setId($id);
 $searchedUser = $user->getDetails();
 $followed= $user->checkFollower();
 
+
+if(!empty($_POST)){
+
+    if( $_POST['usersettings'] ) {
+
+        $user->setFirstName($_POST['firstname']);
+        $user->setLastName($_POST['lastname']);
+        $user->setUserName($_POST['username']);
+        //enkel wanneer de standaard afbeelding aangepast is voeren we de image class uit, anders vullen we gewoon de voirge image in
+        if($_FILES['image']['size'] !== 0 && $_FILES['image']['error'] == 0){
+            //make new image & set variables
+            $image = new Image();
+            $image->setFileName($_FILES['image']['name']);
+            $image->setFileSize($_FILES['image']['size']);
+            $image->setFileTmp($_FILES['image']['tmp_name']);
+            $image->setFileType($_FILES['image']['type']);
+            $image->setFileDir("images/".$_FILES['image']['name']);
+            $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
+
+            //get variables to upload and save image on database
+            $fileTmp = $image->getFileTmp();
+            $fileDir = $image->getFileDir();
+            $fileName = $image->getFileName(); 
+            $fileSize = $image->getFileSize();
+            
+            //upload image & save on database
+            if( move_uploaded_file($fileTmp, $fileDir) ){
+                
+                //compress image if bigger than 2MB
+                $imageDestination = "images/"."cp-".$fileName;
+                if($fileSize > 2097152){
+                    $compImage = $image->compressImage($fileDir, $imageDestination);
+                } else {
+                    $compImage = $fileDir;
+                }
+                
+                $user->setPicture( $compImage );
+            }
+        }
+        else{
+            $user->setPicture($searchedUser->picture );
+        }
+
+        $user->editUser();
+    }
+    else if( $_POST['email'] ) {
+    
+      // Do stuff
+    
+    }
+    else if( $_POST['email'] ) {
+    
+        // Do stuff
+      
+    }
+
+
+}
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +83,7 @@ $followed= $user->checkFollower();
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="lib/js/script.js"></script>
+    <script src="lib/js/previewUpload.js"></script>
 	<title>Phomo | Profile settings</title>
 </head>
 <body>   
@@ -39,75 +98,58 @@ $followed= $user->checkFollower();
             <input type="file" name="image" id="image_upload" accept=".jpg, .jpeg, .png"  onchange="filePreview(this);">
         </div>	    
     
-		<div class="formfield invisible" id="submit_image"> 
-			<input type="submit" value="Change" class="button">	
-		</div>
-
-    </form>
-
-    <form action="" method="post" enctype="multipart/form-data">
 	    <div class="formfield">
 	        <label for="firstname" class="profile_label">Firstname</label>
-			<input type="text" id="firstname" name="firstname" placeholder="<?php echo $searchedUser->firstname ?>" onchange="showButtons(id);">
+			<input type="text" id="firstname" name="firstname" value="<?php echo $searchedUser->firstname ?>" onchange="showButtons(id);">
 		</div>
 
     
-    <form action="" method="post" enctype="multipart/form-data">
 	    <div class="formfield">
 	        <label for="lastname" class="profile_label">Lastname</label>
-			<input type="text" id="lastname" name="lastname" placeholder="<?php echo $searchedUser->lastname ?>" onchange="showButtons(id);">
+			<input type="text" id="lastname" name="lastname" value="<?php echo $searchedUser->lastname ?>" onchange="showButtons(id);">
 		</div>
 
-    
-		<div class="formfield invisible" id="submit_firstname">
-			<input type="submit" value="Change" class="button">	
-		</div>
-    
-    </form>
-
-    <form action="" method="post" enctype="multipart/form-data">
         <div class="formfield">
             <label for="username" class="profile_label">Username</label>
-			<input type="text" id="username" name="username" placeholder="<?php echo $searchedUser->username ?>">
+			<input type="text" id="username" name="username" value="<?php echo $searchedUser->username ?>">
         </div>
-
     
-		<div class="formfield invisible" id="submit_username">
-			<input type="submit" value="Change" class="button">	
+		<div class="formfield" id="submit">
+			<input type="submit" value="Change" name="usersettings" class="button">	
 		</div>
-    
     </form>
+    
+
+
+    <h1>Security settings</h1>
     <form action="" method="post" enctype="multipart/form-data">
 	    <div class="formfield">
 	        <label for="email" class="profile_label">E-mail</label>
-			<input type="text" id="email" name="email" placeholder="<?php echo $_SESSION['username']?>">
+			<input type="text" id="email" name="email" value="<?php echo $_SESSION['username']?>">
 		</div>
 
-    
-		<div class="formfield invisible" id="submit_email">
-			<input type="submit" value="Change" class="button">	
+            
+		<div class="formfield" id="submit">
+			<input type="submit" value="Change" name="email" class="button">	
 		</div>
     
     </form>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="formfield">
-			<label for="password" class="profile_label">Password</label>
+			<label for="password" class="profile_label">New Password</label>
 			<input type="password" id="password" name="password" placeholder="Change your password">
         </div>
 
-    
-    <form action="" method="post" enctype="multipart/form-data">
         <div class="formfield">
-            <label for="password_confirmation" class="profile_label">Password confirmation</label>
+            <label for="password_confirmation" class="profile_label">New Password confirmation</label>
             <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password">
         </div>
         
-		<div class="formfield invisible" id="submit_password">
-			<input type="submit" value="Change" class="button">	
+		<div class="formfield" id="submit">
+			<input type="submit" value="Change" name="password" class="button">	
 		</div>
-    
+        
     </form>
-
 </div>
 </body>
 </html>
