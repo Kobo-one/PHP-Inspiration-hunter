@@ -193,7 +193,7 @@ class Post{
    */ 
   public function setClick($click)
   {
-    $this->click = $click;
+    $this->click = $click *20;
     //HIER NOG MAAL 20 ;
 
     return $this;

@@ -48,7 +48,7 @@ $totalpost= count($collection);
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
-        <?php if($counter >= $totalpost ):?>
+        <?php if($totalpost >= $counter  ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">
