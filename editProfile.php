@@ -2,6 +2,7 @@
 include_once("lib/classes/User.class.php");
 include_once("lib/classes/Image.class.php");
 include_once("lib/includes/checklogin.inc.php");
+include_once("lib/helpers/Security.class.php");
 $user = new User();
 
 
@@ -9,7 +10,7 @@ if(isset($_GET['user'])){
     $id=$_GET['user'];
 }else{
     $id=$user->loggedinUser();
-}
+};
 
 $user->setId($id);
 $searchedUser = $user->getDetails();
@@ -18,7 +19,7 @@ $followed= $user->checkFollower();
 
 if(!empty($_POST)){
 
-    if( $_POST['usersettings'] ) {
+    if( $_POST['general'] ) {
 
         $user->setFirstName($_POST['firstname']);
         $user->setLastName($_POST['lastname']);
@@ -60,20 +61,27 @@ if(!empty($_POST)){
 
         $user->editUser();
     }
-    else if( $_POST['email'] ) {
-    
-      // Do stuff
-    
-    }
-    else if( $_POST['email'] ) {
-    
-        // Do stuff
-      
-    }
+    else if( $_POST['security'] ) {
+        $user->setEmail($_POST['email']);
+
+        if(!empty($_POST["password"])){
+            
+            $security = new Security();
+            $security->password = $_POST['password'];
+            $security->passwordConfirmation = $_POST['password_confirmation'];
+            
+            //register new user
+            if( $security->passwordsAreSecure() ){
+                echo 'yeet';
+                //$user->setPassword($_POST['email']);
+
+            }
+        
+        }
 
 
+    }
 }
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -115,7 +123,7 @@ if(!empty($_POST)){
         </div>
     
 		<div class="formfield" id="submit">
-			<input type="submit" value="Change" name="usersettings" class="button">	
+			<input type="submit" value="Change" name="general" class="button">	
 		</div>
     </form>
     
@@ -128,28 +136,39 @@ if(!empty($_POST)){
 			<input type="text" id="email" name="email" value="<?php echo $_SESSION['username']?>">
 		</div>
 
-            
-		<div class="formfield" id="submit">
-			<input type="submit" value="Change" name="email" class="button">	
-		</div>
-    
-    </form>
-    <form action="" method="post" enctype="multipart/form-data">
         <div class="formfield">
 			<label for="password" class="profile_label">New Password</label>
-			<input type="password" id="password" name="password" placeholder="Change your password">
+			<input type="password" id="password" name="password" placeholder="Change your password" autocomplete="new-password" onfocus="confirm(this)">
         </div>
 
-        <div class="formfield">
+        <div class="formfield invisible newpass">
             <label for="password_confirmation" class="profile_label">New Password confirmation</label>
-            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password">
+            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" autocomplete="new-password">
         </div>
         
+        <div class="formfield">
+			<label for="password" class="profile_label">Current Password*</label>
+			<input type="password" id="current_password" name="current_password" placeholder="Current password to confirm changes" autocomplete="new-password">
+        </div>
+
 		<div class="formfield" id="submit">
-			<input type="submit" value="Change" name="password" class="button">	
+			<input type="submit" value="Change" name="security" class="button">	
 		</div>
         
     </form>
 </div>
 </body>
+<script>
+    function confirm(x){
+        console.log("hey");
+        $(".newpass").slideDown();
+        $("#password").focusout(function(){
+            if($("#password").val().length === 0){
+                $(".newpass").slideUp();
+
+            };
+        });
+    };
+
+</script>
 </html>

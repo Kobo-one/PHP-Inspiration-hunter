@@ -255,20 +255,17 @@
         $statement->bindValue(":username", $this->getUserName());
         $statement->bindValue(":picture", $this->getPicture());
         $statement->bindValue(":id", $this->loggedInUser());
-        $statement->execute();
-        return ;
+        $result = $statement->execute();
+        return $result;
     }
     
     public function editEmail(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE users SET email = :email = :username, picture = :picture WHERE id = :id");
-        $statement->bindValue(":firstname", $this->getFirstName());
-        $statement->bindValue(":lastname", $this->getLastName());
-        $statement->bindValue(":username", $this->getUserName());
-        $statement->bindValue(":picture", $this->getPicture());
+        $statement = $conn->prepare("UPDATE users SET email = :email WHERE id = :id");
+        $statement->bindValue(":Email", $this->getEmail());
         $statement->bindValue(":id", $this->loggedInUser());
-        $statement->execute();
-        return ;
+        $result = $statement->execute();
+        return $result;
     }
 
 }
