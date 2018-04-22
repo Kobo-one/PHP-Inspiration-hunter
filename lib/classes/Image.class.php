@@ -103,7 +103,7 @@
 
             elseif ($info['mime'] == 'image/png'){
                 $fileDir = imagecreatefrompng($fileDir);
-                imagepng($fileDir, $imageCompress, 3);
+                imagepng($fileDir, $imageCompress, 2);
             }
             return $imageCompress; 
             

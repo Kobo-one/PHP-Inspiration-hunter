@@ -25,6 +25,7 @@ if( !empty($_POST) ){
             $fileTmp = $image->getFileTmp();
             $fileDir = $image->getFileDir();
             $fileName = $image->getFileName();
+            $fileSize = $image->getFileSize();
             $fileTime = $image->getFileTime();
             
             
@@ -32,8 +33,13 @@ if( !empty($_POST) ){
             if( move_uploaded_file($fileTmp, $fileDir) ){
                 //$imageDestination = "images/" . $fileTime . "_" . $fileName;
                 $imageDestination = "images/" . "cp_" . $fileName;
-                $compImage = $image->compressImage($fileDir, $imageDestination);                
-                
+                if($fileSize > 2097152){
+                    $compImage = $image->compressImage($fileDir, $imageDestination);
+                }
+                else {
+                    $compImage = $fileDir;
+                }
+                                
                 $post = new Post();
                 $post->setImage( $compImage );
                 $post->setDescription( $_POST['description']);
