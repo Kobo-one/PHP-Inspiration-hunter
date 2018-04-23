@@ -46,9 +46,15 @@ $comments=$post->getCommentsPost();
         <div class="comment">
             <div class="comment_username"><?php echo $c['username']?></div>
             <p><?php echo $c['comment']?></p>
-        </div>         
-	
+        </div>         	
 <?php endforeach; ?>
+
+        <div class="new_comment">
+		    <form action="" method="post">
+			    <textarea name="post" id="comment"></textarea>
+			    <input type="submit" name="btnAddComment" id="btnAddComment" class="button" value="Add comment" />
+		    </form>
+        </div>
     </div>
 </div>
 </body>
