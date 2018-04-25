@@ -1,10 +1,24 @@
 <?php
 include_once("lib/includes/functions.inc.php");
 include_once("lib/classes/Post.class.php");
+include_once("lib/classes/User.class.php");
 include_once("lib/includes/checklogin.inc.php");
-$collection= Post::getAll();
+
+$user = new User();
+$id=$user->loggedinUser();
+$user->setId($id);
+
+/* als je nog geen vrienden hebt-> toon posts met meeste likes*/
+if($user->getFollowersAmount()==0){   
+    $collection= Post::getTopPosts();
+} 
+/* als je al vrienden hebt -> toon posts van je vrienden */
+else{
+    $collection= Post::getAll();
+}
 $postedpost = count($collection);
 $totalpost = Post::allPost()->rowCount();
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>

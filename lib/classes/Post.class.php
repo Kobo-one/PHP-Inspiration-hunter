@@ -210,6 +210,36 @@ class Post{
     return $image_upload;
     }
 
+/* select top users with most followers*/
+public static function countTopPosts(){
+  $conn = Db::getInstance();
+  $statement = $conn->prepare("select post_id, count(*) as c from likes group by post_id order by c desc LIMIT 3");
+  $statement->execute();
+  $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+  $array=[];
+  foreach($result as $r){
+    array_push($array,intval($r['post_id']));
+    var_dump(intval($r['post_id']));
+  }
+  var_dump($array);
+  return $array;
+}
+
+public static function getTopPosts(){
+  $array= Post::countTopPosts();
+  $conn = Db::getInstance();
+  $in = '(' . implode(',', $array) .')';
+  var_dump($in);
+  $statement = $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id IN $in LIMIT 20 ");
+  $statement->execute();
+  $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+ 
+  return $result;
+}
+
+
+ 
+
 /* select posts, date without seconds. show only posts from friends*/  
 
   public static function allPost(){
