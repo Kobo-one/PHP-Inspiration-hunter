@@ -19,8 +19,12 @@ $post->setIdG($id);
 $collection= $post->getDetailsProfile();
 
 $user->setId($id);
+
 $searchedUser = $user->getDetails();
+
 $followed= $user->checkFollower();
+
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -48,7 +52,7 @@ $followed= $user->checkFollower();
               <?php
               
               //kijken of we op onze eigen pagina zijn of niet
-              if(isset($_GET['user']) && $user->loggedinUser()!==$_GET['user'] && $followed<1 ){
+              if(isset($_GET['user']) && $user->loggedinUser()!==$_GET['user'] && $followed==0 ){
                 // follow-btn wanneer niet op eigen profielpagina en je nog niet bevriend bent
               echo '<div class="form">
               <form action="" method="post">
@@ -56,7 +60,7 @@ $followed= $user->checkFollower();
               </form>';
             }
             //kijken of ze al bevriend zijn
-            else if($followed>0){
+            else if($followed>=1){
                 //unfollow-btn als ze al bevriend zijn
               echo '<div class="form">
               <form action="" method="post">

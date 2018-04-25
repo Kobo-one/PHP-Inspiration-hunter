@@ -240,7 +240,7 @@
     //kijken of je de user al volgt, geeft aantal rijen terug. Als het geen rijen terug geeft -> volg je de user nog niet
     public function checkFollower(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2");
+        $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2 AND status=1");
         $statement->bindValue(":id", $this->loggedInUser());
         $statement->bindValue(":id2", $this->getId());
         $statement->execute();
