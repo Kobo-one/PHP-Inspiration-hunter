@@ -1,6 +1,7 @@
 <?php
 
     include_once("Db.class.php");
+    include_once("Exceptions.class.php");
 
     class User {
         private $picture;
@@ -17,7 +18,7 @@
     public function setFirstName($firstName)
     {
         if(empty($firstName)){
-            throw new Exception("Please fill in your firstname.");
+            throw new FirstNameException("Please fill in your firstname.");
         }
             $this->firstName = $firstName;
             return $this;
@@ -26,7 +27,7 @@
     public function setLastName($lastName)
     {
         if(empty($lastName)){
-            throw new Exception("Please fill in your lastname.");
+            throw new LastNameException("Please fill in your lastname.");
         }
         $this->lastName = $lastName;
         return $this;
@@ -35,7 +36,7 @@
     public function setUserName($userName)
     {
         if(empty($userName)){
-            throw new Exception("Please fill in a username.");
+            throw new UserNameException("Please fill in a username.");
         }
         $this->userName = $userName;
         return $this;
@@ -45,7 +46,7 @@
     public function setEmail($email)
     {
       if(empty($email)){
-            throw new Exception("Please fill in your e-mail.");
+            throw new EmailException("Please fill in your e-mail.");
       }
         $this->email = $email;
         return $this;
@@ -54,7 +55,7 @@
     public function setPassword($password)
     {
         if(empty($password)){
-            throw new Exception("Please fill in a password.");
+            throw new PasswordException("Please fill in a password.");
         }
         $this->password = $password;
         return $this;
