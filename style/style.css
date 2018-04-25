@@ -77,6 +77,19 @@ input[type=text], input[type=password], .formfield textarea{
     margin-top: 80px;
     margin-bottom: -30px;
 }
+.noFriends{
+    color:#333333;
+    font-size:12px;
+    margin-bottom:10px;
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: -30px;
+}
+.noFriends p{
+    padding:5px;
+    background-color:#b3f3fe;  
+}
+
 
 /*-----------------------------------------*/
 /* Index */

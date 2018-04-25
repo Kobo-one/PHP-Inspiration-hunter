@@ -213,7 +213,7 @@ class Post{
 /* select top users with most followers*/
 public static function countTopPosts(){
   $conn = Db::getInstance();
-  $statement = $conn->prepare("select post_id, count(*) as c from likes group by post_id order by c desc LIMIT 3");
+  $statement = $conn->prepare("select post_id, count(*) as c from likes group by post_id order by c desc LIMIT 20");
   $statement->execute();
   $result=$statement->fetchAll(PDO::FETCH_ASSOC);
   $array=[];
