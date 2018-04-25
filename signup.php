@@ -16,6 +16,7 @@
         
         //register new user
         if( $security->passwordsAreSecure() ){
+            $username = $_POST['email'];
         $user = new User(); 
         $user->setFirstName( $_POST['firstname']);
         $user->setLastName( $_POST['lastname']);
