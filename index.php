@@ -1,10 +1,26 @@
 <?php
 include_once("lib/includes/functions.inc.php");
 include_once("lib/classes/Post.class.php");
+include_once("lib/classes/User.class.php");
 include_once("lib/includes/checklogin.inc.php");
-$collection= Post::getAll();
+
+$user = new User();
+$id=$user->loggedinUser();
+$user->setId($id);
+
+/* als je nog geen vrienden hebt-> toon posts met meeste likes
+getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog niet*/
+if($user->getFollowersAmount()==0){   
+    $collection= Post::getTopPosts();
+    $friendless="";
+} 
+/* als je al vrienden hebt -> toon posts van je vrienden */
+else{
+    $collection= Post::getAll();
+}
 $postedpost = count($collection);
 $totalpost = Post::allPost()->rowCount();
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +42,13 @@ $totalpost = Post::allPost()->rowCount();
 						<?php echo $error ?>
 					</p>
 		        </div>
-    <?php endif; ?>       
+    <?php endif; ?>  
+    <?php if (isset($friendless)):?>
+                <div class="noFriends">
+                    <h2> It appears you don't have any friends yet!</h2>
+                    <p>Search friends on their name or your interests. Or check out what other awesomeness people made below!</p>
+                </div>
+    <?php endif; ?>     
    <div class="collection">
    
 <!--BEGIN FOTO'S UIT DATABASE-->  
