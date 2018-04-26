@@ -21,10 +21,7 @@ $collection= $post->getDetailsProfile();
 $user->setId($id);
 
 $searchedUser = $user->getDetails();
-
 $followed= $user->checkFollower();
-
-
 
 ?><!DOCTYPE html>
 <html lang="en">
