@@ -36,10 +36,11 @@ $comments=$post->getCommentsPost();
          
             <div class="item_text feed_flex">
                 <div class="date"><?php echo timeAgo($collection[0]['created']) ?></div>
-                <div class="item_description"><?php echo $collection[0]['description'];?></div>
+                
                 <div class="likes"># likes</div>
-                    <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
+                <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>          
             </div>
+            <div class="item_description"><?php echo $collection[0]['description'];?></div>
         </div>
          <div class="comments">
 <?php foreach($comments as $key =>$c): ?>          
