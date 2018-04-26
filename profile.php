@@ -23,6 +23,8 @@ $user->setId($id);
 $searchedUser = $user->getDetails();
 
 $followed= $user->checkFollower();
+$count=$followed->rowCount();
+
 
 
 
@@ -52,7 +54,7 @@ $followed= $user->checkFollower();
               <?php
               
               //kijken of we op onze eigen pagina zijn of niet
-              if(isset($_GET['user']) && $user->loggedinUser()!==$_GET['user'] && $followed==0 ){
+              if(isset($_GET['user']) && $user->loggedinUser()!==$_GET['user'] && $count==0 ){
                 // follow-btn wanneer niet op eigen profielpagina en je nog niet bevriend bent
               echo '<div class="form">
               <form action="" method="post">
@@ -60,11 +62,11 @@ $followed= $user->checkFollower();
               </form>';
             }
             //kijken of ze al bevriend zijn
-            else if($followed>=1){
+            else if($count>=1){
                 //unfollow-btn als ze al bevriend zijn
               echo '<div class="form">
               <form action="" method="post">
-              <input type="submit" value="Unfollow" class="button">
+              <input type="submit" value="Unfollow" class="button button--unfollow">
               </form>';
             }
             else{
@@ -95,11 +97,11 @@ $followed= $user->checkFollower();
 <script>
  $(".button--follow").on("click", function(e){
         //id van de user die je wilt volgen meegeven
-        var followerId= <?php echo $_GET['user'];?>;
     
+        var followerId= <?php echo $_GET['user'];?>;
         $.ajax({
             method: "POST",
-            url: "follow.php",
+            url: "./follow.php",
             data: { followerId: followerId}
             })
             .done(function( res ) {
@@ -113,6 +115,30 @@ $followed= $user->checkFollower();
            
             e.preventDefault();
     });
+
+  $(".button--unfollow").on("click", function(e){
+        //id van de user die je wilt volgen meegeven
+        
+        var followerId= <?php echo $_GET['user'];?>;
+        var active=0;
+        $.ajax({
+            method: "POST",
+            url: "./follow.php",
+            data: { followerId: followerId, active:active}
+            })
+            .done(function( res ) {
+            if (res.status == "succes"){
+            //Insert statement OK ->button 'refreshen': nieuwe class en value
+            
+            $(".button--unfollow").val("follow");
+            $(".button--unfollow").removeClass("button--unfollow").addClass("button--follow");
+            console.log("succesvol verstuurd");
+            }  
+         });           
+           
+            e.preventDefault();
+    });   
+    
 </script>
 
 </body>

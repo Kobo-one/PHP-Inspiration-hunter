@@ -1,6 +1,6 @@
 <?php
 
-    include_once("Db.class.php");
+    require_once("Db.class.php");
     include_once("Exceptions.class.php");
 
     class User {
@@ -228,16 +228,27 @@
     //wanneer op follow-btn wordt geklikt-> nieuwe rij in tabel followers
     public function newFollow(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id,status) VALUES (:userId, :followerId, :status)");
+        $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id,status) VALUES (:userId, :followerId, 1)");
         $statement->bindValue(":userId", $this->loggedInUser());
         $statement->bindValue(":followerId", $this->getId());
-        $statement->bindValue(":satus",$this->getFollowStatus());
         $statement->execute();
         
+        return $statement;
+    }
+
+    public function editFollow(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE followers SET status = :status WHERE user_id=:userId AND follower_id=:followerId ");
+        $statement->bindValue(":userId", $this->loggedInUser());
+        $statement->bindValue(":followerId", $this->getId());
+        $statement->bindValue(":status",$this->getFollowStatus(),PDO::PARAM_INT);
+        $statement->execute();
         
         return $statement;
     }
     
+    
+
     //kijken of je de user al volgt, geeft aantal rijen terug. Als het geen rijen terug geeft -> volg je de user nog niet
     public function checkFollower(){
         $conn = Db::getInstance();
@@ -245,9 +256,10 @@
         $statement->bindValue(":id", $this->loggedInUser());
         $statement->bindValue(":id2", $this->getId());
         $statement->execute();
-        $amount=$statement->rowCount();
-        return $amount;
+       
+        return $statement;
     }
+    
     public function editUser(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, username = :username, picture = :picture WHERE id = :id");
