@@ -31,7 +31,7 @@
                 //compress image if bigger than 2MB
                 $imageDestination = "uploads/"."cp-".$fileName;
                 if($fileSize > 2097152){
-                    $compImage = $image->compressImage($fileDir, $imageDestination);
+                    $compImage = $image->compressImage($imageDestination);
                 } else {
                     $compImage = $fileDir;
                 }
