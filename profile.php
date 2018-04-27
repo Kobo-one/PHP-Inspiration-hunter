@@ -22,8 +22,8 @@ $user->setId($id);
 
 $searchedUser = $user->getDetails();
 
-$followed= $user->checkFollower();
-$count=$followed->rowCount();
+
+$count=$user->checkFollower();
 
 
 
@@ -99,17 +99,19 @@ $count=$followed->rowCount();
         //id van de user die je wilt volgen meegeven
     
         var followerId= <?php echo $_GET['user'];?>;
+        
         $.ajax({
             method: "POST",
             url: "./follow.php",
-            data: { followerId: followerId}
+            data: { followerId: followerId, active:1}
             })
             .done(function( res ) {
             if (res.status == "succes"){
             //Insert statement OK ->button 'refreshen': nieuwe class en value
-            $(".button--follow").val("unfollow");
+            console.log("follow succesvol verstuurd");
+           
             $(".button--follow").removeClass("button--follow").addClass("button--unfollow");
-            console.log("succesvol verstuurd");
+            $(".button--unfollow").val("unfollow");
             }  
          });           
            
@@ -124,15 +126,16 @@ $count=$followed->rowCount();
         $.ajax({
             method: "POST",
             url: "./follow.php",
-            data: { followerId: followerId, active:active}
+            data: { followerId: followerId, active:0}
             })
             .done(function( res ) {
             if (res.status == "succes"){
             //Insert statement OK ->button 'refreshen': nieuwe class en value
             
-            $(".button--unfollow").val("follow");
+            console.log("unfollow succesvol verstuurd");
             $(".button--unfollow").removeClass("button--unfollow").addClass("button--follow");
-            console.log("succesvol verstuurd");
+            $(".button--follow").val("follow");
+            
             }  
          });           
            

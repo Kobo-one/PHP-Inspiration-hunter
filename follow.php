@@ -8,19 +8,28 @@ include_once("./lib/classes/User.class.php");
     session_start();
     
     $followerId=$_POST['followerId'];
-    //$active= $_POST['active'];
+    
 
     $user = new User();
     $user->setId($followerId);
-    /*
-    $user->setFollowStatus($active);
-    $user->editFollow();*/
+    if(isset($_POST['active'])){
+    $active= $_POST['active'];
+        if ($user->existFollow()==0){
+            $user->newFollow();
+            
+        }
+        else{   
+            $user->setFollowStatus($active);
+            $user->editFollow();
+        ;}
+    } 
+    
+    
         //insert nieuwe rij in 'followers'
     
     //1staat voor normaal volgen, andere waardes zouden kunnen staan voor geblokkeerd of ontvolgt
     
- 
-    $user->newFollow();
+    
     
     
  

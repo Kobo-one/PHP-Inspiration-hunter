@@ -198,7 +198,7 @@
 
     public function Followers(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id");
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id AND status=1");
         $statement->bindValue(":id", $this->getId());
         $statement->execute();
         
@@ -256,10 +256,22 @@
         $statement->bindValue(":id", $this->loggedInUser());
         $statement->bindValue(":id2", $this->getId());
         $statement->execute();
-       
-        return $statement;
+        $amount=$statement->rowCount();;
+        return $amount;
+    }
+
+    public function existFollow(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2");
+        $statement->bindValue(":id", $this->loggedInUser());
+        $statement->bindValue(":id2", $this->getId());
+        $statement->execute();
+        $amount=$statement->rowCount();;
+        return $amount;
     }
     
+
+
     public function editUser(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, username = :username, picture = :picture WHERE id = :id");
