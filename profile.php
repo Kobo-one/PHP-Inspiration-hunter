@@ -82,7 +82,7 @@ $followed= $user->checkFollower();
             
             <div class="date"><?php echo timeAgo($c['created'])?></div>
             <div class="likes"># likes</div>
-            
+            <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>  
             </div>
         </div>
     <?php endforeach; ?>
