@@ -166,6 +166,7 @@ input[type=text], input[type=password], .formfield textarea{
 .date, .likes{
     font-size:12px;
     margin-bottom:10px;
+    color:#707070;
 }
 .likes {
     margin-right:6px;
