@@ -16,8 +16,12 @@ if($user->getFollowersAmount()==0){
 } 
 /* als je al vrienden hebt -> toon posts van je vrienden */
 else{
-    $collection= Post::getAll();
+    $friends= Post::getAll();
+    $popular= Post::getTopPosts();
+    $collection=array_merge($friends, $popular);
+
 }
+
 $postedpost = count($collection);
 $totalpost = Post::allPost()->rowCount();
 

@@ -256,8 +256,7 @@ public static function getTopPosts(){
     
     }
 
-/* search on tag or on username; select post:all and username +profilepic
- search convert to  lowercase. Search in entire db*/  
+/*  Zoek in description of op username */  
   public function getTag(){
     $conn = Db::getInstance();
     /*$statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(users.username) LIKE :search ");*/
@@ -329,7 +328,6 @@ public static function getTopPosts(){
     
     $statement->bindValue(':nr1', $number1, PDO::PARAM_INT);  
     $statement->bindValue(':nr2', $number2, PDO::PARAM_INT);  
-     //FIX DEES :)
     $statement->bindValue(':email', $_SESSION["username"]);  
    
     $statement->execute();
