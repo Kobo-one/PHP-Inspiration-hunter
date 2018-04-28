@@ -1,5 +1,5 @@
 <?php
-require_once("Db.class.php");
+include_once("Db.class.php");
 class Comment
 {
 	// PRIVATE MEMBER VARIABLES
@@ -22,7 +22,7 @@ class Comment
     
     public function setPostId($postId)
 	{
-		$this->userId = $postId;
+		$this->postId = $postId;
 		return $this;
 	}
     
@@ -42,22 +42,25 @@ class Comment
 		return $this->postId;
 	}
 
-    /* Save comment */
-	public function Save()
-	{
-		$db = Db::getInstance();
-		$table = "comments";
-		$cols = array("comment", "user_id", "post_id");
-		$values = array($this->getText(), $this->getUserId(), $this->getPostId());
-		$db->insert($table, $cols, $values);
+    /* Save comment in database */
+	public function saveComment(){
+		$conn = Db::getInstance();
+        $statement= $conn->prepare("INSERT INTO comments (comment, user_id, post_id) VALUES(:text, (SELECT users.id FROM users WHERE users.email=:email), (SELECT posts.id FROM posts WHERE posts.id=:postId))");
+        $statement->bindValue(':text', $this->getText());
+        $statement->bindValue(':email', $_SESSION['username']);
+        $statement->bindValue(':postId', $this->getPostId()); 
+        $comment_added = $statement->execute();
+        return $comment_added; 
 	}
 
-	public function GetAll()
-	{
-		$db = Db::getInstance();
-		$cols = array("*");
-		$result = $db->select($cols, "comments", null, "id", "DESC");
-		return($result);
-	}
+	public function getAllComments(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :postId");
+    $statement->bindValue(':postId', $this->getPostId());    
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+        
 }
+
 ?>

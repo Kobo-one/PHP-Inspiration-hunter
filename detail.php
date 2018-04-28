@@ -2,14 +2,43 @@
 include_once("lib/classes/Post.class.php");
 include_once("lib/includes/functions.inc.php");
 include_once("lib/includes/checklogin.inc.php");
+include_once("lib/classes/Comment.class.php");
 
 $post = new Post();
 $id=$_GET['post'];
 $post->setIdG($id);
-$post->setComment($id);
+//$post->setComment($id);
 $collection= $post->getDetailsPost();
 
-$comments=$post->getCommentsPost();
+$comment = new Comment();
+if(isset($_POST['btnAddComment'])){
+$comment->setText($_POST['text']);
+$comment->setPostId($_GET['post']);
+$comment->saveComment();
+     
+}
+$allComments=$comment->getAllComments(); 
+
+
+		/*if(isset($_POST['btnAddComment']))
+		{
+			try
+			{
+				$comment->setText( $_POST['post']  );
+				$comment->setUserId($_SESSION['username']); //get this from session instead of hardcoded!
+				$comment->saveComment();
+				//$feedback['text'] = "Your tweet has been posted!";
+				//$feedback['status'] = "success";
+			}
+			catch(Exception $e)
+			{
+				$feedback['text'] = $e->getMessage();
+				$feedback['status'] = "error";
+			}
+		}
+        
+        $comments=$comment->getAllComments();
+        */
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -20,6 +49,13 @@ $comments=$post->getCommentsPost();
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+	
+	<script src="js/loadComment.js"></script>
 	<title>Phomo | Details</title>
 </head>
 <body>
@@ -42,17 +78,16 @@ $comments=$post->getCommentsPost();
             </div>
         </div>
          <div class="comments">
-<?php foreach($comments as $key =>$c): ?>          
+        <?php foreach($allComments as $key => $comment): ?>          
         <div class="comment">
-            <div class="comment_username"><?php echo $c['username']?></div>
-            <p><?php echo $c['comment']?></p>
+            <div class="comment_username"><?php echo $comment['username']; ?></div>
+            <p><?php echo $comment['comment']; ?></p>
         </div>         
-	
-<?php endforeach; ?>
+        <?php endforeach; ?>
       
        <div class="new_comment">
 		<form action="" method="post">
-			<textarea name="post" id="comment"></textarea>
+			<textarea name="text" id="text"></textarea>
 			<input type="submit" name="btnAddComment" id="btnAddComment" class="button" value="Add comment" />
 		</form>
 	    </div>

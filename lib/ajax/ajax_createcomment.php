@@ -1,16 +1,23 @@
 <?php	
 		include_once("../classes/Comment.class.php");
+        include_once("../classes/User.class.php");
+        include_once("../classes/Post.class.php");
+
 		$comment = new Comment();
         
         try
 		{
             //userId uit je session halen
-			$comment->setUserId(1);
-            //hierbij zetten we niet de name tussen de [], maar de naam 'tweet' die we aan de data hebben gegeven in app.js
+            $comment->setUserId($_SESSION['username']);
+            
+            //hierbij zetten we niet de name tussen de [], maar de naam 'comment' die we aan de data hebben gegeven in app.js
             $comment->setText( $_POST['comment'] );
             //postId uithalen
-            $comment->setPostId(1);
-            $comment->Save();
+            $comment->setPostId($_GET['post']);
+            $comment->saveComment();
+            $feedback['text'] = "Your comment has been posted!";
+			$feedback['status'] = "success";
+            
  
 		}
 		catch(Exception $e)
