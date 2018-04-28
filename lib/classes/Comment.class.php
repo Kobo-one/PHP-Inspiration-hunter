@@ -55,12 +55,13 @@ class Comment
         return $comment_added; 
 	}
 
+    /* Show all comments */
 	public function getAllComments(){
-    $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :postId");
-    $statement->bindValue(':postId', $this->getPostId());    
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+        $conn = Db::getInstance();
+        $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :postId");
+        $statement->bindValue(':postId', $this->getPostId());    
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
         
 }

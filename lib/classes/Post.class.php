@@ -309,16 +309,6 @@ public static function getTopPosts(){
     return $amount;
   }
 
- /* When you go to details of post, show comments (from db) */
-  public function getCommentsPost(){
-    $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
-    $statement->bindValue(':comment', $this->getComment() );
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-    
-  }
-
   /* Load 20 more when button clicked */
   public function loadMore(){
     $conn = Db::getInstance();
