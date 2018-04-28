@@ -11,14 +11,16 @@
             $comment->setText( $_POST['comment'] );
             //postId uithalen
             $comment->setPostId($_GET['post']);
-            $comment->saveComment();            
+            $comment->saveComment(); 
+            $feedback['text'] = "Your comment has been posted!";
+			$feedback['status'] = "success";
+            $feedback['comment'] = htmlspecialchars( $_POST['comment'] );
  
 		}
 		catch(Exception $e)
 		{
 			$feedback['text'] = $e->getMessage();
 			$feedback['status'] = "error";
-            $feedback['comment'] = htmlspecialchars( $_POST['comment'] );
 		}
 
 		header('Content-Type: application/json');
