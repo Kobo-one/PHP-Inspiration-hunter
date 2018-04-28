@@ -7,38 +7,22 @@ include_once("lib/classes/Comment.class.php");
 $post = new Post();
 $id=$_GET['post'];
 $post->setIdG($id);
-//$post->setComment($id);
 $collection= $post->getDetailsPost();
 
 $comment = new Comment();
 if(isset($_POST['btnAddComment'])){
-$comment->setText($_POST['text']);
-$comment->setPostId($_GET['post']);
-$comment->saveComment();
-     
+    try {
+        $comment->setText($_POST['text']);
+        $comment->setPostId($_GET['post']);
+        $comment->saveComment();
+    }
+    catch(Exception $e) {
+        $feedback['text'] = $e->getMessage();
+        $feedback['status'] = "error";
+    }
 }
 $allComments=$comment->getAllComments(); 
 
-
-		/*if(isset($_POST['btnAddComment']))
-		{
-			try
-			{
-				$comment->setText( $_POST['post']  );
-				$comment->setUserId($_SESSION['username']); //get this from session instead of hardcoded!
-				$comment->saveComment();
-				//$feedback['text'] = "Your tweet has been posted!";
-				//$feedback['status'] = "success";
-			}
-			catch(Exception $e)
-			{
-				$feedback['text'] = $e->getMessage();
-				$feedback['status'] = "error";
-			}
-		}
-        
-        $comments=$comment->getAllComments();
-        */
 
 ?><!DOCTYPE html>
 <html lang="en">

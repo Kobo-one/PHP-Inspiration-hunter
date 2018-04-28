@@ -10,6 +10,9 @@ class Comment
     /* Setters */
 	public function setText($text)
 	{
+        if(empty($text)){
+            throw new Exception("Please fill in a comment.");
+        }
 		$this->text = $text;
 		return $this;
 	}

@@ -7,27 +7,21 @@
         
         try
 		{
-            //userId uit je session halen
-            $comment->setUserId($_SESSION['username']);
-            
             //hierbij zetten we niet de name tussen de [], maar de naam 'comment' die we aan de data hebben gegeven in app.js
             $comment->setText( $_POST['comment'] );
             //postId uithalen
             $comment->setPostId($_GET['post']);
-            $comment->saveComment();
-            $feedback['text'] = "Your comment has been posted!";
-			$feedback['status'] = "success";
-            
+            $comment->saveComment();            
  
 		}
 		catch(Exception $e)
 		{
 			$feedback['text'] = $e->getMessage();
 			$feedback['status'] = "error";
+            $feedback['comment'] = htmlspecialchars( $_POST['comment'] );
 		}
 
 		header('Content-Type: application/json');
 		echo json_encode($feedback);
 
-        
 ?>
