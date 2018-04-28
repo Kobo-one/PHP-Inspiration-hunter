@@ -210,10 +210,10 @@ class Post{
     return $image_upload;
     }
 
-/* select top users with most followers*/
+/* tel aantal likes per post, sorteer op meeste likes en geef id van 20 meest gelikete posts terug*/
 public static function countTopPosts(){
   $conn = Db::getInstance();
-  $statement = $conn->prepare("select post_id, count(*) as c from likes group by post_id order by c desc LIMIT 20");
+  $statement = $conn->prepare("SELECT post_id, count(*) AS c FROM likes group by post_id order by c desc LIMIT 20");
   $statement->execute();
   $result=$statement->fetchAll(PDO::FETCH_ASSOC);
   $array=[];
@@ -223,6 +223,8 @@ public static function countTopPosts(){
   return $array;
 }
 
+/* Als je nog geen vrienden hebt -> toon posts met meeste likes. 
+(select alles uit posts en de username en profielfoto van de posts met id uit countTopPosts)*/
 public static function getTopPosts(){
   $array= Post::countTopPosts();
   $conn = Db::getInstance();
@@ -242,8 +244,7 @@ public static function getTopPosts(){
 
   public static function allPost(){
     $conn = Db::getInstance();
-    /*$statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id ");*/
-    $statement=$conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1))LIMIT 20");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1))LIMIT 20");
     $statement->bindValue(':email', $_SESSION["username"]);  
     $statement->execute();
     return $statement;
@@ -259,7 +260,8 @@ public static function getTopPosts(){
  search convert to  lowercase. Search in entire db*/  
   public function getTag(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(users.username) LIKE :search ");
+    /*$statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(users.username) LIKE :search ");*/
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND (lower(users.username) LIKE :search OR lower(posts.description) LIKE :search)");
    
     $statement->bindValue(':search', $this->getSearch());  
     $statement->execute();
@@ -274,7 +276,7 @@ public static function getTopPosts(){
   /* When click on post -> go to details of post with date, description,...*/ 
   public function getDetailsPost(){
     $conn = Db::getInstance(); 
-    $statement= $conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
     $searchV=$this->getIdG();
     $statement->bindParam(':search', $searchV, PDO::PARAM_INT );
     
@@ -321,7 +323,7 @@ public static function getTopPosts(){
   /* Load 20 more when button clicked */
   public function loadMore(){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, DATE_FORMAT(posts.created, '%Y-%m-%d %H:%i') AS date, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1) )LIMIT :nr1, :nr2 ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1) )LIMIT :nr1, :nr2 ");
     $number1= $this->getClick();
     $number2= $this->getClick()*2;
     
