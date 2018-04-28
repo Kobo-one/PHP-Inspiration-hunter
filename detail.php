@@ -61,7 +61,7 @@ $allComments=$comment->getAllComments();
                     <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
             </div>
         </div>
-         <div class="comments">
+         <div class="comments" id="commentfeed">
         <?php foreach($allComments as $key => $comment): ?>          
         <div class="comment">
             <div class="comment_username"><?php echo $comment['username']; ?></div>
