@@ -1,6 +1,7 @@
 <?php
 include_once("lib/classes/User.class.php");
 include_once("lib/classes/Post.class.php");
+include_once("lib/classes/Like.class.php");
 include_once("lib/includes/checklogin.inc.php");
 
 $post = new Post();
@@ -82,8 +83,16 @@ $count=$user->checkFollower();
             <div id="detail_photo_text" class="feed_flex">
             
             <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
-            <div class="likes"># likes</div>
-            <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>  
+            <div class="likes"><span><?php echo Like::countLikes($c['id']) ;?></span> likes</div>
+            
+            <?php if (Like::userLiked($c['id'])==0):?>
+                <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $c['id'];?>"></a>
+            
+            <?php else:?>    
+                <a href="#"><img src="images/liked_btn.png" alt="like button" class="like_btn" id="post_<?php echo $c['id'];?>"></a>
+            
+            <?php endif; ?>  
+
             </div>
         </div>
     <?php endforeach; ?>
@@ -140,5 +149,6 @@ $count=$user->checkFollower();
     
 </script>
 
+<script src="lib/js/like.js"></script>
 </body>
 </html>

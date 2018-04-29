@@ -9,16 +9,19 @@
 
             if(Like::userLiked($post_id)==0){
                 $like->newLike();
+                $response= [
+                    "status" => "success",
+                    "type" => "liked"
+                ];
             }
             else{
                 $like->delLike();
+                $response= [
+                    "status" => "success",
+                    "type" => "disliked"
+                ];
             }
             
-        $response= [
-            "status" => "succes",
-            "collection" => $collection,
-            "count"=> $count
-        ];
 
 		header('Content-Type: application/json');
 		echo json_encode($response);

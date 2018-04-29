@@ -3,7 +3,7 @@ include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
 include_once("lib/classes/Comment.class.php");
 include_once("lib/classes/User.class.php");
-
+include_once("lib/classes/Like.class.php");
 $user = new User();
 
 //show post with details
@@ -67,8 +67,13 @@ $allComments=$comment->getAllComments();
          
         <div class="item_text feed_flex">
             <div class="date"><?php echo(Post::timeAgo($collection[0]['created'])); ?></div>    
-            <div class="likes"># likes</div>
-            <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>          
+            <div class="likes"><span><?php echo Like::countLikes($collection[0]['id']);?></span> likes</div>
+            <?php if (Like::userLiked($collection[0]['id'])==0):?>
+                <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $collection[0]['id'];?>"></a>
+         
+            <?php else:?>    
+                <a href="#"><img src="images/liked_btn.png" alt="like button" class="like_btn" id="post_<?php echo $collection[0]['id'];?>"></a>
+            <?php endif; ?>            
         </div>
         <div class="item_description"><?php echo $collection[0]['description'];?></div>
     </div>
@@ -94,5 +99,8 @@ $allComments=$comment->getAllComments();
     </div>
     
 </div>
+
+
+<script src="lib/js/like.js"></script>
 </body>
 </html>

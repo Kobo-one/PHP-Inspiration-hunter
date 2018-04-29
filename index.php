@@ -3,7 +3,6 @@ include_once("lib/classes/Post.class.php");
 include_once("lib/classes/User.class.php");
 include_once("lib/classes/Like.class.php");
 include_once("lib/includes/checklogin.inc.php");
-
 $user = new User();
 $id=$user->loggedinUser();
 $user->setId($id);
@@ -76,7 +75,7 @@ $totalpost = Post::allPost()->rowCount();
          <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
          <div class="feed_flex">
          <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
-         <div class="likes"><?php echo Like::countLikes($c['id']) ;?> likes</div>
+         <div class="likes"><span><?php echo Like::countLikes($c['id']) ;?></span> likes</div>
 
          <?php if (Like::userLiked($c['id'])==0):?>
          <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $c['id'];?>"></a>
@@ -103,12 +102,6 @@ $totalpost = Post::allPost()->rowCount();
 
 <script src="lib/js/loadMore.js"></script>
 <script src="lib/js/like.js"></script>
-<script>
-
-
-
-
-</script>
 
 </body>
 </html>
