@@ -16,19 +16,18 @@ if($user->getFollowersAmount()==0){
 } 
 /* als je al vrienden hebt -> toon posts van je vrienden */
 else{
+    /* als er minder dan 20 posts op de index pagina worden getoond -> aanvullen met populairste posts*/
     if(POST::allPost()->rowCount()<20){
-        var_dump("ni genoeg shit");
-    $friends= Post::getAll();
-    $popular= Post::getTopPosts();
-   
-    $merge=array_merge($friends, $popular);
-
-    $collection=array_unique($merge, SORT_REGULAR);
+        $friends= Post::getAll();
+        $popular= Post::getTopPosts();
+    
+        $merge=array_merge($friends, $popular);
+        $unique=array_unique($merge, SORT_REGULAR);
+        $collection = array_slice($unique, 0, 19);
     }
+    /* als er meer dan 20 posts worden getoond dan enkel posts vrienden tonen */
     else{
-    var_dump("ik heb genoeg posts");
-    $collection=Post::getAll();
-
+        $collection=Post::getAll();
     }
     
 
@@ -85,7 +84,7 @@ $totalpost = Post::allPost()->rowCount();
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
-        <?php if($totalpost >= $postedpost  ):?>
+        <?php if($totalpost >= $postedpost ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">
