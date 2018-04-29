@@ -2,16 +2,14 @@
 include_once("lib/classes/User.class.php");
 include_once("lib/classes/Post.class.php");
 include_once("lib/includes/checklogin.inc.php");
-include_once("lib/includes/functions.inc.php");
-
 
 $post = new Post();
 $user = new User();
 
-
 if(isset($_GET['user'])){
     $id=$_GET['user'];
-}else{
+}
+else{
     $id=$user->loggedinUser();
 }
 
@@ -83,7 +81,7 @@ $count=$user->checkFollower();
             
             <div id="detail_photo_text" class="feed_flex">
             
-            <div class="date"><?php echo timeAgo($c['created'])?></div>
+            <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
             <div class="likes"># likes</div>
             <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>  
             </div>

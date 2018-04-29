@@ -1,25 +1,4 @@
-<?php 
-
-/* SEARCH*/
-// if input field is empty do nothing
-/*if (!empty($_GET['search'])){  
-    $input= $_GET['search'];
-   
-    
-    try{   
-    $post = new Post();
-    $searchId=$post->setSearch($input);
-    
-    $collection= $post->getTag() ;
-    
-    }
-    catch(Exception $e){
-        $error= $e->getMessage();
-    }  
-    
-};*/
-
-?><nav class="navbar">
+<nav class="navbar">
     <a href="index.php">
            <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">

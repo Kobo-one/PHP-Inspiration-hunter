@@ -1,6 +1,5 @@
 <?php
 include_once("lib/classes/Post.class.php");
-include_once("lib/includes/functions.inc.php");
 include_once("lib/includes/checklogin.inc.php");
 include_once("lib/classes/Comment.class.php");
 include_once("lib/classes/User.class.php");
@@ -67,7 +66,7 @@ $allComments=$comment->getAllComments();
         <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
          
         <div class="item_text feed_flex">
-            <div class="date"><?php echo timeAgo($collection[0]['created']) ?></div>    
+            <div class="date"><?php echo(Post::timeAgo($collection[0]['created'])); ?></div>    
             <div class="likes"># likes</div>
             <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>          
         </div>
