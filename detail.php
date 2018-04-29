@@ -3,6 +3,9 @@ include_once("lib/classes/Post.class.php");
 include_once("lib/includes/functions.inc.php");
 include_once("lib/includes/checklogin.inc.php");
 include_once("lib/classes/Comment.class.php");
+include_once("lib/classes/User.class.php");
+
+$user = new User();
 
 //show post with details
 $post = new Post();
@@ -53,6 +56,12 @@ $allComments=$comment->getAllComments();
         <div class="user">
             <img src="<?php echo $collection[0]['picture'];?>" alt="avatar" class="avatar">
             <a href="profile.php?user=<?php echo $collection[0]['post_user_id'];?>" class="username"><?php echo( $collection[0]['username']);?></a>
+            <?php
+            //check if post = post from loggedinUser, if so show edit btn
+              if($user->loggedinUser() == $collection[0]['post_user_id']){
+              echo '<div class="button"><a href="editPost.php?post=' . $collection[0]['id'] . ' ">Edit</a></div>';
+              }
+            ?>
         </div>
      
         <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>

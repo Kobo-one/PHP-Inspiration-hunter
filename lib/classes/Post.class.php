@@ -199,7 +199,7 @@ class Post{
     return $this;
   }
 
-
+    /*Upload nieuwe foto met beschrijving*/
     public function createPost(){
     $conn = Db::getInstance();
     $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
@@ -208,6 +208,27 @@ class Post{
     $statement->bindValue(":email", $_SESSION['username']);    
     $image_upload = $statement->execute();
     return $image_upload;
+    }
+    
+    /*Update beschrijving eigen post*/
+    public function editPost(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("UPDATE posts SET description = :description WHERE id = :id AND (SELECT users.id FROM users WHERE users.email=:email)");
+        $statement->bindValue(":description", $this->getDescription());
+        $statement->bindValue(":id", $this->getIdG());
+        $statement->bindValue(":email", $_SESSION['username']); 
+        $result = $statement->execute();
+        return $result;
+    }
+    
+    /*Delete eigen post*/
+    public function deletePost(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("DELETE FROM posts WHERE id = :id AND (SELECT users.id FROM users WHERE users.email=:email)");
+        $statement->bindValue(":id", $this->getIdG());
+        $statement->bindValue(":email", $_SESSION['username']); 
+        $result = $statement->execute();
+        return $result;
     }
 
 /* tel aantal likes per post, sorteer op meeste likes en geef id van 20 meest gelikete posts terug*/
