@@ -76,7 +76,7 @@ $totalpost = Post::allPost()->rowCount();
          <div class="feed_flex">
          <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
          <div class="likes"><?php echo Post::countLikes($c['id']) ;?> likes</div>
-         <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
+         <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $c['id'];?>"></a>
          </div>
       </div>
 <?php endforeach; ?>
@@ -95,6 +95,13 @@ $totalpost = Post::allPost()->rowCount();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="lib/js/loadMore.js"></script>
+<script src="lib/js/like.js"></script>
+<script>
+
+
+
+
+</script>
 
 </body>
 </html>
