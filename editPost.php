@@ -1,6 +1,5 @@
 <?php
 include_once("lib/classes/Post.class.php");
-include_once("lib/includes/functions.inc.php");
 include_once("lib/includes/checklogin.inc.php");
 include_once("lib/classes/Comment.class.php");
 include_once("lib/classes/User.class.php");
