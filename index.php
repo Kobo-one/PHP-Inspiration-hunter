@@ -16,9 +16,21 @@ if($user->getFollowersAmount()==0){
 } 
 /* als je al vrienden hebt -> toon posts van je vrienden */
 else{
+    if(POST::allPost()->rowCount()<20){
+        var_dump("ni genoeg shit");
     $friends= Post::getAll();
     $popular= Post::getTopPosts();
-    $collection=array_merge($friends, $popular);
+   
+    $merge=array_merge($friends, $popular);
+
+    $collection=array_unique($merge, SORT_REGULAR);
+    }
+    else{
+    var_dump("ik heb genoeg posts");
+    $collection=Post::getAll();
+
+    }
+    
 
 }
 

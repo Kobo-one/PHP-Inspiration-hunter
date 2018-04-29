@@ -240,7 +240,7 @@ public static function getTopPosts(){
 
  
 
-/* select posts, date without seconds. show only posts from friends*/  
+/* select posts show only posts from friends*/  
 
   public static function allPost(){
     $conn = Db::getInstance();
