@@ -75,7 +75,7 @@ $totalpost = Post::allPost()->rowCount();
          <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
          <div class="feed_flex">
          <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
-         <div class="likes"># likes</div>
+         <div class="likes"><?php echo Post::countLikes($c['id']) ;?> likes</div>
          <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
          </div>
       </div>

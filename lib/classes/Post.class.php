@@ -307,6 +307,15 @@ public static function getTopPosts(){
     
   }
 
+  public static function countLikes($id){
+    $conn = Db::getInstance();
+    $statement = $conn->prepare("SELECT * FROM likes WHERE post_id = :post_id");
+    $statement->bindParam(':post_id', $id);
+    $statement->execute();
+    $result=$statement->rowcount();
+    return $result;
+  }
+
   /* Laad profiel details*/ 
   public function DetailsProfile(){
     $conn = Db::getInstance();
