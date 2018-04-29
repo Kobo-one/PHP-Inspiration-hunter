@@ -12,15 +12,21 @@
     $collection=$post->loadMore()->fetchAll(PDO::FETCH_ASSOC);
     $count=$post->loadMore()->rowCount();
    
-    if($count==20){
-        $i++;
-        $post->setClick($i);
-        $rest=$post->loadMore()->rowCount();
-        if ($rest==0){
-            $count=0;
-        }
+   /*
+        if($count==20){
+            $i++;
+            $post->setClick($i);
+            $rest=$post->loadMore()->rowCount();
+            if ($rest==0){
+                $count=0;
+            }
+    */
+    if($count==21){
+        $collection= array_slice($collection, 0, 20);
+        
+    }        
 
-    }
+        
     //json_encode($collection);
     //var_dump($collection);
     $response= [

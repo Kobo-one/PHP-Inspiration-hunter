@@ -324,7 +324,7 @@ public static function getTopPosts(){
     $conn = Db::getInstance();
     $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1) )ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
     $number1= $this->getClick()+1;
-    $number2= $this->getClick()*2;
+    $number2= $this->getClick()+21;
     
     $statement->bindValue(':nr1', $number1, PDO::PARAM_INT);  
     $statement->bindValue(':nr2', $number2, PDO::PARAM_INT);  
