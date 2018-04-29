@@ -11,7 +11,10 @@
     $collection=[];
     $collection=$post->loadMore()->fetchAll(PDO::FETCH_ASSOC);
     $count=$post->loadMore()->rowCount();
-   
+    /*foreach($collection as $c){
+        $c['created']=Post::timeAgo($c['created']);
+    }
+    var_dump($collection);*/
    /*
         if($count==20){
             $i++;
@@ -25,7 +28,8 @@
         $collection= array_slice($collection, 0, 20);
         
     }        
-
+   
+  
         
     //json_encode($collection);
     //var_dump($collection);
