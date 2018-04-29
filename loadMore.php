@@ -11,6 +11,16 @@
     $collection=[];
     $collection=$post->loadMore()->fetchAll(PDO::FETCH_ASSOC);
     $count=$post->loadMore()->rowCount();
+   
+    if($count==20){
+        $i++;
+        $post->setClick($i);
+        $rest=$post->loadMore()->rowCount();
+        if ($rest==0){
+            $count=0;
+        }
+
+    }
     //json_encode($collection);
     //var_dump($collection);
     $response= [
