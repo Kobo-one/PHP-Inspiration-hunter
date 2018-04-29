@@ -100,6 +100,9 @@ $count=$user->checkFollower();
 </div> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+<?php if(isset($_GET['user'])): ?>
+if(!($(".edit").length)){
+
  $("form").on("click",".button--follow", function(e){
         //id van de user die je wilt volgen meegeven
     
@@ -146,7 +149,8 @@ $count=$user->checkFollower();
            
             e.preventDefault();
     });   
-    
+}    
+<?php endif; ?>
 </script>
 
 <script src="lib/js/like.js"></script>
