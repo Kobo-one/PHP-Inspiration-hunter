@@ -16,7 +16,7 @@
             $image->setFileSize($_FILES['image']['size']);
             $image->setFileTmp($_FILES['image']['tmp_name']);
             $image->setFileType($_FILES['image']['type']);
-            $image->setFileDir("uploads/".$_FILES['image']['name']);
+            $image->setFileDir("images/post/".$_FILES['image']['name']);
             $image->setFileExt(strtolower((explode('.',$_FILES['image']['name']))[count(explode('.',$_FILES['image']['name']))-1]));
 
             //get variables to upload and save image on database
@@ -29,7 +29,7 @@
             if( move_uploaded_file($fileTmp, $fileDir) ){
                 
                 //compress image if bigger than 2MB
-                $imageDestination = "uploads/"."cp-".$fileName;
+                $imageDestination = "images/post/"."cp-".$fileName;
                 if($fileSize > 2097152){
                     $compImage = $image->compressImage($imageDestination);
                 } else {
