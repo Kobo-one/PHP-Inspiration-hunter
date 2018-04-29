@@ -9,13 +9,14 @@
     $post = new Post();
     $post->setClick($i);
     $collection=[];
-    $collection=$post->loadMore();
-    
+    $collection=$post->loadMore()->fetchAll(PDO::FETCH_ASSOC);
+    $count=$post->loadMore()->rowCount();
     //json_encode($collection);
     //var_dump($collection);
     $response= [
         "status" => "succes",
-        "collection" => $collection
+        "collection" => $collection,
+        "count"=> $count
     ];
     header('Content-Type: application/json');
     echo json_encode($response);

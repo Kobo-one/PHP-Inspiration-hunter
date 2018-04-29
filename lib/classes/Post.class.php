@@ -331,8 +331,10 @@ public static function getTopPosts(){
     $statement->bindValue(':email', $_SESSION["username"]);  
    
     $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $statement;
   }
+
+ 
 
 
 
