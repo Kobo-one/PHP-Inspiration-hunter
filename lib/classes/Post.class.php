@@ -240,7 +240,7 @@ public static function getTopPosts(){
 
  
 
-/* select posts show only posts from friends*/  
+/* select posts, date without seconds. show only posts from friends*/  
 
   public static function allPost(){
     $conn = Db::getInstance();
@@ -309,10 +309,20 @@ public static function getTopPosts(){
     return $amount;
   }
 
+ /* When you go to details of post, show comments (from db) */
+  public function getCommentsPost(){
+    $conn = Db::getInstance();
+    $statement= $conn->prepare("SELECT users.username, comments.comment FROM users, comments WHERE comments.user_id = users.id AND comments.post_id= :comment  ");
+    $statement->bindValue(':comment', $this->getComment() );
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  }
+
   /* Load 20 more when button clicked */
   public function loadMore(){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1) )LIMIT :nr1, :nr2 ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1) )ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
     $number1= $this->getClick();
     $number2= $this->getClick()*2;
     

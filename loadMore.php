@@ -1,6 +1,6 @@
 <?php
+  include_once("./lib/classes/Post.class.php");
   
-  include_once("lib/classes/Post.class.php");
    
     if(!empty($_POST)){
         session_start();
@@ -8,7 +8,7 @@
    
     $post = new Post();
     $post->setClick($i);
-    $collection= array();
+    $collection=[];
     $collection=$post->loadMore();
     
     //json_encode($collection);
@@ -18,7 +18,7 @@
         "collection" => $collection
     ];
     header('Content-Type: application/json');
-   echo json_encode($response);
+    echo json_encode($response);
     }
     
 ?>
