@@ -355,6 +355,35 @@ public static function getTopPosts(){
     return $statement;
   }
 
+
+
+      public function userFlagged(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM inappropriate WHERE post_id = :post_id AND user_id = (SELECT users.id FROM users WHERE users.email=:email) ");
+        $statement->bindValue(':email', $_SESSION['username']);
+        $statement->bindValue(':post_id', $this->getIdG());
+        $statement->execute();
+        $result=$statement->rowcount();
+        return $result; 
+    }
+
+    public function newInappropriate(){
+      $conn = Db::getInstance();
+          $statement= $conn->prepare("INSERT INTO inappropriate (user_id, post_id) VALUES((SELECT users.id FROM users WHERE users.email=:email), (SELECT posts.id FROM posts WHERE posts.id=:post_id))");
+          $statement->bindValue(':email', $_SESSION['username']);
+          $statement->bindValue(':post_id', $this->getIdG()); 
+          $result = $statement->execute();
+          return $result; 
+      }
+      public function delInappropriate(){
+      $conn = Db::getInstance();
+          $statement= $conn->prepare("DELETE FROM inappropriate WHERE post_id = :post_id AND user_id = (SELECT users.id FROM users WHERE users.email=:email)");
+          $statement->bindValue(':email', $_SESSION['username']);
+          $statement->bindValue(':post_id', $this->getIdG()); 
+          $result = $statement->execute();
+          return $result; 
+    }
+
  
   public static function timeAgo($pTime){
       // tijdzone veranderen naar brusselse

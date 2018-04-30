@@ -297,6 +297,13 @@ h2 {
     width:50px;
     font-size:14px;
 }
+
+.detail_photo .item .user .button .inappropriate{
+    padding:8px 8px;
+    margin:10px 0 0 80%;
+    width:auto;
+    font-size:14px;
+}
 .detail_photo .item .user .button a {
     color: #fff;
 }

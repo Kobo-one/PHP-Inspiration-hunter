@@ -58,7 +58,10 @@ $allComments=$comment->getAllComments();
             <?php
             //check if post = post from loggedinUser, if so show edit btn
               if($user->loggedinUser() == $collection[0]['post_user_id']){
-              echo '<div class="button"><a href="editPost.php?post=' . $collection[0]['id'] . ' ">Edit</a></div>';
+                echo '<div class="button"><a href="editPost.php?post=' . $collection[0]['id'] . ' ">Edit</a></div>';
+              }
+              else{
+                echo '<div title="Flag this post as inappropriate" class="button inappropriate"><a href="#">Flag</a></div>';
               }
             ?>
         </div>
@@ -102,5 +105,6 @@ $allComments=$comment->getAllComments();
 
 
 <script src="lib/js/like.js"></script>
+<script src="lib/js/inappropriate.js"></script>
 </body>
 </html>
