@@ -3,6 +3,7 @@ include_once("lib/classes/User.class.php");
 include_once("lib/classes/Image.class.php");
 include_once("lib/includes/checklogin.inc.php");
 include_once("lib/helpers/Security.class.php");
+include_once("lib/classes/Post.class.php");
 
 $user = new User();
 
@@ -20,10 +21,12 @@ $followed= $user->checkFollower();
 if(!empty($_POST)){
 
     if( $_POST['general'] ) {
-
         $user->setFirstName($_POST['firstname']);
         $user->setLastName($_POST['lastname']);
         $user->setUserName($_POST['username']);
+        $user->setDescription($_POST['description']);
+
+
         //enkel wanneer de standaard afbeelding aangepast is voeren we de image class uit, anders vullen we gewoon de voirge image in
         if($_FILES['image']['size'] !== 0 && $_FILES['image']['error'] == 0){
             //make new image & set variables
@@ -60,7 +63,10 @@ if(!empty($_POST)){
         }
 
         $user->editUser();
+        header("Refresh:0");
     }
+
+    
     else if( $_POST['security'] ) {
 
         if(!empty($_POST["current_password"])){
@@ -91,7 +97,7 @@ if(!empty($_POST)){
             }
 
             $user->editSecurity();
-
+            header("Refresh:0");
         }
 
 
@@ -139,8 +145,8 @@ if(!empty($_POST)){
 
         
         <div class="formfield">
-            <label for="description" class="profile_label">description</label>
-			<input type="text" id="description" name="description" value="<?php echo htmlspecialchars($searchedUser->description) ?>">
+            <label for="description" class="profile_label">Description</label>
+            <textarea id="description" name="description"><?php echo Post::convertHashtoLink(htmlspecialchars($searchedUser->description));?></textarea>
         </div>
     
 		<div class="formfield" id="submit">

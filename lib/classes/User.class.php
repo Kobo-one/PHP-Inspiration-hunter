@@ -12,6 +12,7 @@
         private $password;
         private $id;
         private $followStatus;
+        private $description;
         
     /*Setters*/
         
@@ -81,6 +82,13 @@
 
            return $this;
     }
+
+    public function setDescription($description)
+    {
+            $this->description = $description;
+
+            return $this;
+    }
     
     /*Getters*/
     
@@ -122,6 +130,10 @@
     public function getPicture()
     {
              return $this->picture;
+    }
+    public function getDescription()
+    {
+             return $this->description;
     }
 
         
@@ -266,7 +278,7 @@
         $statement->bindValue(":id", $this->loggedInUser());
         $statement->bindValue(":id2", $this->getId());
         $statement->execute();
-        $amount=$statement->rowCount();;
+        $amount=$statement->rowCount();
         return $amount;
     }
     
@@ -274,11 +286,12 @@
 
     public function editUser(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, username = :username, picture = :picture WHERE id = :id");
+        $statement = $conn->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, username = :username, picture = :picture, description = :description WHERE id = :id");
         $statement->bindValue(":firstname", $this->getFirstName());
         $statement->bindValue(":lastname", $this->getLastName());
         $statement->bindValue(":username", $this->getUserName());
         $statement->bindValue(":picture", $this->getPicture());
+        $statement->bindValue(":description", $this->getDescription());
         $statement->bindValue(":id", $this->loggedInUser());
         $result = $statement->execute();
         return $result;
