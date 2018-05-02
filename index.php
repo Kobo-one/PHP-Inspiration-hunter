@@ -67,6 +67,7 @@ $totalpost = Post::allPost()->rowCount();
    
 <!--BEGIN FOTO'S UIT DATABASE-->  
 <?php foreach($collection as $key =>$c): ?>    
+    <?php if (Post::inappropriateCheck($c['id'])):?>
       <div class="item clearfix">
          <div class="user">
              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><img src="<?php echo $c['picture']; ?>" alt="avatar" class="avatar"></a>
@@ -85,6 +86,7 @@ $totalpost = Post::allPost()->rowCount();
          <?php endif; ?>   
          </div>
       </div>
+      <?php endif; ?>
 <?php endforeach; ?>
 <!--EINDE-->
         </div>

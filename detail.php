@@ -9,6 +9,7 @@ $user = new User();
 //show post with details
 $post = new Post();
 $post->setIdG($_GET['post']);
+if(Post::inappropriateCheck($_GET['post'])){
 $collection= $post->getDetailsPost();
 
 //comments
@@ -27,7 +28,11 @@ if(isset($_POST['btnAddComment'])){
     }
 }
 $allComments=$comment->getAllComments(); 
-
+$inappropriate = false;
+}
+else{
+    $inappropriate = true;
+}
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +55,7 @@ $allComments=$comment->getAllComments();
   <?php include_once("nav.inc.php"); ?>
   
 <div class="detail_photo">
-   
+<?php if(!$inappropriate):?>
     <div class="item">
         <div class="user">
             <img src="<?php echo $collection[0]['picture'];?>" alt="avatar" class="avatar">
@@ -103,7 +108,12 @@ $allComments=$comment->getAllComments();
 		<div>Be the first to comment!</div>
 		<?php endif; ?>
     </div>
-    
+    <?php else: ?>
+
+    <div>
+            <p>This post has been flagged inappropriate!</p>
+    </div>
+    <?php endif; ?> 
 </div>
 
 

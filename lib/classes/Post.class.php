@@ -318,7 +318,7 @@ public static function getTopPosts(){
   /* When click on post -> go to details of post with date, description,...*/ 
   public function getDetailsPost(){
     $conn = Db::getInstance(); 
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search  ");
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search");
     $searchV=$this->getIdG();
     $statement->bindParam(':search', $searchV, PDO::PARAM_INT );
     
@@ -427,6 +427,19 @@ public static function getTopPosts(){
          return $string;  
     } 
     
+
+    public static function inappropriateCheck($id){
+          $conn = Db::getInstance();
+          $statement= $conn->prepare("SELECT * FROM inappropriate WHERE post_id = :post_id");
+          $statement->bindValue(':post_id', $id); 
+          $statement-> execute();
+          if($statement->rowCount()>=3){
+            $result = false;
+          }else{
+            $result = true;
+          }
+          return $result; 
+    }
 
 
  
