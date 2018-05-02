@@ -39,6 +39,11 @@
                 //create new post
                 $post = new Post();
                 $post->setImage( $compImage );
+                //set tags
+			    $post->setTags($_POST['description']);
+			    if(!empty($post->getTags())){
+				    $post->saveTags();
+			    }
                 $post->setDescription( $_POST['description']);
                 $post->createPost();
             }

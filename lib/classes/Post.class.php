@@ -12,6 +12,7 @@ class Post{
   private $comment;
   private $idG;
   private $click;
+  private $tags;
 
 
   /**
@@ -199,6 +200,27 @@ class Post{
     return $this;
   }
 
+  
+      
+    public function setTags($string) {
+  
+      /* Match hashtags */
+      preg_match_all('/#(\w+)/', $string, $matches);
+      
+      /* Add all matches to array */
+      foreach ($matches[1] as $match) {
+        $keywords[] = $match;
+        }
+      $this->tags = (array)$keywords;
+      return $this;
+    }
+    
+    public function getTags()
+    {
+      return $this->tags;
+    }
+
+
     /*Upload nieuwe foto met beschrijving*/
     public function createPost(){
     $conn = Db::getInstance();
@@ -383,6 +405,32 @@ public static function getTopPosts(){
           $result = $statement->execute();
           return $result; 
     }
+
+
+
+    public function saveTags(){
+      $conn = Db::getInstance();
+      $tags = $this->getTags();
+      $statement= $conn->prepare("INSERT INTO tags (tag) VALUES(:tag)");
+      foreach ($tags as $tag) {
+      $statement->bindValue(':tag', $tag);
+      $tags_added = $statement -> execute();
+      }
+          return $tags_added; 
+  
+    }
+  
+    /*	
+    public function checkTag($tag){
+      $tags = $this->getTags();
+      
+      $conn = Db::getInstance();
+      foreach ($tags as $tag) {
+      $statement= $conn->prepare("SELECT * FROM tags WHERE );
+    }
+    */
+    
+
 
  
   public static function timeAgo($pTime){
