@@ -419,16 +419,13 @@ public static function getTopPosts(){
           return $tags_added; 
   
     }
-  
-    /*	
-    public function checkTag($tag){
-      $tags = $this->getTags();
-      
-      $conn = Db::getInstance();
-      foreach ($tags as $tag) {
-      $statement= $conn->prepare("SELECT * FROM tags WHERE );
-    }
-    */
+
+    public static function convertHashtoLink($string)  
+    {  
+         $expression = "/#+([a-zA-Z0-9_]+)/";  
+         $string = preg_replace($expression, '<a href="search.php?search=$1">$0</a>', $string);  
+         return $string;  
+    } 
     
 
 

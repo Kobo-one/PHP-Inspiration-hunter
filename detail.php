@@ -81,7 +81,7 @@ $allComments=$comment->getAllComments();
                 <a href="#"><img src="images/liked_btn.png" alt="like button" class="like_btn" id="post_<?php echo $collection[0]['id'];?>"></a>
             <?php endif; ?>            
         </div>
-        <div class="item_description"><?php echo $collection[0]['description'];?></div>
+        <div class="item_description"><?php echo Post::convertHashtoLink($collection[0]['description']);?></div>
     </div>
         
     <div class="comments" id="commentfeed">
