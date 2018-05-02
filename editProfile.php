@@ -82,7 +82,6 @@ if(!empty($_POST)){
                     if( $security->passwordsAreSecure() ){
                         $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
                         $user->setPassword($hash);
-                        var_dump($hash);
                     }
                 
                 }
@@ -114,7 +113,7 @@ if(!empty($_POST)){
    <?php include_once("nav.inc.php"); ?>
    <div class="profile_settings">
    <h1>Profile settings</h1>
-   <img src="<?php echo $searchedUser->picture?>" alt="avatar" class="edit_avatar" id="preview">
+   <img src="<?php echo htmlspecialchars($searchedUser->picture);?>" alt="avatar" class="edit_avatar" id="preview">
    
    <form action="" method="post" enctype="multipart/form-data">
        <div class="formfield" id="first_input">
@@ -124,18 +123,24 @@ if(!empty($_POST)){
     
 	    <div class="formfield">
 	        <label for="firstname" class="profile_label">Firstname</label>
-			<input type="text" id="firstname" name="firstname" value="<?php echo $searchedUser->firstname ?>" onchange="showButtons(id);">
+			<input type="text" id="firstname" name="firstname" value="<?php echo htmlspecialchars($searchedUser->firstname) ?>" onchange="showButtons(id);">
 		</div>
 
     
 	    <div class="formfield">
 	        <label for="lastname" class="profile_label">Lastname</label>
-			<input type="text" id="lastname" name="lastname" value="<?php echo $searchedUser->lastname ?>" onchange="showButtons(id);">
+			<input type="text" id="lastname" name="lastname" value="<?php echo htmlspecialchars($searchedUser->lastname) ?>" onchange="showButtons(id);">
 		</div>
 
         <div class="formfield">
             <label for="username" class="profile_label">Username</label>
-			<input type="text" id="username" name="username" value="<?php echo $searchedUser->username ?>">
+			<input type="text" id="username" name="username" value="<?php echo htmlspecialchars($searchedUser->username) ?>">
+        </div>
+
+        
+        <div class="formfield">
+            <label for="description" class="profile_label">description</label>
+			<input type="text" id="description" name="description" value="<?php echo htmlspecialchars($searchedUser->description) ?>">
         </div>
     
 		<div class="formfield" id="submit">
@@ -149,7 +154,7 @@ if(!empty($_POST)){
     <form action="" method="post" enctype="multipart/form-data">
 	    <div class="formfield">
 	        <label for="email" class="profile_label">E-mail</label>
-			<input type="text" id="email" name="email" value="<?php echo $_SESSION['username']?>">
+			<input type="text" id="email" name="email" value="<?php echo htmlspecialchars($_SESSION['username']);?>">
 		</div>
 
         <div class="formfield">
@@ -176,7 +181,6 @@ if(!empty($_POST)){
 </body>
 <script>
     function confirm(x){
-        console.log("hey");
         $(".newpass").slideDown();
         $("#password").focusout(function(){
             if($("#password").val().length === 0){

@@ -49,14 +49,14 @@ if(isset($_POST['btnDeletePost'])){
 <div class="form_edit_post">
     <h1>Edit or delete your post</h1>
     <div>
-        <img src="<?php echo $collection[0]['image'];?>" alt="image">
+        <img src="<?php echo htmlspecialchars($collection[0]['image']);?>" alt="image">
     </div>
     
     
     <form action="" method="post">
         <div class="formfield">
             
-            <textarea name="description" id="description" rows="4" placeholder="<?php echo $collection[0]['description']; ?>"></textarea>
+            <textarea name="description" id="description" rows="4" placeholder="<?php echo htmlspecialchars($collection[0]['description']); ?>"></textarea>
         </div> 
         <div class="formfield btn_min">
         <input type="submit" name="btnEditPost" id="btnEditPost" class="button" value="Save changes" />

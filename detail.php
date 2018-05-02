@@ -58,8 +58,8 @@ else{
 <?php if(!$inappropriate):?>
     <div class="item">
         <div class="user">
-            <img src="<?php echo $collection[0]['picture'];?>" alt="avatar" class="avatar">
-            <a href="profile.php?user=<?php echo $collection[0]['post_user_id'];?>" class="username"><?php echo( $collection[0]['username']);?></a>
+            <img src="<?php echo htmlspecialchars($collection[0]['picture']);?>" alt="avatar" class="avatar">
+            <a href="profile.php?user=<?php echo $collection[0]['post_user_id'];?>" class="username"><?php echo htmlspecialchars($collection[0]['username']);?></a>
             <?php
             //check if post = post from loggedinUser, if so show edit btn
               if($user->loggedinUser() == $collection[0]['post_user_id']){
@@ -74,10 +74,10 @@ else{
             ?>
         </div>
      
-        <a href="#"><img src="<?php echo $collection[0]['image'];?>" alt="image" class="picture_index"></a>
+        <a href="#"><img src="<?php echo  htmlspecialchars($collection[0]['image']);?>" alt="image" class="picture_index"></a>
          
         <div class="item_text feed_flex">
-            <div class="date"><?php echo(Post::timeAgo($collection[0]['created'])); ?></div>    
+            <div class="date"><?php echo htmlspecialchars(Post::timeAgo($collection[0]['created'])); ?></div>    
             <div class="likes"><span><?php echo Like::countLikes($collection[0]['id']);?></span> likes</div>
             <?php if (Like::userLiked($collection[0]['id'])==0):?>
                 <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $collection[0]['id'];?>"></a>
@@ -86,7 +86,7 @@ else{
                 <a href="#"><img src="images/liked_btn.png" alt="like button" class="like_btn" id="post_<?php echo $collection[0]['id'];?>"></a>
             <?php endif; ?>            
         </div>
-        <div class="item_description"><?php echo Post::convertHashtoLink($collection[0]['description']);?></div>
+        <div class="item_description"><?php echo Post::convertHashtoLink(htmlspecialchars($collection[0]['description']));?></div>
     </div>
         
     <div class="comments" id="commentfeed">
@@ -100,8 +100,8 @@ else{
         <?php if(count($allComments) > 0): ?>
         <?php foreach($allComments as $key => $comment): ?>          
         <div class="comment">
-            <div class="comment_username"><?php echo $comment['username']; ?></div>
-            <p><?php echo $comment['comment']; ?></p>
+            <div class="comment_username"><?php echo htmlspecialchars($comment['username']); ?></div>
+            <p><?php echo htmlspecialchars($comment['comment']); ?></p>
         </div>         
         <?php endforeach; ?>
         <?php else: ?>

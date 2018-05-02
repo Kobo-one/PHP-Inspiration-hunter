@@ -78,7 +78,7 @@ $count=$user->checkFollower();
     <?php foreach($collection as $key =>$c): ?> 
         <div class="item">
             
-            <a href="detail.php?post=<?php echo$c['id'];?>"><img src="<?php echo $c['image']?>" alt="image" class="picture_index"></a>
+            <a href="detail.php?post=<?php echo$c['id'];?>"><img src="<?php echo htmlspecialchars($c['image'])?>" alt="image" class="picture_index"></a>
             
             <div id="detail_photo_text" class="feed_flex">
             
