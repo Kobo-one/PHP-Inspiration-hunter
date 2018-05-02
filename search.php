@@ -1,7 +1,8 @@
 <?php
 include_once("lib/classes/Post.class.php");
+include_once("lib/classes/User.class.php");
+include_once("lib/classes/Like.class.php");
 include_once("lib/includes/checklogin.inc.php");
-
 
 if (!empty($_GET['search'])){  
     $input= $_GET['search'];
@@ -51,19 +52,25 @@ else {
 <?php foreach($collection as $key =>$c): ?>    
       <div class="item clearfix">
          <div class="user">
-             <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><img src="<?php echo $c['picture']; ?>" alt="avatar" class="avatar"></a>
-              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>" class="username"><?php echo $c['username'] ?></a>
+             <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><img src="<?php echo htmlspecialchars($c['picture']); ?>" alt="avatar" class="avatar"></a>
+              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>" class="username"><?php echo htmlspecialchars($c['username']); ?></a>
          </div>
-         <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo $c['image']; ?> " alt="image" class="picture_index"></a>
+         <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo htmlspecialchars($c['image']); ?> " alt="image" class="picture_index"></a>
          <div class="feed_flex">
          <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
-         <div class="likes"># likes</div>
-         <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn"></a>
+         <div class="likes"><span><?php echo Like::countLikes($c['id']) ;?></span> likes</div>
+         
+         <?php if (Like::userLiked($c['id'])==0):?>
+         <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $c['id'];?>"></a>
+         
+         <?php else:?>    
+         <a href="#"><img src="images/liked_btn.png" alt="like button" class="like_btn" id="post_<?php echo $c['id'];?>"></a>
+         <?php endif; ?>  
          </div>
       </div>
 <?php endforeach; ?>
 <?php endif; ?>   
-
+<script src="lib/js/like.js"></script>
 
 </body>
 </html>
