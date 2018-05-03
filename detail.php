@@ -63,10 +63,10 @@ else{
             <?php
             //check if post = post from loggedinUser, if so show edit btn
               if($user->loggedinUser() == $collection[0]['post_user_id']){
-                echo '<div class="button"><a href="editPost.php?post=' . $collection[0]['id'] . ' ">Edit</a></div>';
+                echo '<div class="buttonedit"><a href="editPost.php?post=' . $collection[0]['id'] . ' ">Edit</a></div>';
               }
               else if($post->userFlagged()==0){
-                echo '<div title="Flag this post as inappropriate" class="button inappropriate"><a href="#">Flag</a></div>';
+                echo '<div title="Flag this post as inappropriate" class="buttonedit inappropriate"><a href="#">Flag</a></div>';
               }
               else{
                 echo '<div title="Unflag this post as inappropriate" class="button inappropriate" style="width: 80px; background-color: red;"><a href="#">Unflag</a></div>';

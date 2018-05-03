@@ -291,20 +291,21 @@ h2 {
     margin-top:80px;
     padding:0 20px;
 }
-.detail_photo .item .user .button {
+.detail_photo .item .user .buttonedit {
     padding:8px 8px;
-    margin:10px 0 0 80%;
-    width:50px;
+    margin-top:5px;
     font-size:14px;
+    background-color:#41e1fc;
+    text-decoration: none;
+    font-weight:600;
+    text-transform: uppercase;
+    border-radius:25px;
+    float:right;
 }
-
-.detail_photo .item .user .button .inappropriate{
-    padding:8px 8px;
-    margin:10px 0 0 80%;
-    width:auto;
-    font-size:14px;
+.inappropriate{
+    background-color:#f97897;
 }
-.detail_photo .item .user .button a {
+.detail_photo .item .user .buttonedit a {
     color: #fff;
 }
 .detail_photo .item {
