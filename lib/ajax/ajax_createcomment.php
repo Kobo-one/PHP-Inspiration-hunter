@@ -3,11 +3,11 @@
         include_once("../classes/User.class.php");
         include_once("../classes/Post.class.php");
 
-		$comment = new Comment();
-        
-        try
-		{
+		
+        if(!empty($_POST)){
+            session_start();
             //hierbij zetten we niet de name tussen de [], maar de naam 'comment' die we aan de data hebben gegeven in app.js
+            $comment = new Comment();
             $comment->setText( $_POST['comment'] );
             //postId uithalen
             $comment->setPostId($_GET['post']);
@@ -16,14 +16,15 @@
 			$feedback['status'] = "success";
             $feedback['comment'] = htmlspecialchars( $_POST['comment'] );
  
-		}
-		catch(Exception $e)
+		
+		/*catch(Exception $e)
 		{
 			$feedback['text'] = $e->getMessage();
-			$feedback['status'] = "error";
-		}
-
+			$feedback['status'] = "error";*/
+            
 		header('Content-Type: application/json');
 		echo json_encode($feedback);
+		}
+
 
 ?>
