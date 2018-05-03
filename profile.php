@@ -40,7 +40,7 @@ $count=$user->checkFollower();
 <body>   
    <?php include_once("nav.inc.php"); ?>
 
-  <div class="profile_user">
+  <div class="profile_use" id="user_<?php echo $_GET['user'];?>">
         
               <img src="<?php echo $searchedUser->picture?>" alt="avatar" class="avatar">
               <h2><?php echo $searchedUser->username ?></h2>
@@ -99,59 +99,7 @@ $count=$user->checkFollower();
    
 </div> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-<?php if(isset($_GET['user'])): ?>
-if(!($(".edit").length)){
-
- $("form").on("click",".button--follow", function(e){
-        //id van de user die je wilt volgen meegeven
-    
-        var followerId= <?php echo $_GET['user'];?>;
-        
-        $.ajax({
-            method: "POST",
-            url: "./follow.php",
-            data: { followerId: followerId, active:1}
-            })
-            .done(function( res ) {
-            if (res.status == "succes"){
-            //Insert statement OK ->button 'refreshen': nieuwe class en value
-            console.log("follow succesvol verstuurd");
-           
-            $(".button--follow").removeClass("button--follow").addClass("button--unfollow");
-            $(".button--unfollow").val("unfollow");
-            }  
-         });           
-           
-            e.preventDefault();
-    });
-
-  $("form").on("click",".button--unfollow", function(e){
-        //id van de user die je wilt volgen meegeven
-        
-        var followerId= <?php echo $_GET['user'];?>;
-        var active=0;
-        $.ajax({
-            method: "POST",
-            url: "./follow.php",
-            data: { followerId: followerId, active:0}
-            })
-            .done(function( res ) {
-            if (res.status == "succes"){
-            //Insert statement OK ->button 'refreshen': nieuwe class en value
-            
-            console.log("unfollow succesvol verstuurd");
-            $(".button--unfollow").removeClass("button--unfollow").addClass("button--follow");
-            $(".button--follow").val("follow");
-            
-            }  
-         });           
-           
-            e.preventDefault();
-    });   
-}    
-<?php endif; ?>
-</script>
+<script src="lib/js/follow.js"></script>
 
 <script src="lib/js/like.js"></script>
 </body>

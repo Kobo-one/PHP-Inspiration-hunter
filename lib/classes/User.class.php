@@ -1,6 +1,6 @@
 <?php
 
-    require_once("Db.class.php");
+    include_once("Db.class.php");
     include_once("Exceptions.class.php");
 
     class User {
