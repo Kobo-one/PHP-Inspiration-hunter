@@ -40,7 +40,7 @@ $count=$user->checkFollower();
 <body>   
    <?php include_once("nav.inc.php"); ?>
 
-  <div class="profile_use" id="user_<?php echo $_GET['user'];?>">
+  <div class="profile_user" id="user_<?php echo $_GET['user'];?>">
         
               <img src="<?php echo $searchedUser->picture?>" alt="avatar" class="avatar">
               <h2><?php echo $searchedUser->username ?></h2>
