@@ -63,7 +63,11 @@ class Comment
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-        
+		
+	
+	/* public function getUsername($email){
+		SELECT username FROM users WHERE email= $email
+	}*/
 }
 
 ?>

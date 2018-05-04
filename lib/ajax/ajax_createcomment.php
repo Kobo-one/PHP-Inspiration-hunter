@@ -6,16 +6,14 @@
 			$comment = new Comment();
         
         
-            //hierbij zetten we niet de name tussen de [], maar de naam 'comment' die we aan de data hebben gegeven in app.js
+            //$_POST komt uit ajax call: data{}, niet van detail.php
             $comment->setText( $_POST['comment'] );
-			//postId uithalen
 			
             $comment->setPostId($_POST['postId']);
 			$comment->saveComment(); 
 			
-            /*$feedback['text'] = "Your comment has been posted!";
-			$feedback['status'] = "success";
-            $feedback['comment'] = htmlspecialchars( $_POST['comment'] );*/
+			/*$comment->getUsername($_SESSION['username']);*/
+            
 			$feedback= [
 				"status" => "success",
 				"comment"=> htmlspecialchars( $_POST['comment'] ),
