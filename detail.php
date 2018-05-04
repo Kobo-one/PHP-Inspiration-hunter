@@ -48,7 +48,7 @@ else{
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 	
-	<script src="lib/js/loadComment.js"></script>
+	
 	<title>Phomo | Details</title>
 </head>
 <body>
@@ -90,7 +90,7 @@ else{
     </div>
         
     <div class="comments" id="commentfeed">
-        <div class="new_comment">
+        <div class="new_comment" id="post_<?php echo $collection[0]['id'];?>">
 		    <form action="" method="post">
 			    <textarea name="text" id="text"></textarea>
 			    <input type="submit" name="btnAddComment" id="btnAddComment" class="button" value="Add comment" />
@@ -99,7 +99,7 @@ else{
        
         <?php if(count($allComments) > 0): ?>
         <?php foreach($allComments as $key => $comment): ?>          
-        <div class="comment">
+        <div class="comment" >
             <div class="comment_username"><?php echo htmlspecialchars($comment['username']); ?></div>
             <p><?php echo htmlspecialchars($comment['comment']); ?></p>
         </div>         
@@ -116,7 +116,7 @@ else{
     <?php endif; ?> 
 </div>
 
-
+<script src="lib/js/loadComment.js"></script>
 <script src="lib/js/like.js"></script>
 <script src="lib/js/inappropriate.js"></script>
 </body>

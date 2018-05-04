@@ -51,7 +51,7 @@ class Comment
         $statement->bindValue(':text', $this->getText());
         $statement->bindValue(':email', $_SESSION['username']);
         $statement->bindValue(':postId', $this->getPostId()); 
-        $comment_added = $statement->execute();
+		$comment_added = $statement->execute();
         return $comment_added; 
 	}
 
@@ -63,7 +63,11 @@ class Comment
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-        
+		
+	
+	/* public function getUsername($email){
+		SELECT username FROM users WHERE email= $email
+	}*/
 }
 
 ?>
