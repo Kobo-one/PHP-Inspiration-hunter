@@ -28,10 +28,7 @@ else{
     else{
         $collection=Post::getAll();
     }
-    
-
 }
-
 $postedpost = count($collection);
 $totalpost = Post::allPost()->rowCount();
 

@@ -11,7 +11,7 @@ $post = new Post();
 $post->setIdG($_GET['post']);
 if(Post::inappropriateCheck($_GET['post'])){
 $collection= $post->getDetailsPost();
-
+$collection = Post::setCities($collection);
 //comments
 $comment = new Comment();
 $comment->setPostId($_GET['post']);
@@ -77,7 +77,7 @@ else{
         <a href="#"><img src="<?php echo  htmlspecialchars($collection[0]['image']);?>" alt="image" class="picture_index"></a>
          
         <div class="item_text feed_flex">
-            <div class="date"><?php echo htmlspecialchars(Post::timeAgo($collection[0]['created'])); ?></div>    
+            <div class="date"><?php echo Post::timeAgo($collection[0]['created'])."  -  ".$collection[0]['city']; ?></div>    
             <div class="likes"><span><?php echo Like::countLikes($collection[0]['id']);?></span> likes</div>
             <?php if (Like::userLiked($collection[0]['id'])==0):?>
                 <a href="#"><img src="images/tolike_btn.png" alt="like button" class="like_btn" id="post_<?php echo $collection[0]['id'];?>"></a>

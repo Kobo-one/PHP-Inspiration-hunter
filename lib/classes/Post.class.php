@@ -516,13 +516,26 @@ public static function getTopPosts(){
       }
   }
 
-
- 
-
- 
-
-
-
+  public static function setCities($collection){
+      $newcollection = array();
+        foreach($collection as $key =>$c){
+          $newcollection[$key] = $c;
+            $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$c['lat'].','.$c['lng'].'&sensor=false';
+            $json = @file_get_contents($url);
+            $data = json_decode($json);
+            $status = $data->status;
+            
+            //if request status is successful
+            if($status == "OK"){
+                //get address from json data
+                $location = $data->results[0]->address_components[2]->long_name;
+            }else{
+                $location =  'Unknown';
+            }
+            $newcollection[$key]["city"] = $location;
+        }
+        return $newcollection;
+  }
 
 
 
