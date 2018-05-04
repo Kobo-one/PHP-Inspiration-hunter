@@ -14,6 +14,10 @@ class Post{
   private $click;
   private $tags;
 
+//privates for the geolocation
+  private $lat;
+  private $lng;
+
 
   /**
    * Get the value of image
@@ -200,6 +204,47 @@ class Post{
     return $this;
   }
 
+
+  /**
+   * Get the value of lat
+   */ 
+  public function getLat()
+  {
+    return $this->lat;
+  }
+
+  /**
+   * Set the value of lat
+   *
+   * @return  self
+   */ 
+  public function setLat($lat)
+  {
+    $this->lat = $lat;
+
+    return $this;
+  }
+  
+  /**
+   * Get the value of lng
+   */ 
+  public function getLng()
+  {
+    return $this->lng;
+  }
+
+  /**
+   * Set the value of lng
+   *
+   * @return  self
+   */ 
+  public function setLng($lng)
+  {
+    $this->lng = $lng;
+
+    return $this;
+  }
+
   
       
     public function setTags($string) {
@@ -224,10 +269,12 @@ class Post{
     /*Upload nieuwe foto met beschrijving*/
     public function createPost(){
     $conn = Db::getInstance();
-    $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email))");
+    $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id, lat, lng) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email), :lat, :lng)");
     $statement->bindValue(":image", $this->getImage());
     $statement->bindValue(":description", $this->getDescription());
-    $statement->bindValue(":email", $_SESSION['username']);    
+    $statement->bindValue(":email", $_SESSION['username']);
+    $statement->bindValue(":lat", $this->getLat());  
+    $statement->bindValue(":lng", $this->getLng());    
     $image_upload = $statement->execute();
     return $image_upload;
     }
@@ -479,7 +526,7 @@ public static function getTopPosts(){
 
 
 
-  
+
 }
 
 

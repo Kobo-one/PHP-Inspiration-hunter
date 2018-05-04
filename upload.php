@@ -35,10 +35,11 @@
                 } else {
                     $compImage = $fileDir;
                 }
-                
                 //create new post
                 $post = new Post();
                 $post->setImage( $compImage );
+                $post->setLat( $_SESSION["lat"] );
+                $post->setLng( $_SESSION["lng"] );
                 //set tags
 			    $post->setTags($_POST['description']);
 			    if(!empty($post->getTags())){
@@ -107,5 +108,9 @@
 						
 				
 	</div>	
+
+
+
+    <script src="lib/js/location.js"></script>
 </body>
 </html>
