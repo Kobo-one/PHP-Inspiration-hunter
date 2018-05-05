@@ -72,8 +72,8 @@
     public function setFollowStatus($followStatus)
     {
             $this->followStatus = $followStatus;
-
             return $this;
+            
     }
 
     public function setPicture($picture)
@@ -241,8 +241,8 @@
     public function newFollow(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("INSERT INTO followers(user_id,follower_id,status) VALUES (:userId, :followerId, 1)");
-        $statement->bindValue(":userId", $this->loggedInUser());
-        $statement->bindValue(":followerId", $this->getId());
+        $statement->bindValue(":followerId", $this->loggedInUser());
+        $statement->bindValue(":userId", $this->getId());
         $statement->execute();
         
         return $statement;
@@ -251,11 +251,10 @@
     public function editFollow(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE followers SET status = :status WHERE user_id=:userId AND follower_id=:followerId ");
-        $statement->bindValue(":userId", $this->loggedInUser());
-        $statement->bindValue(":followerId", $this->getId());
-        $statement->bindValue(":status",$this->getFollowStatus(),PDO::PARAM_INT);
+        $statement->bindValue(":followerId", $this->loggedInUser());
+        $statement->bindValue(":userId", $this->getId());
+        $statement->bindValue(":status",$this->getFollowStatus());
         $statement->execute();
-        
         return $statement;
     }
     
@@ -265,8 +264,8 @@
     public function checkFollower(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2 AND status=1");
-        $statement->bindValue(":id", $this->loggedInUser());
-        $statement->bindValue(":id2", $this->getId());
+        $statement->bindValue(":id2", $this->loggedInUser());
+        $statement->bindValue(":id", $this->getId());
         $statement->execute();
         $amount=$statement->rowCount();;
         return $amount;
@@ -275,8 +274,8 @@
     public function existFollow(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT * FROM followers WHERE user_id=:id AND follower_id= :id2");
-        $statement->bindValue(":id", $this->loggedInUser());
-        $statement->bindValue(":id2", $this->getId());
+        $statement->bindValue(":id2", $this->loggedInUser());
+        $statement->bindValue(":id", $this->getId());
         $statement->execute();
         $amount=$statement->rowCount();
         return $amount;

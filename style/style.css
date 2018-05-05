@@ -104,6 +104,7 @@ input[type=text], input[type=password], .formfield textarea{
     top: 0;
     width: 100%;
     background-color: #fff;
+    z-index:3;
 }
 .navbar a {
     color: #000;
@@ -413,7 +414,8 @@ input[type=file]{
     color: #b3f3fe;
 }
 
-
+  /*-----------------------------------------*/
+    /* figure filter */
 
 .filter input[type="radio"]{
     display:none;
@@ -437,8 +439,11 @@ input[type=file]{
     -webkit-box-shadow: none;
     box-shadow: none;
   }
-   /*-----------------------------------------*/
-    /* figure filter */
+
+  .figure__div{
+    padding-top:20%;
+  }
+ 
 
 
 
@@ -537,19 +542,19 @@ input[type=file]{
     font-size:14px;
     margin-top: 14px;
     }
-    .form_edit_post div img {
+    .form_edit_post div img {  
     margin-left:15%;
     margin-right:15%;
     width: 70%;
-    white-space: nowrap;
+   
     }
     .btn_min {
     margin-bottom:-10px;
     }
     
     .wrapper{
-   display: inline-block;
-  
+    width:50%;
+    height: auto;
     }
     /*-----------------------------------------*/
     /*Upload*/
@@ -560,9 +565,17 @@ input[type=file]{
     .button__filter{
         width:20%;
     }
+    .figure__div{
+        padding-top:15%;
+      }
+    
+     
 }
 
 @media screen and (min-width: 768px){
+    .figure__div{
+        padding-top:10%;
+      }
     /*-----------------------------------------*/
     /* Sign up + Login */
     .logo {

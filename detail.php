@@ -74,11 +74,11 @@ else{
             ?>
         </div>
      
-        <a href="#">
+        <div class="figure__div">
             <figure class="<?php echo($collection[0]['filter']);?>">
             <img src="<?php echo  htmlspecialchars($collection[0]['image']);?>" alt="image" class="picture_index">
             </figure>
-        </a>
+        </div>
          
         <div class="item_text feed_flex">
             <div class="date"><?php echo Post::timeAgo($collection[0]['created'])."  -  ".$collection[0]['city']; ?></div>    
