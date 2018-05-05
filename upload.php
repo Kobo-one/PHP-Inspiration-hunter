@@ -47,6 +47,7 @@
 			    }
                 $post->setDescription( $_POST['description']);
                 //set filters
+
                 if(isset($_POST["filter"])){
                     $post->setFilter( $_POST["filter"] );
                 }

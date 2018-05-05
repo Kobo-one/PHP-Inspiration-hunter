@@ -373,7 +373,7 @@ h2 {
 .form_edit_post div img {
     width:100%;
     margin-left:0%;
-    margin-bottom:-3px;
+    margin-bottom:-5px;
 }
 .wrapper{
     margin-left:10%;
@@ -822,7 +822,7 @@ input[type=file]{
     /*Upload*/
 	.preview {
     margin:10px 35% 30px 35%;
-    width:30%;
+    width:40%;
     }
     .filter{
         width:40%;
@@ -909,8 +909,8 @@ input[type=file]{
     /*-----------------------------------------*/
     /*Upload*/
 	.preview {
-    margin:10px 40% 30px 40%;
-    width:20%;
+    margin:10px 30% 30px 30%;
+    width:40%;
     }
     .filter{
         width:30%;
