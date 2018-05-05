@@ -5,7 +5,7 @@
     
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
        
        
         <img src="images/logoklein_phomo.png" alt="Phomo logo" class="logonav">

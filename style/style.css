@@ -148,6 +148,11 @@ input[type=text], input[type=password], .formfield textarea{
 .user a {
     text-decoration: none;
     color: #000;
+   
+    
+}
+.user__post{
+    padding-top:20%;
 }
 .username {
 	letter-spacing: 1px;
@@ -162,6 +167,9 @@ input[type=text], input[type=password], .formfield textarea{
     width:100%;
     margin-top:5px;
     margin-bottom:10px;
+    display: block;
+   
+    
 }
 .date, .likes{
     font-size:12px;
@@ -404,6 +412,10 @@ input[type=file]{
     background-color: #fff;
     color: #b3f3fe;
 }
+   /*-----------------------------------------*/
+    /* figure filter */
+
+
 
 
 @media screen and (min-width: 480px){
