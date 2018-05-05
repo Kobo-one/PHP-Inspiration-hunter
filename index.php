@@ -9,11 +9,14 @@ $user->setId($id);
 
 /* als je nog geen vrienden hebt-> toon posts met meeste likes
 getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog niet*/
+var_dump(Post::getAll());
 if($user->getFollowersAmount()==0){   
     $collection= Post::getTopPosts();
     $friendless="";
+   
 } 
 /* als je al vrienden hebt -> toon posts van je vrienden */
+
 else{
     /* als er minder dan 20 posts op de index pagina worden getoond -> aanvullen met populairste posts*/
     if(POST::allPost()->rowCount()<20){

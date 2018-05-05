@@ -55,7 +55,13 @@ else {
              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><img src="<?php echo htmlspecialchars($c['picture']); ?>" alt="avatar" class="avatar"></a>
               <a href="profile.php?user=<?php echo $c['post_user_id'] ?>" class="username"><?php echo htmlspecialchars($c['username']); ?></a>
          </div>
-         <a href="detail.php?post=<?php echo $c['id'] ?>"><img src="<?php echo htmlspecialchars($c['image']); ?> " alt="image" class="picture_index"></a>
+         <div class="user__post">
+         <a href="detail.php?post=<?php echo $c['id'] ?>">
+            <figure class="<?php echo ($c['filter']);?>">
+            <img src="<?php echo htmlspecialchars($c['image']); ?> " alt="image" class="picture_index">
+            </figure>   
+         </a>
+</div>
          <div class="feed_flex">
          <div class="date"><?php echo(Post::timeAgo($c['created']));?></div>
          <div class="likes"><span><?php echo Like::countLikes($c['id']) ;?></span> likes</div>

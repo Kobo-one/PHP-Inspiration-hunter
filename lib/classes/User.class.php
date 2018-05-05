@@ -210,7 +210,7 @@
 
     public function Followers(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id= :id AND status=1");
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE follower_id= :id AND status=1");
         $statement->bindValue(":id", $this->getId());
         $statement->execute();
         
