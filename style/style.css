@@ -371,6 +371,11 @@ h2 {
     margin-top: 10px;
 }
 .form_edit_post div img {
+    width:100%;
+    margin-left:0%;
+    margin-bottom:-3px;
+}
+.wrapper{
     margin-left:10%;
     margin-right:10%;
     width: 80%;
@@ -426,16 +431,19 @@ input[type=file]{
     padding: 10px 10px;
      margin:10px;
     border: none;
-    background-color:#b3f3fe;
+    background-color:#41e1fc;
+    display:inline-block;
+    color:white;
+    border-radius:5px;
   
 }
  .filter input:checked + label {
-    background-color: #41e1fc;
+    background-color: #b3f3fe;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
   .filter input:hover + label {
-    background-color: #41e1fc;
+    background-color: #b3f3fe;
     -webkit-box-shadow: none;
     box-shadow: none;
   }
@@ -484,6 +492,9 @@ input[type=file]{
     }
     .collection {
         padding: 30px;
+    }
+    .user__post{
+        padding-top:10%;
     }
     
     /*-----------------------------------------*/
@@ -542,19 +553,20 @@ input[type=file]{
     font-size:14px;
     margin-top: 14px;
     }
-    .form_edit_post div img {  
+    .wrapper {  
     margin-left:15%;
     margin-right:15%;
     width: 70%;
-   
+  
     }
     .btn_min {
     margin-bottom:-10px;
     }
     
-    .wrapper{
-    width:50%;
-    height: auto;
+    .wrapper figure{
+        margin-left:15%;
+        margin-right:15%;
+        width: 70%;
     }
     /*-----------------------------------------*/
     /*Upload*/
@@ -573,9 +585,7 @@ input[type=file]{
 }
 
 @media screen and (min-width: 768px){
-    .figure__div{
-        padding-top:10%;
-      }
+    
     /*-----------------------------------------*/
     /* Sign up + Login */
     .logo {
@@ -623,6 +633,9 @@ input[type=file]{
     width:25px;
     height:25px;
     margin-top:-6px; 
+    }
+    .user__post{
+        padding-top:20%;
     }
     
     /*-----------------------------------------*/
@@ -676,7 +689,7 @@ input[type=file]{
     
     /*-----------------------------------------*/
     /*editPost.php*/
-    .form_edit_post div img {
+    .wrapper{
     margin-left:25%;
     margin-right:25%;
     width:50%;
@@ -684,7 +697,9 @@ input[type=file]{
     .btn_min {
     margin-bottom:-10px;
     }
-
+    .figure__div{
+        padding-top:10%;
+      }
     /*-----------------------------------------*/
 	/*Upload*/
     .button_upload{
@@ -784,13 +799,17 @@ input[type=file]{
     width:30%;
     margin:0 0 10px 70%;
     }
+
+    .figure__div{
+        padding-top:12%;
+    }
     
     /*-----------------------------------------*/
     /*editPost.php*/
     .form_edit_post h1 {
     font-size:22px;
     }
-    .form_edit_post div img {
+    .wrapper {
     margin-left:30%;
     margin-right:30%;
     width:40%;
@@ -804,6 +823,10 @@ input[type=file]{
 	.preview {
     margin:10px 35% 30px 35%;
     width:30%;
+    }
+    .filter{
+        width:40%;
+        margin-left:30%
     }
 	
 }
@@ -873,10 +896,11 @@ input[type=file]{
     
     /*-----------------------------------------*/
     /*editPost.php*/
-    .form_edit_post div img {
-    margin-left:35%;
-    margin-right:35%;
-    width:30%;
+   
+    .wrapper{
+        margin-left:35%;
+        margin-right:35%;
+        width:30%;
     }
     .btn_min {
     margin-bottom:-10px;
@@ -888,7 +912,10 @@ input[type=file]{
     margin:10px 40% 30px 40%;
     width:20%;
     }
-    
+    .filter{
+        width:30%;
+        margin-left:35%
+    }
 	
 }
 

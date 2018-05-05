@@ -107,14 +107,18 @@
                 </div>
                 
                 <div class="formfield filter">  
-                <input type="radio" value="aden" name="filter" class="button__filter" id="aden">
-                <label for="aden"> aden</label>
-                <input type="radio" value="moon" name="filter" class=" button__filter" id="moon">
-                <label for="moon"> moon</label>
-                <input type="radio" value="brannan" name="filter" class=" button__filter" id="brannan">
-                <label for="brannan"> brannan</label>
-                <input type="radio" value="mayfair" name="filter" class="button__filter" id="mayfair">
-                <label for="mayfair"> Mayfair</label>
+                    <input type="radio" value="aden" name="filter" class="button__filter" id="aden">
+                    <label for="aden"> Aden</label>
+                    <input type="radio" value="moon" name="filter" class=" button__filter" id="moon">
+                    <label for="moon"> Moon</label>
+                    <input type="radio" value="brannan" name="filter" class=" button__filter" id="brannan">
+                    <label for="brannan"> Brannan</label>
+                    <input type="radio" value="mayfair" name="filter" class="button__filter" id="mayfair">
+                    <label for="mayfair"> Mayfair</label>
+                    <input type="radio" value="gingham" name="filter" class="button__filter" id="gingham">
+                    <label for="gingham"> Gingham</label>
+                    <input type="radio" value="kelvin" name="filter" class="button__filter" id="kelvin">
+                    <label for="kelvin"> Kelvin</label>
                 </div>    
                 
                 <div class="formfield">

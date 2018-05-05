@@ -9,7 +9,7 @@ $user->setId($id);
 
 /* als je nog geen vrienden hebt-> toon posts met meeste likes
 getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog niet*/
-var_dump(Post::getAll());
+
 if($user->getFollowersAmount()==0){   
     $collection= Post::getTopPosts();
     $friendless="";
