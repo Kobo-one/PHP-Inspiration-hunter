@@ -13,6 +13,7 @@ class Post{
   private $idG;
   private $click;
   private $tags;
+  private $filter;
 
 //privates for the geolocation
   private $lat;
@@ -246,6 +247,25 @@ class Post{
   }
 
   
+  /**
+   * Get the value of filter
+   */ 
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+
+  /**
+   * Set the value of filter
+   *
+   * @return  self
+   */ 
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+
+    return $this;
+  }
       
     public function setTags($string) {
   
@@ -269,9 +289,10 @@ class Post{
     /*Upload nieuwe foto met beschrijving*/
     public function createPost(){
     $conn = Db::getInstance();
-    $statement = $conn->prepare("INSERT INTO posts (image, description, post_user_id, lat, lng) VALUES(:image, :description, (SELECT users.id FROM users WHERE users.email=:email), :lat, :lng)");
+    $statement = $conn->prepare("INSERT INTO posts (image, description, filter, post_user_id, lat, lng) VALUES(:image, :description, :filter, (SELECT users.id FROM users WHERE users.email=:email), :lat, :lng)");
     $statement->bindValue(":image", $this->getImage());
     $statement->bindValue(":description", $this->getDescription());
+    $statement->bindValue(":filter", $this->getFilter());
     $statement->bindValue(":email", $_SESSION['username']);
     $statement->bindValue(":lat", $this->getLat());  
     $statement->bindValue(":lng", $this->getLng());    
@@ -536,6 +557,7 @@ public static function getTopPosts(){
         }
         return $newcollection;
   }
+
 
 
 

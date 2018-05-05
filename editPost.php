@@ -49,7 +49,11 @@ if(isset($_POST['btnDeletePost'])){
 <div class="form_edit_post">
     <h1>Edit or delete your post</h1>
     <div>
+        <div class="wrapper">
+        <figure class="<?php echo($collection[0]['filter']);?>">
         <img src="<?php echo htmlspecialchars($collection[0]['image']);?>" alt="image">
+        </figure>
+        </div>
     </div>
     
     

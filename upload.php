@@ -46,6 +46,14 @@
 				    $post->saveTags();
 			    }
                 $post->setDescription( $_POST['description']);
+                //set filters
+                if(isset($_POST["filter"])){
+                    $post->setFilter( $_POST["filter"] );
+                }
+                else{
+                    $post->setFilter("none");
+                }
+
                 $post->createPost();
             }
             //after submitted, go to...
@@ -95,7 +103,19 @@
                 <div class="formfield" id="first_input">
                     <label for="image_upload" class="button_upload" id="choose_image">Choose image</label>
                     <input type="file" name="image" id="image_upload" accept=".jpg, .jpeg, .png" onchange="filePreview(this);">
+                    
                 </div>
+                
+                <div class="formfield filter">  
+                <input type="radio" value="aden" name="filter" class="button__filter" id="aden">
+                <label for="aden"> aden</label>
+                <input type="radio" value="moon" name="filter" class=" button__filter" id="moon">
+                <label for="moon"> moon</label>
+                <input type="radio" value="brannan" name="filter" class=" button__filter" id="brannan">
+                <label for="brannan"> brannan</label>
+                <input type="radio" value="mayfair" name="filter" class="button__filter" id="mayfair">
+                <label for="mayfair"> Mayfair</label>
+                </div>    
                 
                 <div class="formfield">
 					<textarea name="description" id="description" rows="4" placeholder="Description"></textarea>
@@ -112,5 +132,6 @@
 
 
     <script src="lib/js/location.js"></script>
+    <script src="lib/js/filter.js"></script>
 </body>
 </html>
