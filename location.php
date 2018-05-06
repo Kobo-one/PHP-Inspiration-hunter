@@ -32,7 +32,7 @@ $allPosts = $post->getLocation();
     <?php include_once("nav.inc.php"); ?>
       
     <div class="collection">
-   
+  
     <?php foreach($allPosts as $p): ?>  
      
     <!-- Search through all the posts and compare the lng- & lat-coordinates -->
@@ -59,13 +59,12 @@ $allPosts = $post->getLocation();
                 <?php endif; ?>  
             </div>
         </div>
-        <?php endif; ?> 
-        <?php //else: ?>
         <!-- If there are no posts within the users' location -->
-        <?php //$error="There were no posts found nearby your location." ?>
-      
+        <?php elseif((!($p['lng'] >= min($lng)) && !($p['lng'] <= max($lng))) && (!($p['lat']) >= min($lat) && !($p['lat'] <= max($lat)))): ?>
+        <?php $error="There were no posts found nearby your location."; ?>
+      <?php endif; ?> 
     <?php endforeach; ?>
-
+   
     </div>
     
     <!-- When there are no posts found nearby the users location -->
