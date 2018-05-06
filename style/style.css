@@ -144,7 +144,7 @@ input[type=text], input[type=password], .formfield textarea{
 }
 .collection {
     width:100%;
-    margin-top:58px;
+    margin-top:-10px;
 	padding: 20px;
 }
 .collection .item {
@@ -763,6 +763,7 @@ input[type=file]{
     -webkit-column-count: 3;
     column-count: 3;
     padding: 40px;
+    margin-top:-20px;
     }
 	
     /*-----------------------------------------*/
