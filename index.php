@@ -19,8 +19,9 @@ if($user->getFollowersAmount()==0){
 
 else{
     /* als er minder dan 20 posts op de index pagina worden getoond -> aanvullen met populairste posts*/
-    if(POST::allPost()->rowCount()<20){
-        $friends= Post::getAll();
+    if(POST::allPost(21)->rowCount()<20){
+        $friends= Post::getAll(21);
+    
         $popular= Post::getTopPosts();
     
         $merge=array_merge($friends, $popular);
@@ -29,13 +30,27 @@ else{
     }
     /* als er meer dan 20 posts worden getoond dan enkel posts vrienden tonen */
     else{
-        $friends=Post::getAll();
+        $friends=Post::getAll(21);
+        
         $collection=array_slice($friends,0,20);
         
     }
 }
-$postedpost = count($friends);
 
+$click=1;
+if (isset($_POST['loadMore'])){
+    $click++;
+    echo("Dit is het aantal kilks".$click);
+    $amount= ($click*20)+1;
+    
+    $friends=Post::getAll($amount);
+   // var_dump($friends);
+    array_pop($friends);
+    $collection=$friends;
+    //var_dump($collection);
+
+}
+$postedpost = count($friends);
 //$totalpost = Post::allPost()->rowCount();
 
 ?><!DOCTYPE html>
@@ -100,10 +115,10 @@ $postedpost = count($friends);
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
-        <?php if($postedpost>20 ):?>
+        <?php if(($postedpost/$click)>20 ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
-                <input type="submit" value="Load More" class=" button formLoad__button">
+                <input type="submit" value="Load More" name="loadMore" class="button formLoad__button">
             </form>
         </div>  
 

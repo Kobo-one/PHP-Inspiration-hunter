@@ -14,6 +14,8 @@ class Post{
   private $click;
   private $tags;
   private $filter;
+  private $limit;
+  
 
 //privates for the geolocation
   private $lat;
@@ -266,6 +268,29 @@ class Post{
 
     return $this;
   }
+
+
+  /**
+   * Get the value of limit
+   */ 
+  public function getLimit()
+  {
+    return $this->limit;
+  }
+
+  /**
+   * Set the value of limit
+   *
+   * @return  self
+   */ 
+  public function setLimit($limit)
+  {
+    $this->limit = $limit;
+
+    return $this;
+  }
+
+  
       
     public function setTags($string) {
   
@@ -353,16 +378,18 @@ public static function getTopPosts(){
 
 /* select posts, date without seconds. show only posts from friends*/  
 
-  public static function allPost(){
+  public static function allPost($limit){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT 21  ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
     $statement->bindValue(':email', $_SESSION["username"]);  
+    $statement->bindValue(':limit', $limit,PDO::PARAM_INT);  
+  
     $statement->execute();
     return $statement;
   }  
 
-  public static function getAll(){
-      $statement = Post::allPost();
+  public static function getAll($lim){
+      $statement = Post::allPost($lim);
       return $statement->fetchAll(PDO::FETCH_ASSOC);
     
     }
@@ -444,6 +471,17 @@ public static function getTopPosts(){
     $statement->execute();
     return $statement;
   }
+
+  /*public function loadMorePosts(){
+    $conn = Db::getInstance();
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
+    $statement->bindValue(':email', $_SESSION["username"]);  
+    $statement->bindValue(':limit', $this->getLimit(),PDO::PARAM_INT);  
+  
+    $statement->execute();
+    $result=$statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+  }  */
 
 
 
@@ -561,6 +599,9 @@ public static function getTopPosts(){
 
 
 
+
+
+  
 
 }
 
