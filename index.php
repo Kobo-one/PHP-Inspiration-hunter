@@ -116,13 +116,14 @@ else{
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
+       <?php if(POST::allPost(21)->rowCount()==21):?>
         <?php if(($postedpost/$click)>20 ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" name="loadMore" class="button formLoad__button">
             </form>
         </div>  
-
+    <?php endif;?>
    <?php endif;?>
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
