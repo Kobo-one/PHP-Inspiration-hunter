@@ -34,23 +34,24 @@ else{
         
         $collection=array_slice($friends,0,20);
         
+        $click=1;
+        if (isset($_POST['loadMore'])){
+            $click++;
+            echo("Dit is het aantal kilks".$click);
+            $amount= ($click*20)+1;
+            
+            $friends=Post::getAll($amount);
+        // var_dump($friends);
+            array_pop($friends);
+            $collection=$friends;
+            //var_dump($collection);
+
+        }
+        $postedpost = count($friends);
     }
 }
 
-$click=1;
-if (isset($_POST['loadMore'])){
-    $click++;
-    echo("Dit is het aantal kilks".$click);
-    $amount= ($click*20)+1;
-    
-    $friends=Post::getAll($amount);
-   // var_dump($friends);
-    array_pop($friends);
-    $collection=$friends;
-    //var_dump($collection);
 
-}
-$postedpost = count($friends);
 //$totalpost = Post::allPost()->rowCount();
 
 ?><!DOCTYPE html>
