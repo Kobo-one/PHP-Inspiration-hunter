@@ -65,7 +65,10 @@ $postedpost = count($friends);
                     <h2> It appears you don't have any friends yet!</h2>
                     <p>Search friends on their name or your interests. Or check out what other awesomeness people made below!</p>
                 </div>
-    <?php endif; ?>     
+    <?php endif; ?>
+    
+    <div class="filter_location"><a href="location.php">Show posts nearby</a></div> 
+                   
    <div class="collection">
    
 <!--BEGIN FOTO'S UIT DATABASE-->  

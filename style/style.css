@@ -126,6 +126,22 @@ input[type=text], input[type=password], .formfield textarea{
     flex: 1 1 20%;
     align-self: flex-end;
 }
+.filter_location {
+    padding:10px 10px;
+    margin-top:78px;
+    margin-left:20px;
+    width:200px;
+    background-color:#41e1fc;
+    border-radius:25px;
+    text-align:center;
+}
+.filter_location a {
+    text-decoration:none;
+    font-size:14px;
+    color:#fff;
+    font-weight:600;
+    text-transform: uppercase;
+}
 .collection {
     width:100%;
     margin-top:58px;
@@ -738,6 +754,9 @@ input[type=file]{
     /* Index */
     #searchfield {
     width: 250px;
+    }
+    .filter_location {
+    margin-left:40px;
     }
     .collection {
     -moz-column-count: 3;
