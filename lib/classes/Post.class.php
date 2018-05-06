@@ -557,6 +557,31 @@ public static function getTopPosts(){
         }
         return $newcollection;
   }
+    
+   /*Get the locations within the radius of a certain location*/
+    public function getLocationsInRadius($lng, $lat){
+    $radius = 50 * 0.62137;
+
+    $url = 'http://gd.geobytes.com/GetNearbyCities?radius='.$radius.'&Latitude='.$lat.'&Longitude='.$lng.'&limit=999';
+
+    $response_json = file_get_contents($url);
+
+    $response = json_decode($response_json, true);
+    /*var_dump($response);*/
+    return $response;
+    }
+    
+    
+    /*Get all the posts out of database to compare locations*/
+    public function getLocation(){
+        $conn = Db::getInstance();
+        $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id");
+        $statement->execute();
+        
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+        
+    } 
+    
 
 
 
