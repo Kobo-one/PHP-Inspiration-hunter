@@ -355,7 +355,7 @@ public static function getTopPosts(){
 
   public static function allPost(){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT 20  ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT 21  ");
     $statement->bindValue(':email', $_SESSION["username"]);  
     $statement->execute();
     return $statement;
@@ -433,7 +433,7 @@ public static function getTopPosts(){
   /* Load 20 more when button clicked */
   public function loadMore(){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.follower_id AND followers.status=1 AND followers.user_id= (SELECT followers.user_id FROM followers, users WHERE followers.user_id=users.id AND users.email=:email LIMIT 1) )ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
     $number1= $this->getClick()+1;
     $number2= $this->getClick()+21;
     

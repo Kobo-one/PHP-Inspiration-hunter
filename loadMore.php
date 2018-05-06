@@ -8,9 +8,10 @@ if(!empty($_POST)){
     $post = new Post();
     $post->setClick($i);
     $collection=[];
+  
     $collection=$post->loadMore()->fetchAll(PDO::FETCH_ASSOC);
     $count=$post->loadMore()->rowCount();
-    
+   
     //vervang elke datum door leesbare datum
     foreach($collection as &$c){
         $c['created']= Post::timeAgo($c['created']); 

@@ -29,11 +29,14 @@ else{
     }
     /* als er meer dan 20 posts worden getoond dan enkel posts vrienden tonen */
     else{
-        $collection=Post::getAll();
+        $friends=Post::getAll();
+        $collection=array_slice($friends,0,20);
+        
     }
 }
-$postedpost = count($collection);
-$totalpost = Post::allPost()->rowCount();
+$postedpost = count($friends);
+
+//$totalpost = Post::allPost()->rowCount();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -97,7 +100,7 @@ $totalpost = Post::allPost()->rowCount();
 <!--EINDE-->
         </div>
         <!-- Loadmore knop enkel tonen als er 20 resultaten zijn -->
-        <?php if($totalpost >= $postedpost ):?>
+        <?php if($postedpost>20 ):?>
       <div class="form">
             <form action="" method="post" class="formLoad">
                 <input type="submit" value="Load More" class=" button formLoad__button">
