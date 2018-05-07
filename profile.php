@@ -23,6 +23,24 @@ $searchedUser = $user->getDetails();
 
 
 $count=$user->checkFollower();
+if(isset($_POST['follow'])|isset($_POST['unfollow'])){
+    if ($user->existFollow()==0){
+        $user->newFollow();
+        
+    }
+    else{   
+        if(isset($_POST['follow'])){
+            $active=1;
+        };
+        if(isset($_POST['unfollow'])){
+            $active=0;
+        };
+        $user->setFollowStatus($active);
+        $user->editFollow();
+    ;}
+
+
+};
 
 
 ?><!DOCTYPE html>
@@ -55,7 +73,7 @@ $count=$user->checkFollower();
                 // follow-btn wanneer niet op eigen profielpagina en je nog niet bevriend bent
               echo '<div class="form">
               <form action="" method="post">
-              <input type="submit" value="Follow" class="button button--follow">
+              <input type="submit" value="Follow" class="button button--follow" name="follow">
               </form>';
             }
             //kijken of ze al bevriend zijn
@@ -63,7 +81,7 @@ $count=$user->checkFollower();
                 //unfollow-btn als ze al bevriend zijn
               echo '<div class="form">
               <form action="" method="post">
-              <input type="submit" value="Unfollow" class="button button--unfollow">
+              <input type="submit" value="Unfollow" class="button button--unfollow" name="unfollow">
               </form>';
             }
             else{
