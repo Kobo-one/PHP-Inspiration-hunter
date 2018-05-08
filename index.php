@@ -133,6 +133,7 @@ else{
 
 <script src="lib/js/loadMore.js"></script>
 <script src="lib/js/like.js"></script>
+<script src="lib/js/location.js"></script>
 
 </body>
 </html>
