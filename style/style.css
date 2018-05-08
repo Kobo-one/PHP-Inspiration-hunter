@@ -165,11 +165,6 @@ input[type=text], input[type=password], .formfield textarea{
 .user a {
     text-decoration: none;
     color: #000;
-   
-    
-}
-.user__post{
-    padding-top:20%;
 }
 .username {
 	letter-spacing: 1px;
@@ -185,8 +180,11 @@ input[type=text], input[type=password], .formfield textarea{
     margin-top:5px;
     margin-bottom:10px;
     display: block;
-   
-    
+}
+.figure_index {
+    width:100%;
+    margin-top:52px;
+    margin-bottom:10px;
 }
 .date, .likes{
     font-size:12px;
@@ -818,10 +816,10 @@ input[type=file]{
     width:30%;
     margin:0 0 10px 70%;
     }
-
+    /*
     .figure__div{
         padding-top:12%;
-    }
+    }*/
     
     /*-----------------------------------------*/
     /*editPost.php*/
@@ -840,7 +838,7 @@ input[type=file]{
     /*-----------------------------------------*/
     /*Upload*/
 	.preview {
-    margin:10px 35% 30px 35%;
+    margin:10px 30% 30px 30%;
     width:40%;
     }
     .filter{
