@@ -83,7 +83,7 @@ else{
                 </div>
     <?php endif; ?>
     
-    <div class="filter_location"><a href="location.php">Show posts nearby</a></div> 
+    <div class="filter_location"><a href="location.php">Show posts nearby</a></div> <div class="filter_location"><a href="world.php">Show posts on a map</a></div>
                    
    <div class="collection">
    
