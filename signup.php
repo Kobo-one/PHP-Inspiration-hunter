@@ -25,9 +25,10 @@
         $user->setEmail( $_POST['email'] );
         $user->setPassword( $_POST['password'] );
         	if($user->register()){
+                    $id= $user->getIdbyEmail();
                     //send to index after register
                     session_start();
-                    $_SESSION['username']=$username;
+                    $_SESSION['user']=$id['id'];
             		header('Location: index.php');
         	}  
         }

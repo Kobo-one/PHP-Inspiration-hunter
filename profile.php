@@ -11,7 +11,7 @@ if(isset($_GET['user'])){
     $id=$_GET['user'];
 }
 else{
-    $id=$user->loggedinUser();
+    $id=$user->loggedInUser();
 }
 
 $post->setIdG($id);

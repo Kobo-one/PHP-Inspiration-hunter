@@ -191,7 +191,7 @@
         $statement = $conn->prepare("SELECT id FROM `users` WHERE email = :email");
         $statement->bindValue(":email", $this->getEmail());
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_OBJ);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
         
         return $result;
     }
@@ -210,7 +210,7 @@
 
     public function Followers(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM `followers` WHERE follower_id= :id AND status=1");
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE follower_id = :id AND status=1");
         $statement->bindValue(":id", $this->getId());
         $statement->execute();
         
@@ -231,9 +231,7 @@
     }
 
     public function loggedInUser(){
-        $this->setEmail($_SESSION["username"]);
-        $idArray = $this->getIdbyEmail();
-        $id=$idArray->id;
+        $id = $_SESSION["user"];
         return $id;
     }
 

@@ -314,11 +314,11 @@ class Post{
     /*Upload nieuwe foto met beschrijving*/
     public function createPost(){
     $conn = Db::getInstance();
-    $statement = $conn->prepare("INSERT INTO posts (image, description, filter, post_user_id, lat, lng) VALUES(:image, :description, :filter, (SELECT users.id FROM users WHERE users.email=:email), :lat, :lng)");
+    $statement = $conn->prepare("INSERT INTO posts (image, description, filter, post_user_id, lat, lng) VALUES(:image, :description, :filter, :user, :lat, :lng)");
     $statement->bindValue(":image", $this->getImage());
     $statement->bindValue(":description", $this->getDescription());
     $statement->bindValue(":filter", $this->getFilter());
-    $statement->bindValue(":email", $_SESSION['username']);
+    $statement->bindValue(":user", $_SESSION['user']);
     $statement->bindValue(":lat", $this->getLat());  
     $statement->bindValue(":lng", $this->getLng());    
     $image_upload = $statement->execute();
@@ -328,10 +328,10 @@ class Post{
     /*Update beschrijving eigen post*/
     public function editPost(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE posts SET description = :description WHERE id = :id AND (SELECT users.id FROM users WHERE users.email=:email)");
+        $statement = $conn->prepare("UPDATE posts SET description = :description WHERE id = :id AND users.id = :user)");
         $statement->bindValue(":description", $this->getDescription());
         $statement->bindValue(":id", $this->getIdG());
-        $statement->bindValue(":email", $_SESSION['username']); 
+        $statement->bindValue(":user", $_SESSION['user']); 
         $result = $statement->execute();
         return $result;
     }
@@ -339,9 +339,9 @@ class Post{
     /*Delete eigen post*/
     public function deletePost(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("DELETE FROM posts WHERE id = :id AND (SELECT users.id FROM users WHERE users.email=:email)");
+        $statement = $conn->prepare("DELETE FROM posts WHERE id = :id AND users.id = :user)");
         $statement->bindValue(":id", $this->getIdG());
-        $statement->bindValue(":email", $_SESSION['username']); 
+        $statement->bindValue(":user", $_SESSION['user']); 
         $result = $statement->execute();
         return $result;
     }
@@ -380,8 +380,8 @@ public static function getTopPosts(){
 
   public static function allPost($limit){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
-    $statement->bindValue(':email', $_SESSION["username"]);  
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id =:user LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
+    $statement->bindValue(':user', $_SESSION["user"], PDO::PARAM_INT);  
     $statement->bindValue(':limit', $limit,PDO::PARAM_INT);  
   
     $statement->execute();
@@ -460,13 +460,13 @@ public static function getTopPosts(){
   /* Load 20 more when button clicked */
   public function loadMore(){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=:user LIMIT 1))ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
     $number1= $this->getClick()+1;
     $number2= $this->getClick()+21;
     
     $statement->bindValue(':nr1', $number1, PDO::PARAM_INT);  
     $statement->bindValue(':nr2', $number2, PDO::PARAM_INT);  
-    $statement->bindValue(':email', $_SESSION["username"]);  
+    $statement->bindValue(':user', $_SESSION["user"]);  
    
     $statement->execute();
     return $statement;
@@ -487,8 +487,8 @@ public static function getTopPosts(){
 
       public function userFlagged(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM inappropriate WHERE post_id = :post_id AND user_id = (SELECT users.id FROM users WHERE users.email=:email) ");
-        $statement->bindValue(':email', $_SESSION['username']);
+        $statement = $conn->prepare("SELECT * FROM inappropriate WHERE post_id = :post_id AND user_id = :user ");
+        $statement->bindValue(':user', $_SESSION['user']);
         $statement->bindValue(':post_id', $this->getIdG());
         $statement->execute();
         $result=$statement->rowcount();
@@ -497,16 +497,16 @@ public static function getTopPosts(){
 
     public function newInappropriate(){
       $conn = Db::getInstance();
-          $statement= $conn->prepare("INSERT INTO inappropriate (user_id, post_id) VALUES((SELECT users.id FROM users WHERE users.email=:email), (SELECT posts.id FROM posts WHERE posts.id=:post_id))");
-          $statement->bindValue(':email', $_SESSION['username']);
+          $statement= $conn->prepare("INSERT INTO inappropriate (user_id, post_id) VALUES(:user, (SELECT posts.id FROM posts WHERE posts.id=:post_id))");
+          $statement->bindValue(':user', $_SESSION['user']);
           $statement->bindValue(':post_id', $this->getIdG()); 
           $result = $statement->execute();
           return $result; 
       }
       public function delInappropriate(){
       $conn = Db::getInstance();
-          $statement= $conn->prepare("DELETE FROM inappropriate WHERE post_id = :post_id AND user_id = (SELECT users.id FROM users WHERE users.email=:email)");
-          $statement->bindValue(':email', $_SESSION['username']);
+          $statement= $conn->prepare("DELETE FROM inappropriate WHERE post_id = :post_id AND user_id = :user");
+          $statement->bindValue(':user', $_SESSION['user']);
           $statement->bindValue(':post_id', $this->getIdG()); 
           $result = $statement->execute();
           return $result; 

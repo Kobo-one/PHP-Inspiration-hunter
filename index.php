@@ -4,20 +4,19 @@ include_once("lib/classes/User.class.php");
 include_once("lib/classes/Like.class.php");
 include_once("lib/includes/checklogin.inc.php");
 $user = new User();
-$id=$user->loggedinUser();
-$user->setId($id);
+$user->setId($_SESSION["user"]);
 
 /* als je nog geen vrienden hebt-> toon posts met meeste likes
 getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog niet*/
 
-if($user->getFollowersAmount()==0){   
-    $collection= Post::getTopPosts();
+ if($user->getFollowersAmount()==0){   
+   $collection= Post::getTopPosts();
     $friendless="";
    
-} 
-/* als je al vrienden hebt -> toon posts van je vrienden */
+ } 
+ /* als je al vrienden hebt -> toon posts van je vrienden */
 
-else{
+ else{
     /* als er minder dan 20 posts op de index pagina worden getoond -> aanvullen met populairste posts*/
     if(POST::allPost(21)->rowCount()<20){
         $friends= Post::getAll(21);
@@ -49,7 +48,7 @@ else{
         }
         $postedpost = count($friends);
     }
-}
+ }
 
 
 //$totalpost = Post::allPost()->rowCount();

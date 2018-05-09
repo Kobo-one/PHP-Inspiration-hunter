@@ -60,7 +60,7 @@ if(isset($_POST['btnDeletePost'])){
     <form action="" method="post">
         <div class="formfield">
             
-            <textarea name="description" id="description" rows="4" placeholder="<?php echo htmlspecialchars($collection[0]['description']); ?>"></textarea>
+            <textarea name="description" id="description" rows="4"><?php echo htmlspecialchars($collection[0]['description']); ?></textarea>
         </div> 
         <div class="formfield btn_min">
         <input type="submit" name="btnEditPost" id="btnEditPost" class="button" value="Save changes" />
