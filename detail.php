@@ -96,7 +96,8 @@ else{
     <div class="comments" id="commentfeed">
         <div class="new_comment" id="post_<?php echo $collection[0]['id'];?>">
 		    <form action="" method="post">
-			    <textarea name="text" id="text"></textarea>
+                <textarea name="text" id="text"></textarea>
+                <div class="search_comment"> </div>
 			    <input type="submit" name="btnAddComment" id="btnAddComment" class="button" value="Add comment" />
 		    </form>
 	    </div>
@@ -105,7 +106,7 @@ else{
         <?php foreach($allComments as $key => $comment): ?>          
         <div class="comment" >
             <div class="comment_username"><?php echo htmlspecialchars($comment['username']); ?></div>
-            <p><?php echo htmlspecialchars($comment['comment']); ?></p>
+            <p><?php echo Comment::convertTagtoLink(htmlspecialchars($comment['comment'])); ?></p>
         </div>         
         <?php endforeach; ?>
         <?php else: ?>
@@ -123,5 +124,6 @@ else{
 <script src="lib/js/loadComment.js"></script>
 <script src="lib/js/like.js"></script>
 <script src="lib/js/inappropriate.js"></script>
+<script src="lib/js/tag.js"></script>
 </body>
 </html>
