@@ -88,7 +88,6 @@ getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog n
    
 <!--BEGIN FOTO'S UIT DATABASE-->  
 <?php foreach($collection as $key =>$c): ?>    
-    <?php if (Post::inappropriateCheck($c['id'])):?>
       <div class="item clearfix">
          <div class="user">
              <a href="profile.php?user=<?php echo $c['post_user_id'] ?>"><img src="<?php echo htmlspecialchars($c['picture']); ?>" alt="avatar" class="avatar"></a>
@@ -113,7 +112,6 @@ getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog n
          <?php endif; ?>   
          </div>
       </div>
-      <?php endif; ?>
 <?php endforeach; ?>
 <!--EINDE-->
         </div>
