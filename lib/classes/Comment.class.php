@@ -68,6 +68,60 @@ class Comment
 	/* public function getUsername($email){
 		SELECT username FROM users WHERE email= $email
 	}*/
+
+	
+	public static function convertTagtoLink($string)   {  
+		$expression = "/(?<=^|\s)@(\w+)/";  
+		$array=self::findTags($string);
+		
+		$string = preg_replace_callback(
+			$expression,
+			function ($matches) {
+				if(self::getIdByUsername($matches[1])){
+					$matches[0]='<strong> <a href="profile.php?user='.self::getIdByUsername($matches[1]).'">'.$matches[0].'</a></strong>';
+					return($matches[0]); 
+				}	
+			},
+			$string
+		);
+		 return $string;  
+	} 
+
+	public static function findTags($string){
+		$expression = "/(?<=^|\s)@(\w+)/";  
+		preg_match_all($expression,$string,$out, PREG_PATTERN_ORDER);
+		$array=$out[1];
+		return $array;
+		//var_dump(implode(",", $array));
+		//$names=implode(",", $array);
+	
+	}
+	
+	public static function getIdByUsername($username){
+		$conn = Db::getInstance();
+        $statement= $conn->prepare("SELECT users.id FROM users WHERE username IN (:username)");
+        $statement->bindValue(':username',$username);    
+        $statement->execute();
+        return $statement->fetchColumn();
+	}
+	   
+
+
+	public function setTags($string) {
+  
+      /* Match hashtags */
+      preg_match_all('/@(\w+)/', $string, $matches);
+      
+      /* Add all matches to array */
+      foreach ($matches[1] as $match) {
+		$keywords[] = $match;
+		var_dump($match);
+        }
+      $this->tags = (array)$keywords;
+      return $this;
+	}
+	
+
 }
 
 ?>

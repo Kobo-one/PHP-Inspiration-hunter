@@ -105,7 +105,7 @@ else{
         <?php foreach($allComments as $key => $comment): ?>          
         <div class="comment" >
             <div class="comment_username"><?php echo htmlspecialchars($comment['username']); ?></div>
-            <p><?php echo htmlspecialchars($comment['comment']); ?></p>
+            <p><?php echo Comment::convertTagtoLink(htmlspecialchars($comment['comment'])); ?></p>
         </div>         
         <?php endforeach; ?>
         <?php else: ?>

@@ -12,6 +12,9 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+strong{
+    font-weight: 700;
+}
 /*-----------------------------------------*/
 /* Sign up + Login */
 .logo {
