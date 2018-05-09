@@ -15,6 +15,19 @@ body {
 strong{
     font-weight: 700;
 }
+.search_comment{
+    background: #b3f3fe;;
+    margin-bottom:5px;
+}
+.search_comment li{
+    color:#333333;
+    list-style-type: none;
+    padding:5px;
+    font-size:12px;
+}
+.search_comment li:hover{
+   background:#41e1fc;
+}
 /*-----------------------------------------*/
 /* Sign up + Login */
 .logo {

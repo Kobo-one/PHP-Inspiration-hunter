@@ -8,10 +8,12 @@ include_once("./lib/classes/User.class.php");
     session_start();
     
     $names=$_POST['names'];
-   
+    $count=$_POST['count'];
+    $i=intval($count)-1;  
+    $newName=  ltrim($names[$i], '@');
         
-    $names=implode(" ",$names);
-    $newName=ltrim($names, '@');
+    /*$names=implode(" ",$names);
+    $newName=ltrim($names, '@');*/
 
 
     $user= new User();
@@ -19,11 +21,18 @@ include_once("./lib/classes/User.class.php");
     $all= $user->findUser();
 
     
-    
+   
+    if(count($all)==0){
+        $status="error";
+    }
+    else{
+        $status="success";
+    }
  
     $response= [
-        "status" => "success",
-        "users" => $all
+        "status" => $status,
+        "users" => $all,
+        "count" =>$i
         
     ];
     header('Content-Type: application/json');
