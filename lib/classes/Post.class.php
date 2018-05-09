@@ -328,7 +328,7 @@ class Post{
     /*Update beschrijving eigen post*/
     public function editPost(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE posts SET description = :description WHERE id = :id AND users.id = :user)");
+        $statement = $conn->prepare("UPDATE posts SET description = :description WHERE id = :id AND post_user_id = :user");
         $statement->bindValue(":description", $this->getDescription());
         $statement->bindValue(":id", $this->getIdG());
         $statement->bindValue(":user", $_SESSION['user']); 
@@ -339,7 +339,7 @@ class Post{
     /*Delete eigen post*/
     public function deletePost(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("DELETE FROM posts WHERE id = :id AND users.id = :user)");
+        $statement = $conn->prepare("UPDATE posts SET deleted = 1 WHERE id = :id AND post_user_id = :user");
         $statement->bindValue(":id", $this->getIdG());
         $statement->bindValue(":user", $_SESSION['user']); 
         $result = $statement->execute();
@@ -366,7 +366,7 @@ public static function getTopPosts(){
   $conn = Db::getInstance();
   $in = '(' . implode(',', $array) .')';
 
-  $statement = $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id IN $in LIMIT 20 ");
+  $statement = $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND posts.id IN $in LIMIT 20 ");
   $statement->execute();
   $result=$statement->fetchAll(PDO::FETCH_ASSOC);
  
@@ -380,7 +380,7 @@ public static function getTopPosts(){
 
   public static function allPost($limit){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id =(SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=:user LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id =(SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=:user LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
     $statement->bindValue(':user', $_SESSION["user"], PDO::PARAM_INT);  
     $statement->bindValue(':limit', $limit,PDO::PARAM_INT);  
   
@@ -398,7 +398,7 @@ public static function getTopPosts(){
   public function getTag(){
     $conn = Db::getInstance();
     /*$statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(users.username) LIKE :search ");*/
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND (lower(users.username) LIKE :search OR lower(posts.description) LIKE :search)");
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND (lower(users.username) LIKE :search OR lower(posts.description) LIKE :search)");
    
     $statement->bindValue(':search', $this->getSearch());  
     $statement->execute();
@@ -413,7 +413,7 @@ public static function getTopPosts(){
   /* When click on post -> go to details of post with date, description,...*/ 
   public function getDetailsPost(){
     $conn = Db::getInstance(); 
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.id = :search");
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND posts.id = :search");
     $searchV=$this->getIdG();
     $statement->bindParam(':search', $searchV, PDO::PARAM_INT );
     
@@ -427,7 +427,7 @@ public static function getTopPosts(){
   /* Laad profiel details*/ 
   public function DetailsProfile(){
     $conn = Db::getInstance();
-    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.post_user_id= :search ORDER BY posts.created DESC ");
+    $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND posts.post_user_id= :search ORDER BY posts.created DESC ");
     $statement->bindValue(':search', $this->getIdG(), PDO::PARAM_INT );
     $statement->execute();
     return $statement;
@@ -460,7 +460,7 @@ public static function getTopPosts(){
   /* Load 20 more when button clicked */
   public function loadMore(){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=:user LIMIT 1))ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=:user LIMIT 1))ORDER BY posts.created DESC LIMIT :nr1, :nr2 ");
     $number1= $this->getClick()+1;
     $number2= $this->getClick()+21;
     
@@ -614,7 +614,7 @@ public static function getTopPosts(){
     /*Get all the posts out of database to compare locations*/
     public function getLocation(){
         $conn = Db::getInstance();
-        $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id");
+        $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 ");
         $statement->execute();
         
     return $statement->fetchAll(PDO::FETCH_ASSOC);
