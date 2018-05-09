@@ -305,6 +305,11 @@ h2 {
     text-align: center;
 }
 
+textarea {
+	resize: vertical;
+	min-height: 80px;
+	max-height: 250px;
+}
 
 /*-----------------------------------------*/
 /*detail pagina */
