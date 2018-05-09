@@ -380,7 +380,7 @@ public static function getTopPosts(){
 
   public static function allPost($limit){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id =:user LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=:user AND followers.follower_id =(SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=1 LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
     $statement->bindValue(':user', $_SESSION["user"], PDO::PARAM_INT);  
     $statement->bindValue(':limit', $limit,PDO::PARAM_INT);  
   
