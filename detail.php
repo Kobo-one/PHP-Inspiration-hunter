@@ -123,5 +123,6 @@ else{
 <script src="lib/js/loadComment.js"></script>
 <script src="lib/js/like.js"></script>
 <script src="lib/js/inappropriate.js"></script>
+<script src="lib/js/tag.js"></script>
 </body>
 </html>

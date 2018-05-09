@@ -11,12 +11,12 @@
 			
             $comment->setPostId($_POST['postId']);
 			$comment->saveComment(); 
-			
+			$text=Comment::convertTagtoLink(htmlspecialchars($_POST['comment']));
 			/*$comment->getUsername($_SESSION['username']);*/
             
 			$feedback= [
 				"status" => "success",
-				"comment"=> htmlspecialchars( $_POST['comment'] ),
+				"comment"=> ( $text),
 				"user"=>$_SESSION['username']
 				
 			];

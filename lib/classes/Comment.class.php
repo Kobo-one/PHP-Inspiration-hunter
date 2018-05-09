@@ -79,8 +79,9 @@ class Comment
 			function ($matches) {
 				if(self::getIdByUsername($matches[1])){
 					$matches[0]='<strong> <a href="profile.php?user='.self::getIdByUsername($matches[1]).'">'.$matches[0].'</a></strong>';
-					return($matches[0]); 
 				}	
+					return($matches[0]); 
+				
 			},
 			$string
 		);
