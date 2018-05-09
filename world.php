@@ -105,7 +105,7 @@ else{
 
         var map = new google.maps.Map(document.getElementById('map'), {
             <?php
-          if(!empty($_SESSION["lat"]) && !empty($_SESSION["lng"])){
+          if(!isset($_SESSION["lat"]) && !isset($_SESSION["lng"]) && !empty($_SESSION["lat"]) && !empty($_SESSION["lng"])){
             echo "center: {lat: ".$_SESSION["lat"].", lng: ".$_SESSION["lng"]."},";
           }
           else{
