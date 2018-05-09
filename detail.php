@@ -9,7 +9,7 @@ $user = new User();
 //show post with details
 $post = new Post();
 $post->setIdG($_GET['post']);
-if(Post::inappropriateCheck($_GET['post'])){
+if($post->inappropriateCheck()){
 $collection= $post->getDetailsPost();
 $collection = Post::setCities($collection);
 //comments

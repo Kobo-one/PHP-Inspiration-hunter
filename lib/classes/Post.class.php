@@ -481,8 +481,9 @@ public static function getTopPosts(){
     $statement->execute();
     $result=$statement->fetchAll(PDO::FETCH_ASSOC);
     return $result;
-  }  */
+      }  */
 
+      //inappropriate
 
 
       public function userFlagged(){
@@ -501,6 +502,7 @@ public static function getTopPosts(){
           $statement->bindValue(':user', $_SESSION['user']);
           $statement->bindValue(':post_id', $this->getIdG()); 
           $result = $statement->execute();
+          $this->inappropriateCheck();
           return $result; 
       }
       public function delInappropriate(){
@@ -509,43 +511,42 @@ public static function getTopPosts(){
           $statement->bindValue(':user', $_SESSION['user']);
           $statement->bindValue(':post_id', $this->getIdG()); 
           $result = $statement->execute();
+          $this->inappropriateCheck();
           return $result; 
     }
 
-
-
-    public function saveTags(){
-      $conn = Db::getInstance();
-      $tags = $this->getTags();
-      $statement= $conn->prepare("INSERT INTO tags (tag) VALUES(:tag)");
-      foreach ($tags as $tag) {
-      $statement->bindValue(':tag', $tag);
-      $tags_added = $statement -> execute();
-      }
-          return $tags_added; 
-  
-    }
-
-    public static function convertHashtoLink($string)  
-    {  
-         $expression = "/#+([a-zA-Z0-9_]+)/";  
-         $string = preg_replace($expression, '<a href="search.php?search=$1">$0</a>', $string);  
-         return $string;  
-    } 
-    
-
-    public static function inappropriateCheck($id){
+        public function inappropriateCheck(){
           $conn = Db::getInstance();
           $statement= $conn->prepare("SELECT * FROM inappropriate WHERE post_id = :post_id");
-          $statement->bindValue(':post_id', $id); 
+          $statement->bindValue(':post_id', $this->getIdG()); 
           $statement-> execute();
-          if($statement->rowCount()>=3){
-            $result = false;
+          $count = $statement->rowCount(); 
+          
+          if($count>=3){
+            $this->setInappropriate(1);
+            return false;
           }else{
-            $result = true;
+            $this->setInappropriate(0);
+            return true;
           }
-          return $result; 
-    }
+        }
+
+        public function setInappropriate($status){
+          
+          $conn = Db::getInstance();
+          $statement= $conn->prepare("UPDATE posts SET deleted = :status WHERE id=:post_id");
+          $statement->bindValue(":status",$status);
+          $statement->bindValue(":post_id",$this->getIdG());
+          return $statement-> execute();
+        }
+
+       public static function convertHashtoLink($string)  
+       {  
+           $expression = "/#+([a-zA-Z0-9_]+)/";  
+          $string = preg_replace($expression, '<a href="search.php?search=$1">$0</a>', $string);  
+          return $string;  
+      } 
+        
 
 
  
