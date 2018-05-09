@@ -57,7 +57,7 @@ else {
          </div>
          <div class="user__post">
          <a href="detail.php?post=<?php echo $c['id'] ?>">
-            <figure class="<?php echo ($c['filter']);?>">
+            <figure class="<?php echo ($c['filter']);?> figure_index">
             <img src="<?php echo htmlspecialchars($c['image']); ?> " alt="image" class="picture_index">
             </figure>   
          </a>
