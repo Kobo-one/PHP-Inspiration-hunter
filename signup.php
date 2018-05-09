@@ -3,7 +3,7 @@
 	include_once("lib/helpers/Security.class.php");
     include_once("lib/classes/Exceptions.class.php");
 	session_start();
-	if(isset($_SESSION["username"])){
+	if(isset($_SESSION["user"])){
 		header("Location: index.php");
 	}
     

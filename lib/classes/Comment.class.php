@@ -47,9 +47,9 @@ class Comment
     /* Save comment in database */
 	public function saveComment(){
 		$conn = Db::getInstance();
-        $statement= $conn->prepare("INSERT INTO comments (comment, user_id, post_id) VALUES(:text, (SELECT users.id FROM users WHERE users.email=:email), (SELECT posts.id FROM posts WHERE posts.id=:postId))");
+        $statement= $conn->prepare("INSERT INTO comments (comment, user_id, post_id) VALUES(:text, :user, (SELECT posts.id FROM posts WHERE posts.id=:postId))");
         $statement->bindValue(':text', $this->getText());
-        $statement->bindValue(':email', $_SESSION['username']);
+        $statement->bindValue(':user', $_SESSION['user']);
         $statement->bindValue(':postId', $this->getPostId()); 
 		$comment_added = $statement->execute();
         return $comment_added; 

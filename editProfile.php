@@ -160,7 +160,7 @@ if(!empty($_POST)){
     <form action="" method="post" enctype="multipart/form-data">
 	    <div class="formfield">
 	        <label for="email" class="profile_label">E-mail</label>
-			<input type="text" id="email" name="email" value="<?php echo htmlspecialchars($_SESSION['username']);?>">
+			<input type="text" id="email" name="email" value="<?php echo htmlspecialchars($searchedUser->email);?>">
 		</div>
 
         <div class="formfield">
