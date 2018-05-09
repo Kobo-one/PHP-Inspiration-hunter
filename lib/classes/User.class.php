@@ -13,6 +13,8 @@
         private $id;
         private $followStatus;
         private $description;
+        private $search;
+        
         
     /*Setters*/
         
@@ -134,6 +136,24 @@
     public function getDescription()
     {
              return $this->description;
+    }
+
+     /**
+     * Get the value of search
+     */ 
+    public function getSearch()
+    {
+           return $this->search;  
+    }
+    /**
+     * Set the value of search
+     *
+     * @return  self
+     */ 
+    public function setSearch($search)
+    {
+        $this->search = strtolower($search."%");  
+            return $this;
     }
 
         
@@ -306,6 +326,20 @@
         return $result;
     }
 
+   
+    public function findUser(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM users WHERE username LIKE :search ");
+        $statement->bindValue(":search", $this->getSearch());
+        
+        $statement->execute();
+        $result =$statement->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
+
+
+      
+       
 }
 
 ?>

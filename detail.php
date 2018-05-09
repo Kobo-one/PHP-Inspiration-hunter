@@ -96,7 +96,8 @@ else{
     <div class="comments" id="commentfeed">
         <div class="new_comment" id="post_<?php echo $collection[0]['id'];?>">
 		    <form action="" method="post">
-			    <textarea name="text" id="text"></textarea>
+                <textarea name="text" id="text"></textarea>
+                <div class="search_comment"> </div>
 			    <input type="submit" name="btnAddComment" id="btnAddComment" class="button" value="Add comment" />
 		    </form>
 	    </div>
