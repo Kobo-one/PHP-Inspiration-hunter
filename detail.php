@@ -15,11 +15,15 @@ $collection = Post::setCities($collection);
 //comments
 $comment = new Comment();
 $comment->setPostId($_GET['post']);
-
+    
+$comment->setUserId($_SESSION['user']);
+$comment->commentUsername();
+    
 //add new comment and save to db
 if(isset($_POST['btnAddComment'])){
     try {
         $comment->setText($_POST['text']);
+        $comment->setUserId($_SESSION['user']);
         $comment->saveComment();
     }
     catch(Exception $e) {

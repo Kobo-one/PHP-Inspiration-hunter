@@ -1,5 +1,6 @@
 <?php
 include_once("Db.class.php");
+
 class Comment
 {
 	private $text;
@@ -49,7 +50,7 @@ class Comment
 		$conn = Db::getInstance();
         $statement= $conn->prepare("INSERT INTO comments (comment, user_id, post_id) VALUES(:text, :user, (SELECT posts.id FROM posts WHERE posts.id=:postId))");
         $statement->bindValue(':text', $this->getText());
-        $statement->bindValue(':user', $_SESSION['user']);
+        $statement->bindValue(':user', $this->getUserId());
         $statement->bindValue(':postId', $this->getPostId()); 
 		$comment_added = $statement->execute();
         return $comment_added; 
@@ -64,10 +65,14 @@ class Comment
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 		
-	
-	/* public function getUsername($email){
-		SELECT username FROM users WHERE email= $email
-	}*/
+	/* get username */
+	public function commentUsername(){
+        $conn = Db::getInstance();
+		$statement = $conn->prepare("SELECT username FROM users WHERE users.id = :userId");
+        $statement->bindValue(':userId', $this->getUserId());
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+	}
 
 	
 	public static function convertTagtoLink($string)   {  
