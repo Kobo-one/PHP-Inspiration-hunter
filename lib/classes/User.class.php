@@ -20,48 +20,33 @@
         
     public function setFirstName($firstName)
     {
-        if(empty($firstName)){
-            throw new FirstNameException("Please fill in your firstname.");
-        }
             $this->firstName = $firstName;
             return $this;
     }
         
     public function setLastName($lastName)
     {
-        if(empty($lastName)){
-            throw new LastNameException("Please fill in your lastname.");
-        }
-        $this->lastName = $lastName;
-        return $this;
+           $this->lastName = $lastName;
+           return $this; 
     }   
         
     public function setUserName($userName)
     {
-        if(empty($userName)){
-            throw new UserNameException("Please fill in a username.");
-        }
-        $this->userName = $userName;
-        return $this;
+            $this->userName = $userName;
+            return $this;
     }
 
         
     public function setEmail($email)
     {
-      if(empty($email)){
-            throw new EmailException("Please fill in your e-mail.");
-      }
-        $this->email = $email;
-        return $this;
+          $this->email = $email;
+          return $this;
     }
 
     public function setPassword($password)
     {
-        if(empty($password)){
-            throw new PasswordException("Please fill in a password.");
-        }
-        $this->password = $password;
-        return $this;
+            $this->password = $password;
+            return $this;
     }
     
     public function setId($id)
@@ -176,7 +161,6 @@
         return $result;
             
     }
-
     
       public function login() 
     {
