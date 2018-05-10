@@ -1,5 +1,5 @@
 <?php
-  include_once("./lib/classes/Post.class.php"); 
+  include_once("../classes/Post.class.php"); 
    
 if(!empty($_POST)){
     session_start();

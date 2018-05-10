@@ -1,6 +1,6 @@
 <?php
   
-include_once("./lib/classes/User.class.php");
+include_once("../classes/User.class.php");
 
    
     if(!empty($_POST)){

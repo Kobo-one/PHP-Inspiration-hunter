@@ -17,7 +17,7 @@
 			$feedback= [
 				"status" => "success",
 				"comment"=> ( $text),
-				"user"=>$_SESSION['username']
+				"user"=>$_SESSION['user']
 				
 			];
 			header('Content-Type: application/json');
