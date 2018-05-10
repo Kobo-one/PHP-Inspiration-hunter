@@ -64,6 +64,17 @@ input[type=text], input[type=password], .formfield textarea{
     color: #333333;
     opacity: 1; /* Firefox */
 }
+input:focus:invalid {
+  background-color:#b3f3fe;
+  -moz-box-shadow: none;
+}
+input:required:valid {
+    border:1px solid #41e1fc;
+    background-image: url(../images/formfield_validated.png);
+    background-size:12px 12px;
+    background-position:96% center;
+    background-repeat:no-repeat;
+  }
 .button{
     padding:10px 10px;
     width:50%;

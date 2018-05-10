@@ -6,8 +6,8 @@
 	if(isset($_SESSION["user"])){
 		header("Location: index.php");
 	}
-    
-    try{
+
+    if(isset($_POST['submit'])){
     if( !empty($_POST)){
         
         //testing if password is secure
@@ -31,13 +31,12 @@
                     $_SESSION['user']=$id['id'];
             		header('Location: index.php');
         	}  
-        }
-     }
-    }
-    //if inputfields are empty, send error message
-    catch(FirstNameException | LastNameException | UserNameException | EmailException | PasswordException $e) {
-            $error= $e->getMessage();
         } 
+    } 
+    }
+    
+    //if inputfields are empty, send error message
+    
     
 
 ?><!DOCTYPE html>
@@ -60,35 +59,31 @@
 				<h1>Sign up for an account!</h1>
   
                         		
-	    			<?php if(isset($error)): ?>
-                		<div class="error">
-                    		<p><?php echo $error; ?></p>
-                		</div>
-                		<?php endif; ?>
+
 	    
                 		<div class="formfield">
 
-					<input type="text" id="firstname" name="firstname" placeholder="Firstname">
+					<input type="text" id="firstname" name="firstname" placeholder="Firstname" required>
 				</div>
 	            <div class="formfield">
-					<input type="text" id="lastname" name="lastname" placeholder="Lastname">
+					<input type="text" id="lastname" name="lastname" placeholder="Lastname" required>
 				</div>
 				<div class="formfield">
-					<input type="text" id="Username" name="username" placeholder="Username">
+					<input type="text" id="Username" name="username" placeholder="Username" required>
 				</div>
 				<div class="formfield">
-					<input type="text" id="email" name="email" placeholder="E-mail">
+					<input type="text" id="email" name="email" placeholder="E-mail" required>
 				</div>
 				<div class="formfield">
-					<input type="password" id="password" name="password" placeholder="Password">
+					<input type="password" id="password" name="password" placeholder="Password" required>
 				</div>
 
                 		<div class="formfield">
-					<input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password">
+					<input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" required>
 				</div>
 
 				<div class="formfield">
-					<input type="submit" value="Sign up" class="button">	
+					<input type="submit" value="Sign up" name="submit" class="button">	
 				</div>
         
     </form>
