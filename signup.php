@@ -15,11 +15,13 @@
         $security->password = $_POST['password'];
         $security->passwordConfirmation = $_POST['password_confirmation'];
         $security->userName = $_POST['username'];
-
+        $security->email = $_POST['email'];
 
         //register new user
         if($security->checkUserName()){
             $error = "Choose another username, this one is already taken.";
+        } elseif($security->checkEmail()){
+            $error = "The emailadress is already in use. Login or choose another emailadress.";
         } else {
             if( $security->passwordsAreSecure() ){
                 $username = $_POST['email'];
