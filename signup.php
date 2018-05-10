@@ -22,6 +22,8 @@
             $error = "Choose another username, this one is already taken.";
         } elseif($security->checkEmail()){
             $error = "The emailadress is already in use. Login or choose another emailadress.";
+        } elseif($security->emailValidate()){
+            $error = "Please use a valid emailadress.";
         } else {
             if( $security->passwordsAreSecure() ){
                 $username = $_POST['email'];

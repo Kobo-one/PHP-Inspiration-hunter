@@ -34,6 +34,13 @@
                 return false;
             }
         }
+        
+        public function emailValidate(){
+
+            if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+                return true;
+            }
+        }
     
 
         public function currentPassword(){
