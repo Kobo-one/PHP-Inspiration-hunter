@@ -94,7 +94,7 @@ else{
     </div>
         
     <div class="comments" id="commentfeed">
-        <div class="new_comment" id="post_<?php echo $collection[0]['id'];?>">
+       <div class="new_comment" id="post_<?php echo $collection[0]['id'];?>">
 		    <form action="" method="post">
                 <textarea name="text" id="text"></textarea>
                 <div class="search_comment"> </div>
@@ -109,12 +109,11 @@ else{
             <p><?php echo Comment::convertTagtoLink(htmlspecialchars($comment['comment'])); ?></p>
         </div>         
         <?php endforeach; ?>
-        <?php else: ?>
-		<div>Be the first to comment!</div>
 		<?php endif; ?>
+   
     </div>
+    
     <?php else: ?>
-
     <div>
             <p>This post has been flagged inappropriate!</p>
     </div>
