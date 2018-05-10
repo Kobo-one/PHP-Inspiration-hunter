@@ -14,24 +14,33 @@
         $security = new Security();
         $security->password = $_POST['password'];
         $security->passwordConfirmation = $_POST['password_confirmation'];
-        
+        $security->userName = $_POST['username'];
+
+
         //register new user
-        if( $security->passwordsAreSecure() ){
-            $username = $_POST['email'];
-        $user = new User(); 
-        $user->setFirstName( $_POST['firstname']);
-        $user->setLastName( $_POST['lastname']);
-        $user->setUserName( $_POST['username']);
-        $user->setEmail( $_POST['email'] );
-        $user->setPassword( $_POST['password'] );
-        	if($user->register()){
+        if($security->checkUserName()){
+            $error = "Choose another username, this one is already taken.";
+        } else {
+            if( $security->passwordsAreSecure() ){
+                $username = $_POST['email'];
+                $user = new User(); 
+                $user->setFirstName( $_POST['firstname']);
+                $user->setLastName( $_POST['lastname']);
+                $user->setUserName( $_POST['username']);
+                $user->setEmail( $_POST['email'] );
+                $user->setPassword( $_POST['password'] );
+        	    if($user->register()){
                     $id= $user->getIdbyEmail();
                     //send to index after register
                     session_start();
                     $_SESSION['user']=$id['id'];
             		header('Location: index.php');
-        	}  
-        } 
+        	    }  
+            } else {
+            $error = "Your password must be at least 9 characters long.";
+            } 
+        }
+        
     } 
     }
     
@@ -57,10 +66,13 @@
     <img src="images/logo_phomo.png" alt="Phomo logo" class="logo">
     <form action="" method="post">
 				<h1>Sign up for an account!</h1>
-  
-                        		
+                  
+                <?php if(isset($error)): ?>
+                <div class="error">
+                   <p><?php echo $error; ?></p>
+                </div>
+                <?php endif; ?>
 
-	    
                 		<div class="formfield">
 
 					<input type="text" id="firstname" name="firstname" placeholder="Firstname" required>

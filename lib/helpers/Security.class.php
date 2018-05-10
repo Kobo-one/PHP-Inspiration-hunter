@@ -4,6 +4,7 @@
         public $password;
         public $passwordConfirmation;
         public $currentPassword;
+        public $userName;
         
         //check if passwords are secure to use in my signup process
         public function passwordsAreSecure(){
@@ -32,6 +33,7 @@
                 return false;
             }
         }
+    
 
         public function currentPassword(){
             $conn = Db::getInstance();
@@ -51,7 +53,20 @@
             }
         }
         
-        
+        public function checkUserName(){
+            $conn = Db::getInstance();
+            $user = new User();
+            $statement = $conn->prepare("select username from users where username = :username");
+            $statement->bindValue(":username", $this->userName);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_OBJ);
+            
+            if($result){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 ?>
