@@ -1,7 +1,6 @@
 <?php
     include_once("lib/classes/User.class.php");
 	include_once("lib/helpers/Security.class.php");
-    include_once("lib/classes/Exceptions.class.php");
 	session_start();
 	if(isset($_SESSION["user"])){
 		header("Location: index.php");
@@ -47,10 +46,7 @@
         
     } 
     }
-    
-    //if inputfields are empty, send error message
-    
-    
+        
 
 ?><!DOCTYPE html>
 <html lang="en">
