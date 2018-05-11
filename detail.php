@@ -28,13 +28,19 @@ if(isset($_POST['btnAddComment'])){
         $comment->setUserId($_SESSION['user']);
         $comment->saveComment();
         $array=$comment->findTags();
+       
         if(count($array)>0){
             $notif= new Notification();
-            foreach ($array as $a){
+            
+            foreach($array as $a){
+               
                 $notif->setTagged($a);
                 $notif->setPostId($_GET['post']);
                 $notif->saveNotif();
+                
             }
+            
+          
         }
     }
     catch(Exception $e) {

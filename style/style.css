@@ -11,12 +11,19 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
-
+.bullet{
+    background-color: #b3f3fe;
+    border-radius: 50%;
+    width:10px;
+    height:10px;
+    margin-left:4px;
+    display:inline-block;
+}
 strong{
     font-weight: 700;
 }
 .search_comment{
-    background: #b3f3fe;;
+    background: #b3f3fe;
     margin-bottom:5px;
 }
 .search_comment li{

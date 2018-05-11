@@ -14,7 +14,9 @@
     </a>
 
     <a href="upload.php">Upload</a>
-    <a href="profile.php">Profile</a>
+    <a href="profile.php">Profile <div class="
+    <?php if(count(Notification::getAll())>=1){
+        echo('bullet');}?>"></div></a>
     <a href="logout.php">Logout</a>
     <form action="search.php" method="get">
         <input type="text" name="search" id="searchfield" placeholder="Search">
