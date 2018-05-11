@@ -77,7 +77,7 @@ class Comment
 	
 	public static function convertTagtoLink($string)   {  
 		$expression = "/(?<=^|\s)@(\w+)/";  
-		$array=self::findTags($string);
+		//$array=self::findTags($string);
 		
 		$string = preg_replace_callback(
 			$expression,
@@ -93,7 +93,8 @@ class Comment
 		 return $string;  
 	} 
 
-	public static function findTags($string){
+	public function findTags(){
+		$string= $this->getText();
 		$expression = "/(?<=^|\s)@(\w+)/";  
 		preg_match_all($expression,$string,$out, PREG_PATTERN_ORDER);
 		$array=$out[1];
