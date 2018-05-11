@@ -540,6 +540,18 @@ public static function getTopPosts(){
           return $statement-> execute();
         }
 
+        public function saveTags(){
+                $conn = Db::getInstance();
+                $tags = $this->getTags();
+                $statement= $conn->prepare("INSERT INTO tags (tag) VALUES(:tag)");
+                foreach ($tags as $tag) {
+                $statement->bindValue(':tag', $tag);
+                $tags_added = $statement -> execute();
+               }
+                    return $tags_added; 
+            
+             }
+
        public static function convertHashtoLink($string)  
        {  
            $expression = "/#+([a-zA-Z0-9_]+)/";  
