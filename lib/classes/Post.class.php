@@ -322,6 +322,8 @@ class Post{
     $statement->bindValue(":lat", $this->getLat());  
     $statement->bindValue(":lng", $this->getLng());    
     $image_upload = $statement->execute();
+    $this->setIdG($conn->lastInsertId());
+    $this->storeTags();
     return $image_upload;
     }
     
@@ -545,12 +547,38 @@ public static function getTopPosts(){
                 $tags = $this->getTags();
                 $statement= $conn->prepare("INSERT INTO tags (tag) VALUES(:tag)");
                 foreach ($tags as $tag) {
-                $statement->bindValue(':tag', $tag);
-                $tags_added = $statement -> execute();
-               }
-                    return $tags_added; 
-            
+                  $statement->bindValue(':tag', $tag);
+                  $tags_added = $statement -> execute();
+                }
+              return $tags_added; 
              }
+
+        public function storeTags(){
+            $conn = Db::getInstance();
+            $tags = $this->getTags();
+            if(!empty($tags)){
+            $statement= $conn->prepare("INSERT INTO post_tag (post_id,tag_id) VALUES(:post, :tag)");
+            $statement->bindValue(':post', $this->getIdG());
+            
+            foreach ($tags as $tag) {
+              $tagId=$this->getTagid($tag);
+              $statement->bindValue(':tag', $tagId);
+              $statement->execute();
+          }
+          }
+            
+            return true; 
+          }
+
+          public function getTagid($tag){
+            $conn = Db::getInstance();
+            $statement= $conn->prepare("SELECT id FROM tags WHERE tag = :tag");
+            $statement->bindValue(':tag',$tag );
+            $statement->execute();
+            $id = $statement->fetch(PDO::FETCH_ASSOC);
+            return $id["id"];
+          }
+
 
        public static function convertHashtoLink($string)  
        {  
