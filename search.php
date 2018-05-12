@@ -6,11 +6,37 @@ include_once("lib/includes/checklogin.inc.php");
 
 if (!empty($_GET['search'])){  
     $input= $_GET['search'];
-    
+
     try{   
     $post = new Post();
     $searchId=$post->setSearch($input);
     $collection= $post->getTag() ; 
+    
+    //als er in de zoekterm een '#' staat, voer dan dit uit
+    if(strpos($input, "#") !== FALSE){
+    $newInput = substr($input, 1);
+    $inputTag = $post->setSearch($newInput );
+    }
+    //hashtag maken als de zoekterm overeenkomt met tag uit DB 
+    $hashtag = $post->searchForHashTag();    
+    
+    $count=$post->checkFollower();
+    if(isset($_POST['follow'])|isset($_POST['unfollow'])){
+    if ($post->existFollow()==0){
+        $post->newFollow();
+    }
+    else{   
+        if(isset($_POST['follow'])){
+            $active=1;
+        };
+        if(isset($_POST['unfollow'])){
+            $active=0;
+        };
+        $post->setFollowStatus($active);
+        $post->editFollow();
+    }
+
+    }
     }
 
     catch(Exception $e){
@@ -23,6 +49,10 @@ else {
 
 
 };
+
+
+
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,10 +74,33 @@ else {
 						<?php echo $error ?>
 					</p>
 		        </div>
-    <?php endif; ?>       
+    <?php endif; ?>  
+    
+<!-- Als de zoekterm een hashtag, toon dan dit boven de resultaten -->  
+<?php if(isset($collection)):?>
+
+    <?php if(isset($newInput) && $hashtag['tag'] == $newInput): ?> 
+    <div class="hashtag_title"> <?php echo "#".$newInput; ?> </div>
+    <?php endif; ?>
+    <?php if(!isset($newInput) && $hashtag['tag'] == $input): ?>
+    <div class="hashtag_title"> <?php echo "#".$input; ?> </div>
+    <?php endif; ?>
+    
+    <form action="" method="post" class="col_search">
+       <?php if($count == 0): ?>
+        <input type="submit" value="Follow" class="button" name="follow">
+       
+       <?php elseif($count >= 0): ?>
+       <input type="submit" value="Unfollow" class="button" name="unfollow">
+       <?php endif; ?>
+    </form>
+<?php endif; ?>
+
+          
+     
    <div class="collection">
    
-<!-- kijken of er zoekresultaten zijn (anders komt er een foutmelding onder de error)--> 
+<!-- kijken of er zoekresultaten zijn (anders komt er een foutmelding onder de error)-->
 <?php if(isset($collection)):?>
 <?php foreach($collection as $key =>$c): ?>    
       <div class="item clearfix">

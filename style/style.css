@@ -564,6 +564,20 @@ input[type=file]{
     font-size:12px;
 }
 
+/*-----------------------------------------*/
+/*Search.php*/
+.hashtag_title {
+    font-size:18px;
+    color:#000;
+    margin-top:90px;
+    text-align:center;
+    margin-bottom:10px;
+}
+.col_search {
+    margin-bottom:-60px;
+}
+
+
 
 
 
