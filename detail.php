@@ -98,6 +98,7 @@ else{
     </div>
         
     <div class="comments" id="commentfeed">
+       
        <div class="new_comment" id="post_<?php echo $collection[0]['id'];?>">
 		    <form action="" method="post">
                 <textarea name="text" id="text"></textarea>
@@ -105,16 +106,18 @@ else{
 			    <input type="submit" name="btnAddComment" id="btnAddComment" class="button" value="Add comment" />
 		    </form>
 	    </div>
-       
+      
+       <div class="comments_list">
         <?php if(count($allComments) > 0): ?>
         <?php foreach($allComments as $key => $comment): ?>          
+        
         <div class="comment" >
             <div class="comment_username"><?php echo htmlspecialchars($comment['username']); ?></div>
             <p><?php echo Comment::convertTagtoLink(htmlspecialchars($comment['comment'])); ?></p>
-        </div>         
+        </div>  
         <?php endforeach; ?>
 		<?php endif; ?>
-   
+       </div>  
     </div>
     
     <?php else: ?>
