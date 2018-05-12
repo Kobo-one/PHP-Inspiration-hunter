@@ -3,8 +3,22 @@ include_once("lib/classes/Notification.class.php");
 include_once("lib/classes/User.class.php");
 include_once("lib/includes/checklogin.inc.php");
 
-$collection=Notification::getAll();
-
+$collection=Notification::getAllNf();
+if(count($collection)==0){
+    $friendless="";}
+/*if(isset($_POST['submit'])){
+    $notif= new Notification();
+    $notif->setPostId($_POST['post_id']);
+    $notif->setUserId($_POST['user_id']);
+    $notif->seen();
+}*/
+date_default_timezone_set("Europe/Brussels");
+$date = date('Y-m-d H:i:s');
+if (isset($date)){
+    $notif= new Notification();
+    $notif->setDate($date);
+    $notif->setToSeen();
+}
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,18 +34,32 @@ $collection=Notification::getAll();
 </head>
 <body>
 <?php include_once("nav.inc.php"); ?>
-<div class="collection">
+<?php if (isset($friendless)):?>
+                <div class="noFriends">
+                    <h2> It appears you don't have any notifications yet!</h2>
+                    <p>Go ahead, tag some people and maybe they will return the favor!</p>
+                </div>
+    <?php endif; ?>
+<div class="notif_container">
+  
 <?php foreach($collection as $c): ?>
-    
-
-    <div >
-             <a href="profile.php?user=<?php echo $c['userId'] ?>"><img src="<?php echo htmlspecialchars($c['picture']); ?>" alt="avatar" class="avatar"></a>
-              <a href="profile.php?user=<?php echo $c['userId'] ?>" class="username"><?php echo htmlspecialchars($c['username']); ?></a>
-            
+<div class="notif_item" <?php if($c['seen']==0){echo('style="border:2px solid #41e1fc"');}; ?> >    
+   
+    <div class="notif_item-user">
+        <a href="profile.php?user=<?php echo $c['userId'] ?>"><img src="<?php echo htmlspecialchars($c['picture']); ?>" alt="avatar" class="avatar"></a>
+        <a href="profile.php?user=<?php echo $c['userId'] ?>" class="username"><?php echo htmlspecialchars($c['username']); ?></a>       
     </div>
-        <a href="detail.php?post=<?php echo $c['userId'] ?>"><div><p>you have been tagged</p></div></a>
-         <div ><p><?php echo $c['date'] ?></p></div>
-    <?php endforeach; ?>
+
+         
+    <a href="detail.php?post=<?php echo $c['post_id'] ?>" class="notif_item-text">
+    <div >
+        <p>You have been tagged</p>
+        <p><?php echo $c['date'] ?></p>  
+     </div>
+     </a>
+</form> 
+</div>         
+<?php endforeach; ?>
 </div>
 
 </body>
