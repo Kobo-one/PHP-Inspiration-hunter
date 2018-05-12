@@ -4,14 +4,11 @@ include_once("lib/classes/User.class.php");
 include_once("lib/includes/checklogin.inc.php");
 
 $collection=Notification::getAllNf();
+
 if(count($collection)==0){
-    $friendless="";}
-/*if(isset($_POST['submit'])){
-    $notif= new Notification();
-    $notif->setPostId($_POST['post_id']);
-    $notif->setUserId($_POST['user_id']);
-    $notif->seen();
-}*/
+    $friendless="";
+}
+
 date_default_timezone_set("Europe/Brussels");
 $date = date('Y-m-d H:i:s');
 if (isset($date)){

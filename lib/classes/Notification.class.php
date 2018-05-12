@@ -8,9 +8,6 @@ class Notification
     private $userId;
     private $date;
     
-    
-
-
 
     /**
      * Get the value of tagged
@@ -96,10 +93,9 @@ class Notification
         $conn = Db::getInstance();
         $statement= $conn->prepare("INSERT INTO notifications(post_id, user_id,tagged_id) VALUES (:postId,:user,:tagged)");
         $statement->bindValue(':tagged', $this->findUser());
-        $statement->bindValue(':user',$this->getUserId(), PDO::PARAM_INT);
-
+        $statement->bindValue(':user',$_SESSION['user'], PDO::PARAM_INT);
         $statement->bindValue(':postId', $this->getPostId()); 
-        $statement->execute();
+    
         return $statement->execute();
     }
 
@@ -126,26 +122,11 @@ class Notification
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function seen(){
-        $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE notifications SET seen=1 WHERE post_id=:postId AND user_id=:userId AND tagged_id=:user ");
-        $statement->bindValue(':user',$_SESSION['user'], PDO::PARAM_INT);
-        var_dump($_SESSION['user']);     
-        $statement->bindValue(':userId',$this->getUserId(), PDO::PARAM_INT);
-        var_dump($this->getUserId());
-        $statement->bindValue(':postId',$this->getpostId(), PDO::PARAM_INT);
-        var_dump($this->getPostId());
-var_dump($statement->execute());
-        $statement->execute();
-    }
     public function setToSeen(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE notifications SET seen=1 WHERE tagged_id=:user AND date<:date");
         $statement->bindValue(':user',$_SESSION['user'], PDO::PARAM_INT);
-       
         $statement->bindValue(':date',$this->getDate());
- 
-var_dump($statement->execute());
         $statement->execute();
     }
      

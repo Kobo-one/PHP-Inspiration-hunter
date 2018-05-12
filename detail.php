@@ -19,7 +19,7 @@ $comment->setPostId($_GET['post']);
     
 $comment->setUserId($_SESSION['user']);
 $comment->commentUsername();
-    
+ 
 //add new comment and save to db
 if(isset($_POST['btnAddComment'])){
     try {
@@ -27,20 +27,16 @@ if(isset($_POST['btnAddComment'])){
         $comment->setText($_POST['text']);
         $comment->setUserId($_SESSION['user']);
         $comment->saveComment();
+        
         $array=$comment->findTags();
-       
         if(count($array)>0){
-            $notif= new Notification();
+            $notif= new Notification(); 
+            $notif->setPostId($_GET['post']);  
             
             foreach($array as $a){
-               
                 $notif->setTagged($a);
-                $notif->setPostId($_GET['post']);
                 $notif->saveNotif();
-                
-            }
-            
-          
+            } 
         }
     }
     catch(Exception $e) {

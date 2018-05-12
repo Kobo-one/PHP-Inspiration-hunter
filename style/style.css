@@ -557,6 +557,9 @@ input[type=file]{
     padding:10px;
     
 }
+.notif_item-text p:last-child{
+    font-size:12px;
+}
 
 
 

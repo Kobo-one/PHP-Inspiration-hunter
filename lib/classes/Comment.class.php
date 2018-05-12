@@ -77,16 +77,14 @@ class Comment
 	
 	public static function convertTagtoLink($string)   {  
 		$expression = "/(?<=^|\s)@(\w+)/";  
-		//$array=self::findTags($string);
-		
+
 		$string = preg_replace_callback(
 			$expression,
 			function ($matches) {
 				if(self::getIdByUsername($matches[1])){
 					$matches[0]='<strong> <a href="profile.php?user='.self::getIdByUsername($matches[1]).'">'.$matches[0].'</a></strong>';
 				}	
-					return($matches[0]); 
-				
+					return($matches[0]); 	
 			},
 			$string
 		);
@@ -99,8 +97,6 @@ class Comment
 		preg_match_all($expression,$string,$out, PREG_PATTERN_ORDER);
 		$array=$out[1];
 		return $array;
-		//var_dump(implode(",", $array));
-		//$names=implode(",", $array);
 	
 	}
 	
