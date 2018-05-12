@@ -2,6 +2,7 @@
 include_once("lib/classes/Notification.class.php");
 include_once("lib/classes/User.class.php");
 include_once("lib/includes/checklogin.inc.php");
+date_default_timezone_set("Europe/Brussels");
 
 $collection=Notification::getAllNf();
 
@@ -9,7 +10,7 @@ if(count($collection)==0){
     $friendless="";
 }
 
-date_default_timezone_set("Europe/Brussels");
+
 $date = date('Y-m-d H:i:s');
 if (isset($date)){
     $notif= new Notification();

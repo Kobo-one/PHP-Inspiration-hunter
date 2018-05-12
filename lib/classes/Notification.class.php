@@ -89,16 +89,16 @@ class Notification
         return $this;
     }
 
+    
     public function saveNotif(){
         $conn = Db::getInstance();
         $statement= $conn->prepare("INSERT INTO notifications(post_id, user_id,tagged_id) VALUES (:postId,:user,:tagged)");
         $statement->bindValue(':tagged', $this->findUser());
         $statement->bindValue(':user',$_SESSION['user'], PDO::PARAM_INT);
         $statement->bindValue(':postId', $this->getPostId()); 
-    
         return $statement->execute();
     }
-
+/* find de user_id van de mensen die getagd zijn */
     public function findUser(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT id FROM users WHERE lower(username)=lower(:tagged)");
@@ -114,6 +114,7 @@ class Notification
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+/*alle nf (seen and unseen) gesorteerd op datum */    
     public static function getAllNf(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("SELECT notifications.*, users.username, users.id AS userId, users.picture FROM notifications, users WHERE users.id = notifications.user_id AND notifications.tagged_id=:user GROUP BY notifications.date DESC ");
@@ -121,7 +122,7 @@ class Notification
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-
+/*wanneer de pagina wordt bezocht worden alle notificaties die ouder zijn dan tijdstip bezoek op seen gezet */
     public function setToSeen(){
         $conn = Db::getInstance();
         $statement = $conn->prepare("UPDATE notifications SET seen=1 WHERE tagged_id=:user AND date<:date");
