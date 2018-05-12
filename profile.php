@@ -88,7 +88,13 @@ if(isset($_POST['follow'])|isset($_POST['unfollow'])){
                 // edit-btn wanneer op eigen profielpagina
               echo '<div class="button "><a href="editProfile.php" class="edit">Edit</a></div>
               </div>
-              <div class="blue_container"></div>';}
+             
+              <div class="blue_container">
+              </div> <div class="button" id="button_notif"';
+
+              if(!count(Notification::getUnseen())==0){echo('style="background:#41e1fc"');};
+              echo'><a href="notification.php">Notifications</a></div>
+              </div>';}
               ?>    
     </div>
 <div class="collection">

@@ -4,6 +4,7 @@ include_once("lib/includes/checklogin.inc.php");
 include_once("lib/classes/Comment.class.php");
 include_once("lib/classes/User.class.php");
 include_once("lib/classes/Like.class.php");
+include_once("lib/classes/Notification.class.php");
 $user = new User();
 
 //show post with details
@@ -18,13 +19,25 @@ $comment->setPostId($_GET['post']);
     
 $comment->setUserId($_SESSION['user']);
 $comment->commentUsername();
-    
+ 
 //add new comment and save to db
 if(isset($_POST['btnAddComment'])){
     try {
+        
         $comment->setText($_POST['text']);
         $comment->setUserId($_SESSION['user']);
         $comment->saveComment();
+        
+        $array=$comment->findTags();
+        if(count($array)>0){
+            $notif= new Notification(); 
+            $notif->setPostId($_GET['post']);  
+            
+            foreach($array as $a){
+                $notif->setTagged($a);
+                $notif->saveNotif();
+            } 
+        }
     }
     catch(Exception $e) {
         $feedback['text'] = $e->getMessage();
