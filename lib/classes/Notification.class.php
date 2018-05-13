@@ -89,7 +89,7 @@ class Notification
         return $this;
     }
 
-    
+/*save Notificication to db */    
     public function saveNotif(){
         $conn = Db::getInstance();
         $statement= $conn->prepare("INSERT INTO notifications(post_id, user_id,tagged_id) VALUES (:postId,:user,:tagged)");
@@ -130,10 +130,5 @@ class Notification
         $statement->bindValue(':date',$this->getDate());
         $statement->execute();
     }
-     
-   
-   
-
-   
 
 }

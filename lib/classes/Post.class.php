@@ -394,7 +394,7 @@ public static function getTopPosts(){
 
   public static function allPost($limit){
     $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id =(SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.id=:user LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
+    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND users.id IN (SELECT followers.user_id FROM followers WHERE followers.status=1 AND followers.follower_id =:user)ORDER BY posts.created DESC LIMIT :limit  ");
     $statement->bindValue(':user', $_SESSION["user"], PDO::PARAM_INT);  
     $statement->bindValue(':limit', $limit,PDO::PARAM_INT);  
   
@@ -486,16 +486,6 @@ public static function getTopPosts(){
     return $statement;
   }
 
-  /*public function loadMorePosts(){
-    $conn = Db::getInstance();
-    $statement=$conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND users.email IN (SELECT users.email FROM users,followers WHERE users.id = followers.user_id AND followers.status=1 AND followers.follower_id= (SELECT followers.follower_id FROM followers, users WHERE followers.follower_id=users.id AND users.email=:email LIMIT 1))ORDER BY posts.created DESC LIMIT :limit");
-    $statement->bindValue(':email', $_SESSION["username"]);  
-    $statement->bindValue(':limit', $this->getLimit(),PDO::PARAM_INT);  
-  
-    $statement->execute();
-    $result=$statement->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
-      }  */
 
       //inappropriate
 
