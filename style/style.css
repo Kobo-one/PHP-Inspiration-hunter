@@ -163,9 +163,8 @@ input:required:valid {
     align-self: flex-end;
 }
 .filter_location {
-    padding:10px 10px;
-    margin-top:78px;
-    margin-left:20px;
+    padding:10px;
+    margin:78px auto 10px auto;
     width:200px;
     background-color:#41e1fc;
     border-radius:25px;
@@ -173,10 +172,13 @@ input:required:valid {
 }
 .filter_location a {
     text-decoration:none;
-    font-size:14px;
+    font-size:12px;
     color:#fff;
     font-weight:600;
     text-transform: uppercase;
+}
+.filter_map{
+    margin:0px auto -60px auto;
 }
 .collection {
     width:100%;
@@ -887,13 +889,17 @@ input[type=file]{
     width: 250px;
     }
     .filter_location {
-    margin-left:40px;
+    display:inline-block;
+    margin:78px 0 0 40px;
+    }
+    .filter_map{
+    margin:0 0 0 10px;
     }
     .collection {
     -moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
-    padding: 40px;
+    padding: 0px 40px 40px 40px;
     }
 	
     /*-----------------------------------------*/

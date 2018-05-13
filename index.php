@@ -82,7 +82,7 @@ getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog n
                 </div>
     <?php endif; ?>
     
-    <div class="filter_location"><a href="location.php">Show posts nearby</a></div> <div class="filter_location"><a href="world.php">Show posts on a map</a></div>
+    <div class="filter_location"><a href="location.php">Show posts nearby</a></div> <div class="filter_location filter_map"><a href="world.php">Show posts on a map</a></div>
                    
    <div class="collection">
    
