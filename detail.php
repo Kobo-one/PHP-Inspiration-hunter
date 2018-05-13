@@ -12,7 +12,6 @@ $post = new Post();
 $post->setIdG($_GET['post']);
 if($post->inappropriateCheck()){
 $collection= $post->getDetailsPost();
-$collection = Post::setCities($collection);
 //comments
 $comment = new Comment();
 $comment->setPostId($_GET['post']);

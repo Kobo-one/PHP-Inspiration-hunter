@@ -326,13 +326,14 @@ class Post{
     /*Upload nieuwe foto met beschrijving*/
     public function createPost(){
     $conn = Db::getInstance();
-    $statement = $conn->prepare("INSERT INTO posts (image, description, filter, post_user_id, lat, lng) VALUES(:image, :description, :filter, :user, :lat, :lng)");
+    $statement = $conn->prepare("INSERT INTO posts (image, description, filter, post_user_id, lat, lng, city) VALUES(:image, :description, :filter, :user, :lat, :lng, :city)");
     $statement->bindValue(":image", $this->getImage());
     $statement->bindValue(":description", $this->getDescription());
     $statement->bindValue(":filter", $this->getFilter());
     $statement->bindValue(":user", $_SESSION['user']);
     $statement->bindValue(":lat", $this->getLat());  
-    $statement->bindValue(":lng", $this->getLng());    
+    $statement->bindValue(":lng", $this->getLng());
+    $statement->bindValue(":city", $this->getCity());     
     $image_upload = $statement->execute();
     $this->setIdG($conn->lastInsertId());
     $this->storeTags();
@@ -690,11 +691,9 @@ public static function getTopPosts(){
       }
   }
 
-  public static function setCities($collection){
-      $newcollection = array();
-        foreach($collection as $key =>$c){
-          $newcollection[$key] = $c;
-            $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$c['lat'].','.$c['lng'].'&sensor=false';
+  public function getCity(){
+        
+            $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.$this->getLat().','.$this->getLng().'&sensor=false';
             $json = @file_get_contents($url);
             $data = json_decode($json);
             $status = $data->status;
@@ -702,13 +701,12 @@ public static function getTopPosts(){
             //if request status is successful
             if($status == "OK"){
                 //get address from json data
-                $location = $data->results[0]->address_components[2]->long_name;
+                $city = $data->results[0]->address_components[2]->long_name;
             }else{
-                $location =  'Unknown';
+                $city =  'Unknown';
             }
-            $newcollection[$key]["city"] = $location;
-        }
-        return $newcollection;
+        
+        return $city;
   }
     
    /*Get the locations within the radius of a certain location*/
