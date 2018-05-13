@@ -59,15 +59,17 @@ if(isset($_POST['follow'])|isset($_POST['unfollow'])){
    <?php include_once("nav.inc.php"); ?>
 
   <div class="profile_user" id="user_<?php echo $_GET['user'];?>">
-        
+              <div class="blue_container"></div>
               <img src="<?php echo $searchedUser->picture?>" alt="avatar" class="avatar">
               <h2><?php echo $searchedUser->username ?></h2>
+               
+              <div class="description"><?php echo $searchedUser->description ?></div>
               <div class="flex_container">
               <div class="extra"><?php echo $post->getProfilePostAmount()?> posts</div>
               <div class="extra"><?php echo $user->getFollowersAmount()?> followers</div>
               </div>
-              <?php
               
+              <?php
               //kijken of we op onze eigen pagina zijn of niet
               if(isset($_GET['user']) && $user->loggedinUser()!==$_GET['user'] && $count==0 ){
                 // follow-btn wanneer niet op eigen profielpagina en je nog niet bevriend bent
@@ -89,8 +91,7 @@ if(isset($_POST['follow'])|isset($_POST['unfollow'])){
               echo '<div class="button "><a href="editProfile.php" class="edit">Edit</a></div>
               </div>
              
-              <div class="blue_container">
-              </div> <div class="button" id="button_notif"';
+              <div class="button" id="button_notif"';
 
               if(!count(Notification::getUnseen())==0){echo('style="background:#41e1fc"');};
               echo'><a href="notification.php">Notifications</a></div>
