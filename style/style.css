@@ -516,9 +516,7 @@ input[type=file]{
     box-shadow: none;
   }
 
-  .figure__div{
-    padding-top:20%;
-  }
+
  /*-----------------------------------------*/
     /* Notification.php */
 
@@ -618,9 +616,10 @@ input[type=file]{
     .collection {
         padding: 30px;
     }
+    /*
     .user__post{
         padding-top:10%;
-    }
+    }*/
     
     /*-----------------------------------------*/
     /*profile.php*/
@@ -703,10 +702,6 @@ input[type=file]{
     .button__filter{
         width:20%;
     }
-    .figure__div{
-        padding-top:15%;
-      }
-    
       
       .notif_item{
           padding:5px;
@@ -771,9 +766,9 @@ input[type=file]{
     height:25px;
     margin-top:-6px; 
     }
-    .user__post{
+    /*.user__post{
         padding-top:20%;
-    }
+    }*/
     
     /*-----------------------------------------*/
     /*profile.php*/
@@ -954,10 +949,6 @@ input[type=file]{
     width:30%;
     margin:0 0 10px 70%;
     }
-    /*
-    .figure__div{
-        padding-top:12%;
-    }*/
     
     /*-----------------------------------------*/
     /*editPost.php*/
