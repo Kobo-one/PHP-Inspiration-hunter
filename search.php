@@ -4,6 +4,7 @@ include_once("lib/classes/User.class.php");
 include_once("lib/classes/Like.class.php");
 include_once("lib/includes/checklogin.inc.php");
 
+
 if (!empty($_GET['search'])){  
     $input= $_GET['search'];
 
@@ -16,14 +17,17 @@ if (!empty($_GET['search'])){
     if(strpos($input, "#") !== FALSE){
     $newInput = substr($input, 1);
     $inputTag = $post->setSearch($newInput );
+    $tagId = $post->getTagid($newInput);
+    } else {
+        $tagId = $post->getTagid($input);
     }
     //hashtag maken als de zoekterm overeenkomt met tag uit DB 
     $hashtag = $post->searchForHashTag();    
-    
+
     $count=$post->checkFollower();
     if(isset($_POST['follow'])|isset($_POST['unfollow'])){
     if ($post->existFollow()==0){
-        $post->newFollow();
+        $newPost = $post->newFollow();
     }
     else{   
         if(isset($_POST['follow'])){
@@ -78,22 +82,22 @@ else {
     
 <!-- Als de zoekterm een hashtag, toon dan dit boven de resultaten -->  
 <?php if(isset($collection)):?>
-
     <?php if(isset($newInput) && $hashtag['tag'] == $newInput): ?> 
-    <div class="hashtag_title"> <?php echo "#".$newInput; ?> </div>
+    <div class="hashtag_title" id="<?php echo $newInput; ?>"> <?php echo "#".$newInput; ?> </div>
     <?php endif; ?>
     <?php if(!isset($newInput) && $hashtag['tag'] == $input): ?>
-    <div class="hashtag_title"> <?php echo "#".$input; ?> </div>
+    <div class="hashtag_title" id="<?php echo $input; ?>"> <?php echo "#".$input; ?> </div>
     <?php endif; ?>
     
     <form action="" method="post" class="col_search">
        <?php if($count == 0): ?>
-        <input type="submit" value="Follow" class="button" name="follow">
+        <input type="submit" value="Follow" class="button button--tag--follow" name="follow">
        
        <?php elseif($count >= 0): ?>
-       <input type="submit" value="Unfollow" class="button" name="unfollow">
+       <input type="submit" value="Unfollow" class="button button--tag--unfollow" name="unfollow">
        <?php endif; ?>
     </form>
+
 <?php endif; ?>
 
           
@@ -131,6 +135,7 @@ else {
 <?php endif; ?>   
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="lib/js/tagFollow.js"></script>
 <script src="lib/js/like.js"></script>
 
 </body>

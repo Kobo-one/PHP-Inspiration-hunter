@@ -612,29 +612,31 @@ public static function getTopPosts(){
         public function newFollow(){
             $conn = Db::getInstance();
             $statement = $conn->prepare("INSERT INTO follower_tag(follower_id,tag_id,status) VALUES (:followerId, :tagId, 1)");
-            $statement->bindValue(":followerId", $_SESSION['user']);
-            $statement->bindValue(":tagId", $this->getTagid($this->getSearch()));
-            $statement->execute();
-            return $statement;
+            $statement->bindValue(':followerId', $_SESSION['user']);
+            $statement->bindValue(':tagId', $this->getTagid($this->getSearch()));
+            return $statement->execute();
+            //return $statement;
         }
 
     
         public function editFollow(){
             $conn = Db::getInstance();
             $statement = $conn->prepare("UPDATE follower_tag SET status = :status WHERE tag_id=:tagId AND follower_id=:followerId ");
-            $statement->bindValue(":followerId", $_SESSION['user']);
-            $statement->bindValue(":tagId", $this->getTagid($this->getSearch()));
-            $statement->bindValue(":status",$this->getFollowStatus());
-            $statement->execute();
-            return $statement;
+            $statement->bindValue(':followerId', $_SESSION['user']);
+            $statement->bindValue(':tagId', $this->getTagid($this->getSearch()));
+            $statement->bindValue(':status',$this->getFollowStatus());
+            return $statement->execute();
+            //return $statement;
+            
+            
         }
     
         //kijken of je de hashtag al volgt, geeft aantal rijen terug. Als het geen rijen terug geeft -> volg je de hashtag nog niet
         public function checkFollower(){
             $conn = Db::getInstance();
-            $statement = $conn->prepare("SELECT * FROM follower_tag WHERE tag_id=:id AND follower_id= :id2 AND status=1");
-            $statement->bindValue(":id", $this->getTagid($this->getSearch()));
-            $statement->bindValue(":id2", $_SESSION['user']);
+            $statement = $conn->prepare("SELECT * FROM follower_tag WHERE tag_id=:tagId AND follower_id= :followerId AND status=1");
+            $statement->bindValue(':tagId', $this->getTagid($this->getSearch()));
+            $statement->bindValue(':followerId', $_SESSION['user']);
             $statement->execute();
             $amount=$statement->rowCount();;
             return $amount;
@@ -642,9 +644,9 @@ public static function getTopPosts(){
     
         public function existFollow(){
             $conn = Db::getInstance();
-            $statement = $conn->prepare("SELECT * FROM follower_tag WHERE tag_id=:id AND follower_id= :id2");
-            $statement->bindValue(":id", $this->getTagid($this->getSearch()));
-            $statement->bindValue(":id2", $_SESSION['user']);
+            $statement = $conn->prepare("SELECT * FROM follower_tag WHERE tag_id=:tagId AND follower_id= :followerId");
+            $statement->bindValue(':tagId', $this->getTagid($this->getSearch()));
+            $statement->bindValue(':followerId', $_SESSION['user']);
             $statement->execute();
             $amount=$statement->rowCount();
             return $amount;
