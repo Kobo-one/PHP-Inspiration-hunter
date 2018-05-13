@@ -5,6 +5,7 @@ include_once("lib/classes/Like.class.php");
 include_once("lib/includes/checklogin.inc.php");
 $user = new User();
 $id=$user->loggedinUser();
+session_start();
 $user->setId($id);
 
 /* als je nog geen vrienden hebt-> toon posts met meeste likes
@@ -105,7 +106,7 @@ else{
 
         var map = new google.maps.Map(document.getElementById('map'), {
             <?php
-          if(!isset($_SESSION["lat"]) && !isset($_SESSION["lng"]) && !empty($_SESSION["lat"]) && !empty($_SESSION["lng"])){
+          if($_SESSION["lat"] !== 0 && $_SESSION["lng"] !== 0){
             echo "center: {lat: ".$_SESSION["lat"].", lng: ".$_SESSION["lng"]."},";
           }
           else{
