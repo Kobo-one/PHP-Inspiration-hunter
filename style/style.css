@@ -11,7 +11,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
-input {
+input[type=file], input[type=text], input[type=password], input[type=submit] {
 -webkit-appearance: none;
 -moz-appearance: none;
 appearance: none;
