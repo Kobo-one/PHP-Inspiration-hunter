@@ -17,12 +17,10 @@ if (!empty($_GET['search'])){
     if(strpos($input, "#") !== FALSE){
     $newInput = substr($input, 1);
     $inputTag = $post->setSearch($newInput );
-    $tagId = $post->getTagid($newInput);
-    } else {
-        $tagId = $post->getTagid($input);
-    }
+      
+    } 
     //hashtag maken als de zoekterm overeenkomt met tag uit DB 
-    $hashtag = $post->searchForHashTag();    
+      $hashtag = $post->searchForHashTag();
 
     $count=$post->checkFollower();
     if(isset($_POST['follow'])|isset($_POST['unfollow'])){
@@ -82,6 +80,7 @@ else {
     
 <!-- Als de zoekterm een hashtag, toon dan dit boven de resultaten -->  
 <?php if(isset($collection)):?>
+   <?php if($hashtag): ?>
     <?php if(isset($newInput) && $hashtag['tag'] == $newInput): ?> 
     <div class="hashtag_title" id="<?php echo $newInput; ?>"> <?php echo "#".$newInput; ?> </div>
     <?php endif; ?>
@@ -97,7 +96,7 @@ else {
        <input type="submit" value="Unfollow" class="button button--tag--unfollow" name="unfollow">
        <?php endif; ?>
     </form>
-
+<?php endif; ?>
 <?php endif; ?>
 
           
