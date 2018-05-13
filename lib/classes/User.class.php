@@ -307,10 +307,10 @@
         return $result;
     }
 
-   
+/* find friends name to live tag them*/   
     public function findUser(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM users WHERE username LIKE :search ");
+        $statement = $conn->prepare("SELECT users.username FROM users, followers WHERE users.id= followers.user_id AND followers.follower_id=7 AND followers.user_id IN( SELECT users.id FROM users WHERE username LIKE :search)");
         $statement->bindValue(":search", $this->getSearch());
         
         $statement->execute();

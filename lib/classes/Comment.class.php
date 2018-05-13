@@ -74,7 +74,7 @@ class Comment
         return $statement->fetch(PDO::FETCH_OBJ);
 	}
 
-	
+	/*converts an @ to a link to the persons page*/
 	public static function convertTagtoLink($string)   {  
 		$expression = "/(?<=^|\s)@(\w+)/";  
 
