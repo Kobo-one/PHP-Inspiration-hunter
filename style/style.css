@@ -473,14 +473,20 @@ textarea {
 /*Upload.php*/
 .upload_photo{
 	text-align: center;
-    margin-top: 100px;
+    margin-top: 90px;
+    width:100%;
+}
+.upload_photo h1 {
+    margin-left:2.5%;
+    margin-right:2.5%;
+    line-height:1.5em;
 }
 input[type=file]{ 
     opacity:0;
 }
 .preview {
-    margin:30px 15% 30px 15%;
-    width:70%;
+    margin:0px 5% 30px 5%;
+    width:90%;
 }
 .preview p {
     font-size:12px;
@@ -497,7 +503,7 @@ input[type=file]{
     background-color:#b3f3fe;
     color: #000;
     font-size:12px;
-    font-weight:600;
+    font-weight:bold;
     text-transform: uppercase;
     border-radius:25px;
 }
