@@ -1,5 +1,6 @@
 <?php
   include_once("../classes/Post.class.php"); 
+  include_once("../classes/Like.class.php"); 
    
 if(!empty($_POST)){
     session_start();
@@ -15,6 +16,8 @@ if(!empty($_POST)){
     //vervang elke datum door leesbare datum
     foreach($collection as &$c){
         $c['created']= Post::timeAgo($c['created']); 
+        $c['like']=Like::countLikes($c['id']);
+        $c['userLike']=Like::userLiked($c['id']);
     }
 
     //Als er 21 resultaten zijn, halen we de laatste weg (want we tonen per 20 resultaten)
