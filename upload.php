@@ -118,8 +118,8 @@
                     <label for="mayfair"> Mayfair</label>
                     <input type="radio" value="gingham" name="filter" class="button__filter" id="gingham">
                     <label for="gingham"> Gingham</label>
-                    <input type="radio" value="kelvin" name="filter" class="button__filter" id="kelvin">
-                    <label for="kelvin"> Kelvin</label>
+                    <input type="radio" value="none" name="filter" class="button__filter" id="none">
+                    <label for="none"> None</label>
                 </div>    
                 
                 <div class="formfield">
