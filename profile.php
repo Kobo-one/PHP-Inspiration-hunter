@@ -91,10 +91,12 @@ if(isset($_POST['follow'])|isset($_POST['unfollow'])){
               echo '<div class="button "><a href="editProfile.php" class="edit">Edit</a></div>
               </div>
              
-              <div class="button" id="button_notif"';
+              <div class="button" id="button_notif" ';
 
-              if(!count(Notification::getUnseen())==0){echo('style="background:#41e1fc"');};
-              echo'><a href="notification.php">Notifications</a></div>
+              if(!count(Notification::getUnseen())==0)
+              {echo('style="background:#41e1fc"');};
+              echo'> <a href="notification.php">Notifications</a></div>
+              
               </div>';}
               ?>    
     </div>
