@@ -63,7 +63,7 @@ if(!empty($_POST)){
         }
 
         $user->editUser();
-        header("Refresh:0");
+        header("Location: profile.php");
     }
 
     
@@ -97,7 +97,7 @@ if(!empty($_POST)){
             }
 
             $user->editSecurity();
-            header("Refresh:0");
+            header("Location: profile.php");
         }
 
 
