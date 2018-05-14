@@ -59,8 +59,9 @@ $allPosts = $post->getLocation();
                 <?php endif; ?>  
             </div>
         </div>
+        <?php endif; ?>
         <!-- If there are no posts within the users' location -->
-        <?php elseif((!($p['lng'] >= min($lng)) && !($p['lng'] <= max($lng))) && (!($p['lat']) >= min($lat) && !($p['lat'] <= max($lat)))): ?>
+        <?php if((!($p['lng'] >= min($lng)) && !($p['lng'] <= max($lng))) && (!($p['lat']) >= min($lat) && !($p['lat'] <= max($lat)))): ?>
         <?php $error="There were no posts found nearby your location."; ?>
       <?php endif; ?> 
     <?php endforeach; ?>

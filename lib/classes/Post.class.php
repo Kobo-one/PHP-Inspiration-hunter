@@ -711,7 +711,7 @@ public static function getTopPosts(){
     
    /*Get the locations within the radius of a certain location*/
     public function getLocationsInRadius($lng, $lat){
-    $radius = 30 * 0.62137;
+    $radius = 50 * 0.62137;
 
     $url = 'http://gd.geobytes.com/GetNearbyCities?radius='.$radius.'&Latitude='.$lat.'&Longitude='.$lng.'&limit=999';
 
