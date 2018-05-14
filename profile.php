@@ -66,7 +66,7 @@ if(isset($_POST['follow'])|isset($_POST['unfollow'])){
               <div class="description"><?php echo $searchedUser->description ?></div>
               <div class="flex_container">
               <div class="extra"><?php echo $post->getProfilePostAmount()?> posts</div>
-              <div class="extra"><?php echo $user->getFollowersAmount()?> followers</div>
+              <div class="extra"><?php echo $user->countFollowersAmount()?> followers</div>
               </div>
               
               <?php

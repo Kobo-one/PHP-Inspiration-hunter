@@ -213,13 +213,13 @@
 
     public function Followers(){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id = :id AND status=1");
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE follower_id = :id AND status=1");
         $statement->bindValue(":id", $this->getId());
         $statement->execute();
         
         return $statement;
     }
-
+ 
     public function GetFollowers(){
         $statement = $this->Followers();
         $result = $statement->fetch(PDO::FETCH_OBJ);
@@ -237,6 +237,16 @@
         $id = $_SESSION["user"];
         return $id;
     }
+
+    //telt het aantal mensen dat jou volgen
+    public function countFollowersAmount(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT * FROM `followers` WHERE user_id = :id AND status=1");
+        $statement->bindValue(":id", $this->getId());
+        $statement->execute();
+        $amount=$statement->rowCount();
+        return $amount;
+    }   
 
     //wanneer op follow-btn wordt geklikt-> nieuwe rij in tabel followers
     public function newFollow(){
