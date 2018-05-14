@@ -323,6 +323,7 @@
         $statement = $conn->prepare("SELECT users.username FROM users, followers WHERE users.id= followers.user_id AND followers.follower_id=7 AND followers.user_id IN( SELECT users.id FROM users WHERE username LIKE :search)");
         $statement->bindValue(":search", $this->getSearch());
         
+        
         $statement->execute();
         $result =$statement->fetchAll(PDO::FETCH_OBJ);
         return $result;
