@@ -256,7 +256,7 @@ input:required:valid {
 /*profile.php*/
 .profile_user {
     width:100%;
-    margin-bottom:-60px;
+    /*margin-bottom:-60px;*/
 }
 .blue_container{
     z-index:-99;
@@ -323,9 +323,9 @@ h2 {
 
 #button_notif{
     background:#cccccc;
-    margin-top:70px;
+    margin-top:10px;
     text-align:center;
-  
+    margin-bottom:-80px;
 }
 
 #button_notif a{
@@ -901,7 +901,13 @@ input[type=file]{
     column-count: 3;
     padding: 0px 40px 40px 40px;
     }
-     
+    
+    /*-----------------------------------------*/
+    /* profile */
+    #button_notif{
+    margin-bottom:-50px;
+    }        
+
     /*-----------------------------------------*/
     /* editProfile */
     .edit_avatar {
