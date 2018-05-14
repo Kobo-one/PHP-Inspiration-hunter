@@ -111,6 +111,7 @@ if(!empty($_POST)){
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="lib/js/previewUpload.js"></script>
 	<title>Phomo | Profile settings</title>

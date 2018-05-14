@@ -64,6 +64,7 @@ else{
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
     
    <style>
       /* Always set the map height explicitly to define the size of the div

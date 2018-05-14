@@ -62,7 +62,7 @@ getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog n
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
     <title>Phomo | HOME</title>
 </head>
 <body>

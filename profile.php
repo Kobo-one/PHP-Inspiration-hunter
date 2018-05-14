@@ -53,6 +53,7 @@ if(isset($_POST['follow'])|isset($_POST['unfollow'])){
  
  
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
 	<title>Phomo | Profile</title>
 </head>
 <body>   

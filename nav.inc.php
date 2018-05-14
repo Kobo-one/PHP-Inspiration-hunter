@@ -11,6 +11,7 @@
         <img src="images/logoklein_phomo.png" alt="Phomo logo" class="logonav">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
 
     </a>
 

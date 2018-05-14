@@ -58,6 +58,7 @@ else{
     <link rel="stylesheet" type="text/css" href="style/style.css">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
     
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

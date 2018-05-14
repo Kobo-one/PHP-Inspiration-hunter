@@ -26,6 +26,7 @@ $allPosts = $post->getLocation();
     <link rel="stylesheet" type="text/css" href="style/reset.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
     <title>Phomo | Posts filtered by location</title>
 </head>
 <body>
