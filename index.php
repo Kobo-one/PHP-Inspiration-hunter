@@ -129,8 +129,8 @@ getFollowersAmount staat status niet op 1 dus als die op 0 staat werkt het nog n
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="lib/js/loadMore.js"></script>
-<script src="lib/js/like.js"></script>
 <script src="lib/js/location.js"></script>
+<script src="lib/js/like.js"></script>
 
 </body>
 </html>
