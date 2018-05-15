@@ -83,10 +83,10 @@ else {
 <?php if(isset($collection)):?>
    <?php if($hashtag): ?>
     <?php if(isset($newInput) && $hashtag['tag'] == $newInput): ?> 
-    <div class="hashtag_title" id="<?php echo $newInput; ?>"> <?php echo "#".$newInput; ?> </div>
+    <div class="hashtag_title" id="<?php echo htmlspecialchars($newInput); ?>"> <?php echo "#".htmlspecialchars($newInput); ?> </div>
     <?php endif; ?>
     <?php if(!isset($newInput) && $hashtag['tag'] == $input): ?>
-    <div class="hashtag_title" id="<?php echo $input; ?>"> <?php echo "#".$input; ?> </div>
+    <div class="hashtag_title" id="<?php echo htmlspecialchars($input); ?>"> <?php echo "#".htmlspecialchars($input); ?> </div>
     <?php endif; ?>
     
     <form action="" method="post" class="col_search">
