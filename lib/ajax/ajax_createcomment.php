@@ -9,7 +9,7 @@
             //$_POST komt uit ajax call: data{}, niet van detail.php
             $comment->setText( $_POST['comment'] );
 			$comment->setUserId($_SESSION['user']);
-            $commentUsername = $comment->commentUsername();
+            $commentUsername = htmlspecialchars($comment->commentUsername());
             $comment->setPostId($_POST['postId']);
 			$comment->saveComment(); 
 			$text=Comment::convertTagtoLink(htmlspecialchars($_POST['comment']));

@@ -108,21 +108,6 @@ class Comment
         return $statement->fetchColumn();
 	}
 	   
-
-
-	public function setTags($string) {
-  
-      /* Match hashtags */
-      preg_match_all('/@(\w+)/', $string, $matches);
-      
-      /* Add all matches to array */
-      foreach ($matches[1] as $match) {
-		$keywords[] = $match;
-		var_dump($match);
-        }
-      $this->tags = (array)$keywords;
-      return $this;
-	}
 	
 
 }

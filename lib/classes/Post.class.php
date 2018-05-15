@@ -415,7 +415,6 @@ public static function getTopPosts(){
 /*  Zoek in description of op username */  
   public function getTag(){
     $conn = Db::getInstance();
-    /*$statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users, post_tag, tags WHERE post_tag.tag_id=tags.id AND posts.id = post_tag.post_id AND posts.post_user_id = users.id AND lower(tags.tag) LIKE :search UNION SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND lower(users.username) LIKE :search ");*/
     $statement= $conn->prepare("SELECT posts.*, users.username, users.picture FROM posts, users WHERE posts.post_user_id = users.id AND posts.deleted = 0 AND (lower(users.username) LIKE :search OR lower(posts.description) LIKE :search)");
    
     $statement->bindValue(':search', $this->getSearch());  

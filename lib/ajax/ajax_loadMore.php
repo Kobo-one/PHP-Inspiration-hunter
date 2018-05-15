@@ -14,6 +14,14 @@ if(!empty($_POST)){
     $count=$post->loadMore()->rowCount();
    
     //vervang elke datum door leesbare datum
+
+
+    function filter(&$value) {
+        $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+    array_walk_recursive($collection, "filter");
+
+  
     foreach($collection as &$c){
         $c['created']= Post::timeAgo($c['created']); 
         $c['like']=Like::countLikes($c['id']);
