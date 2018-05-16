@@ -17,9 +17,6 @@
     }
         
     public function setFileSize($fileSize){
-        /*if( $fileSize > 2097152 ){
-            throw new Exception("Image is bigger than 2MB.");
-        }*/
             $this->fileSize = $fileSize;
             return $this;
     }
@@ -98,47 +95,7 @@
             return $imageCompress;
     }
         
-    function resizeImage(){
-        $fileDir = $this->getFileDir();
-        $info = getimagesize($fileDir);
-        list($width, $height) = getimagesize($fileDir);
-        
-        $ratio = ($width * $height)/2097152;
-        $newwidth = $width/$ratio;
-        $newheight = $height/$ratio;
-        $newimg = imagecreatetruecolor($newwidth, $newheight);
-        
-        if ($info['mime'] == 'image/jpeg'){
-        $source = imagecreatefromjpeg($fileDir);
-        }
-        elseif ($info['mime'] == 'image/png'){
-        $source = imagecreatefrompng($fileDir);
-        }
-        
-        imagecopyresized($newimg, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-        imagejpeg($newimg);
-    }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    
     }
 
 
